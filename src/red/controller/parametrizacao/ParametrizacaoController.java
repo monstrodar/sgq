@@ -24,21 +24,7 @@ public class ParametrizacaoController {
     @FXML
     private AnchorPane painelTotal;
     @FXML
-    private VBox painelEsquerda;
-    @FXML
-    private TextField txpesquisa;
-    @FXML
-    private ListView<?> lvcolaboradores;
-    @FXML
     private VBox pnDireita;
-    @FXML
-    private RadioButton rbbasico;
-    @FXML
-    private ToggleGroup gruporadio;
-    @FXML
-    private RadioButton rbauditor;
-    @FXML
-    private RadioButton rbadministrador;
     @FXML
     private TextField txnome;
     @FXML
@@ -46,17 +32,22 @@ public class ParametrizacaoController {
     @FXML
     private TextField txcpf;
     @FXML
-    private TextField txobs;
+    private TextField txnome1;
     @FXML
-    private DatePicker dpdata;
+    private TextField txcpf1;
+    @FXML
+    private TextField txnome11;
+    @FXML
+    private TextField txcargo1;
+    @FXML
+    private TextField txcpf11;
+    @FXML
+    private TextField txcpf111;
 
     @FXML
     private void evtCadColaborador(ActionEvent event) {
     }
 
-    @FXML
-    private void clkBuscar(ActionEvent event) {
-    }
 
     @FXML
     private void clkAlterar(ActionEvent event) {
