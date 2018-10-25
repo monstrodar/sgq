@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-11-27T10:28:16 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelVeiculo" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="907afe71-793d-4d19-899d-19f0af427253">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="parking"/>
+	<parameter name="codigoProp" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[select * from veiculo v, proprietario p where v.prop_cod = $P{codigo} and v.prop_cod = p.prop_cod]]>
+	</queryString>
+	<field name="vei_cod" class="java.lang.Integer"/>
+	<field name="vei_placa" class="java.lang.String"/>
+	<field name="mod_cod" class="java.lang.Integer"/>
+	<field name="vei_cor" class="java.lang.String"/>
+	<field name="prop_cod" class="java.lang.Integer"/>
+	<field name="COLUMN_6" class="java.lang.Integer"/>
+	<field name="prop_cpf" class="java.lang.String"/>
+	<field name="prop_nome" class="java.lang.String"/>
+	<field name="prop_rua" class="java.lang.String"/>
+	<field name="prop_numero" class="java.lang.String"/>
+	<field name="prop_cep" class="java.math.BigDecimal"/>
+	<field name="prop_bairro" class="java.lang.String"/>
+	<field name="prop_cidade" class="java.lang.String"/>
+	<field name="prop_uf" class="java.lang.String"/>
+	<field name="prop_email" class="java.lang.String"/>
+	<field name="prop_fone" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="48" y="0" width="80" height="21" uuid="3dece26c-e89a-4fbc-a03c-2458e9e3fc05"/>
+				<textFieldExpression><![CDATA[$F{vei_cod}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="0" width="95" height="21" uuid="b9ae4426-2187-4a2b-baea-3e6d129f85bf"/>
+				<textFieldExpression><![CDATA[$F{vei_placa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="160" height="21" uuid="90b3eddf-926f-4794-84fc-dc1a2ae77b3d"/>
+				<textFieldExpression><![CDATA[$F{vei_cor}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="-1" width="40" height="20" uuid="c2974fc2-8cd0-42ab-9c4a-a7f2c1f4cee8"/>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="-1" width="45" height="20" uuid="9222f685-5722-4b3e-904b-08bc36262760"/>
+				<text><![CDATA[Placa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="-1" width="40" height="20" uuid="98fe6c65-9df8-4a57-82b7-e383c2c09d0c"/>
+				<text><![CDATA[Cor]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="22" width="545" height="1" uuid="cf733f31-970d-4028-a1aa-2adaffe35e18"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

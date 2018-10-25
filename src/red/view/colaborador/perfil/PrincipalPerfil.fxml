@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="730.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.colaborador.perfil.PrincipalPerfilController">
+   <children>
+      <BorderPane maxHeight="730.0" maxWidth="1050.0" prefHeight="730.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtCadColaborador" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #bdb76b;" text="Cadastro" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children></HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="680.0" maxWidth="1050.0" prefHeight="680.0" prefWidth="1050.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="274.0" layoutY="60.0" prefHeight="53.0" prefWidth="420.0" text="Painel Principal Perfil" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="114.0" layoutY="406.0" prefHeight="20.0" prefWidth="116.0" text="DASHBORD" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <AreaChart layoutX="92.0" layoutY="149.0" prefHeight="257.0" prefWidth="326.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </AreaChart>
+                  <ProgressIndicator layoutX="678.0" layoutY="143.0" prefHeight="245.0" prefWidth="322.0" progress="0.73" />
+               </children></AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
