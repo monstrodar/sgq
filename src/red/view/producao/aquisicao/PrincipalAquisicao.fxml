@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="730.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.aquisicao.PrincipalAquisicaoController">
+   <children>
+      <BorderPane maxHeight="730.0" maxWidth="1050.0" prefHeight="730.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtPedido2" prefHeight="50.0" prefWidth="150.0" text="Gerenciar Pedidos" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtMatPrima" prefHeight="50.0" prefWidth="150.0" text="Matérias Primas" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtRecebimentoMP" prefHeight="50.0" prefWidth="218.0" text="Recebimento Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtConferenciaMP" prefHeight="50.0" prefWidth="247.0" text="Conferência Matérias Primas" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtRelatorio" prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="680.0" maxWidth="600.0" prefHeight="680.0" prefWidth="600.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="74.0" prefHeight="35.0" prefWidth="419.0" text="Painel Principal Aquisicao" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane maxHeight="680.0" maxWidth="50.0" prefHeight="680.0" prefWidth="50.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

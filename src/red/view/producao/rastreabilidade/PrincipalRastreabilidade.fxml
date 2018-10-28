@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="730.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.rastreabilidade.PrincipalRastreabilidadeController">
+   <children>
+      <BorderPane maxHeight="730.0" maxWidth="1050.0" prefHeight="730.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtCarga" prefHeight="50.0" prefWidth="150.0" text="Montar Carga" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Consulta" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="680.0" maxWidth="600.0" prefHeight="680.0" prefWidth="600.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="74.0" prefHeight="35.0" prefWidth="419.0" text="Painel Principal Rastreabilidade" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane maxHeight="680.0" maxWidth="50.0" prefHeight="680.0" prefWidth="50.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

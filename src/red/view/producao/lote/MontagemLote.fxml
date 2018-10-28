@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.lote.MontagemLoteController">
+   <children>
+      <BorderPane maxHeight="630.0" maxWidth="1050.0" prefHeight="630.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtPedido" prefHeight="50.0" prefWidth="150.0" text="Montar Lote" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtProduto" prefHeight="50.0" prefWidth="150.0" text="Produto" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="580.0" maxWidth="750.0" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="158.0" layoutY="32.0" text="GERÊNCIAMENTO DE  PEDIDOS" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane id="AnchorPane" maxWidth="750.0" prefHeight="578.0" prefWidth="750.0" style="-fx-background-color: #DCDCDC;" styleClass="background">
+                     <children>
+                        <Button layoutX="397.0" layoutY="530.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="151.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar Montagem" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Button>
+                        <Button layoutX="560.0" layoutY="530.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar Lote" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font></Button>
+                        <Label layoutX="149.0" layoutY="9.0" text="Produção e Montagem Lote de Produtos" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelClienteNome" layoutX="384.0" layoutY="64.0" text="Data Início:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelClienteNome2" layoutX="70.0" layoutY="487.0" text="Data Término:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePickerVendaData" layoutX="159.0" layoutY="483.0" prefHeight="25.0" prefWidth="201.0" promptText="Data término de montagem" />
+                        <Label layoutX="75.0" layoutY="64.0" prefHeight="17.0" prefWidth="104.0" text="Número do Lote:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="362.0" layoutY="163.0" prefHeight="19.0" prefWidth="129.0" text="Qtde Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="160.0" layoutY="163.0" text="Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="533.0" layoutY="163.0" text="Lote Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <DatePicker layoutX="458.0" layoutY="60.0" opacity="0.77" prefHeight="25.0" prefWidth="217.0" promptText="Data início de montagem" />
+                        <Label fx:id="labelClienteNome21" layoutX="70.0" layoutY="529.0" text="Responsável:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField alignment="CENTER" layoutX="184.0" layoutY="60.0" opacity="0.45" prefHeight="25.0" prefWidth="85.0" promptText="0000/00" />
+                        <JFXComboBox layoutX="160.0" layoutY="525.0" opacity="0.66" prefHeight="25.0" prefWidth="199.0" promptText="Selecione o Colaborador Resp." />
+                        <JFXTextField layoutX="362.0" layoutY="182.0" opacity="0.53" prefHeight="25.0" prefWidth="129.0" promptText="Informe a quantidade" />
+                        <JFXComboBox layoutX="72.0" layoutY="182.0" opacity="0.66" prefHeight="25.0" prefWidth="261.0" promptText="        Selecione a matéria prima para o lote" />
+                        <JFXTextField alignment="CENTER" layoutX="509.0" layoutY="180.0" opacity="0.42" prefHeight="25.0" prefWidth="165.0" promptText="Informe o lote da MP" />
+                        <TableView fx:id="tableViewItensDeVenda" layoutX="68.0" layoutY="255.0" prefHeight="206.0" prefWidth="606.0">
+                           <columns>
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto" prefWidth="106.0" text="Código" />
+                              <TableColumn fx:id="tableColumnItemDeVendaQuantidade" prefWidth="106.0" text="Quantidade" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto1" prefWidth="251.0" text="Matéria Prima" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto11" prefWidth="142.0" text="Lote Matéria Prima" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="72.0" layoutY="114.0" text="Produto:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox layoutX="132.0" layoutY="111.0" opacity="0.62" prefHeight="25.0" prefWidth="244.0" promptText="       Selecione o produto para montar" />
+                        <Button layoutX="72.0" layoutY="215.0" mnemonicParsing="false" onAction="#evtitem" prefHeight="32.0" prefWidth="70.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font></Button>
+                        <JFXTextField layoutX="479.0" layoutY="110.0" opacity="0.49" prefHeight="25.0" prefWidth="192.0" promptText="Qtde de produtos para montar" />
+                        <Label layoutX="441.0" layoutY="115.0" text="Qtde:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox fx:id="painelEsquerda" minWidth="220.0" prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: gray;">
+                     <children>
+                        <HBox alignment="CENTER" minHeight="40.0" prefHeight="40.0" spacing="5.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Label fx:id="labelClienteNome112" alignment="CENTER" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="90.0" text="BUSCAS" textFill="#fdfffd">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                                 <HBox.margin>
+                                    <Insets left="8.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" spacing="5.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Label fx:id="labelClienteNome11" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="108.0" text="Lote / Montagem:" textFill="#fdfffd">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="txpesquisa" prefHeight="25.0" prefWidth="124.0" promptText="Informe o lote....">
+                                 <font>
+                                    <Font size="11.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets top="15.0" />
+                                 </HBox.margin></TextField>
+                              <Button mnemonicParsing="false" onAction="#clkBuscar" prefHeight="25.0" prefWidth="61.0" text="Buscar" textFill="DARKGREEN">
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="15.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Label fx:id="labelClienteNome1" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="136.0" text="Data Início Montagem:" textFill="#f9fcf9">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <DatePicker fx:id="datePickerVendaData1" prefHeight="25.0" prefWidth="175.0" promptText="Informe a data de montagem">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="15.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Label fx:id="labelClienteNome12" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="137.0" text="Data Final Montagem:" textFill="#f9fcf9">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="8.0" top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <DatePicker fx:id="datePickerVendaData11" prefHeight="25.0" prefWidth="175.0" promptText="Informe a data de montagem">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="15.0" />
+                                 </HBox.margin>
+                              </DatePicker>
+                           </children>
+                        </HBox>
+                        <ListView fx:id="lvcolaboradores" prefHeight="300.0" prefWidth="293.0" />
+                        <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" prefWidth="274.0" spacing="5.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#clkAlterar" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Alterar">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin></Button>
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Apagar" />
+                              <Button layoutX="70.0" layoutY="10.0" mnemonicParsing="false" onAction="#clkNovo" prefHeight="32.0" prefWidth="89.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Novo Lote">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin></Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.aquisicao.RelPedidoController">
+   <children>
+      <BorderPane maxHeight="630.0" maxWidth="1050.0" prefHeight="630.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtPedido" prefHeight="50.0" prefWidth="150.0" text="Gerenciar Pedidos" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtMatPrima" prefHeight="50.0" prefWidth="150.0" text="Matérias Primas" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtRecebimentoMP" prefHeight="50.0" prefWidth="218.0" text="Recebimento Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtConferenciaMP" prefHeight="50.0" prefWidth="247.0" text="Conferência Matérias Primas" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="580.0" maxWidth="1050.0" prefHeight="580.0" prefWidth="1050.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane id="AnchorPane" layoutX="-4.0" layoutY="1.0" maxWidth="1050.0" prefHeight="578.0" prefWidth="1050.0" style="-fx-background-color: #DCDCDC;" styleClass="background">
+                     <children>
+                        <Button layoutX="938.0" layoutY="524.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="40.0" prefWidth="97.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Imprimir" />
+                        <Label alignment="CENTER" layoutX="120.0" layoutY="56.0" maxWidth="1050.0" onDragDetected="#evtRelatorio" prefHeight="35.0" prefWidth="930.0" text="Relatório de Conferência Matéria Prima" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelClienteNome" layoutX="26.0" layoutY="87.0" text="Data" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="52.0" text="Pedido" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="datePickerVendaData" layoutX="73.0" layoutY="83.0" prefHeight="25.0" prefWidth="194.0" />
+                        <ComboBox fx:id="comboBoxVendaCliente" layoutX="73.0" layoutY="48.0" prefHeight="25.0" prefWidth="193.0" promptText="Selecione o pedido..." />
+                        <TableView fx:id="tableViewItensDeVenda" layoutX="22.0" layoutY="150.0" prefHeight="361.0" prefWidth="1013.0">
+                           <columns>
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto" prefWidth="97.0" text="Código" />
+                              <TableColumn fx:id="tableColumnItemDeVendaQuantidade" prefWidth="244.0" text="Matéria Prima" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto1" prefWidth="103.0" text="Qtde Entrada" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto2" prefWidth="103.0" text="Lote MP" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto21" prefWidth="106.0" text="Qtde Aprovada" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto3" prefWidth="111.0" text="Qtde Reprovada" />
+                              <TableColumn fx:id="tableColumnItemDeVendaProduto31" minWidth="0.0" prefWidth="248.0" text="Motivo" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

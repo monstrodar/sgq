@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.home.LoginController">
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+   <children>
+      <JFXTextField fx:id="txtUser" alignment="CENTER" layoutX="233.0" layoutY="107.0" text="User" />
+      <JFXTextField fx:id="txtSenha" alignment="CENTER" layoutX="233.0" layoutY="188.0" text="Senha" />
+      <Label layoutX="288.0" layoutY="43.0" text="SGQ" />
+      <JFXButton layoutX="274.0" layoutY="264.0" onAction="#btnEntrar" text="Entrar" />
+      <JFXButton layoutX="274.0" layoutY="319.0" onAction="#evtCadastrar" text="Cadastrar" />
+   </children>
+</AnchorPane>
