@@ -37,55 +37,55 @@
             </VBox>
          </top>
          <center>
-            <AnchorPane maxHeight="580.0" maxWidth="750.0" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="PainelCentral" maxHeight="580.0" maxWidth="750.0" prefHeight="580.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
                   <AnchorPane id="AnchorPane" layoutX="-4.0" layoutY="1.0" maxWidth="750.0" prefHeight="578.0" prefWidth="750.0" style="-fx-background-color: #DCDCDC;" styleClass="background">
                      <children>
                         <GridPane layoutX="74.0" layoutY="135.0" prefHeight="383.0" prefWidth="540.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="136.0" AnchorPane.topAnchor="135.0">
                            <children>
-                              <Label fx:id="labelClienteNome" text="Nome" textFill="DARKGREEN">
+                              <Label text="Nome" textFill="DARKGREEN">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="labelClienteTelefone" text="Quantidade" textFill="DARKGREEN" GridPane.rowIndex="3">
+                              <Label text="Quantidade" textFill="DARKGREEN" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label text="Materia Prima" textFill="DARKGREEN" GridPane.rowIndex="2">
+                              <Label text="Matéria Prima" textFill="DARKGREEN" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <TableView fx:id="tableViewItensDeVenda" prefHeight="246.0" prefWidth="392.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <TableView fx:id="tableViewItensDeProduto" prefHeight="246.0" prefWidth="392.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <columns>
-                                    <TableColumn fx:id="tableColumnItemDeVendaProduto" prefWidth="274.0" text="Matéria Prima" />
-                                    <TableColumn fx:id="tableColumnItemDeVendaQuantidade" prefWidth="112.0" text="Quantidade" />
+                                    <TableColumn fx:id="tableColumnItemDeProduto" prefWidth="274.0" text="Matéria Prima" />
+                                    <TableColumn fx:id="tableColumnItemQuantidade" prefWidth="112.0" text="Quantidade" />
                                  </columns>
                               </TableView>
                               <Label text="Itens" textFill="DARKGREEN" GridPane.rowIndex="4">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Label fx:id="labelClienteNome1" text="Descrição" textFill="DARKGREEN" GridPane.rowIndex="1">
+                              <Label text="Descrição" textFill="DARKGREEN" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <JFXTextField alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <JFXTextField fx:id="txtDescricao" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
                               </JFXTextField>
-                              <JFXTextField alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1">
+                              <JFXTextField fx:id="txtNome" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
                               </JFXTextField>
-                              <JFXTextField alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <JFXTextField fx:id="txtQtde" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets right="250.0" />
                                  </GridPane.margin>
                               </JFXTextField>
-                              <JFXComboBox opacity="0.66" prefHeight="25.0" prefWidth="238.0" promptText="           Selecione a matéria prima" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXComboBox fx:id="cbbMateriaPrima" opacity="0.66" prefHeight="25.0" prefWidth="238.0" promptText="           Selecione a matéria prima" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Button mnemonicParsing="false" onAction="#btnItem" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
@@ -107,12 +107,12 @@
                               <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="236.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <Label layoutX="74.0" layoutY="104.0" text="Codigo:" textFill="DARKGREEN">
+                        <Label layoutX="74.0" layoutY="104.0" text="Código:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="276.0" layoutY="22.0" text="Cadastro Produto" textFill="DARKGREEN">
+                        <Label layoutX="276.0" layoutY="22.0" text=" Cadastro Produto" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -122,8 +122,8 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton layoutX="529.0" layoutY="106.0" text="Ativado" />
-                        <JFXTextField alignment="BOTTOM_LEFT" layoutX="210.0" layoutY="103.0" opacity="0.45" prefHeight="25.0" prefWidth="232.0" />
+                        <JFXRadioButton fx:id="rbStatus" layoutX="529.0" layoutY="106.0" text="Ativado" />
+                        <JFXTextField fx:id="txtCodigo" alignment="BOTTOM_LEFT" layoutX="210.0" layoutY="103.0" opacity="0.45" prefHeight="25.0" prefWidth="232.0" />
                         <Button layoutX="489.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnConfirma" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
                            <font>
                               <Font name="System Bold" size="13.0" />
@@ -139,13 +139,13 @@
                </children></AnchorPane>
          </center>
          <left>
-            <AnchorPane prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="PainelLateral" prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="painelEsquerda" minWidth="220.0" prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: gray;">
+                  <VBox minWidth="220.0" prefHeight="580.0" prefWidth="300.0" style="-fx-background-color: gray;">
                      <children>
                         <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" spacing="5.0" style="-fx-background-color: gray;">
                            <children>
-                              <Label fx:id="labelClienteNome11" contentDisplay="RIGHT" prefHeight="37.0" prefWidth="90.0" text="Nome:" textFill="#fdfffd">
+                              <Label contentDisplay="RIGHT" prefHeight="37.0" prefWidth="90.0" text="Nome:" textFill="#fdfffd">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
@@ -156,7 +156,7 @@
                                     <Insets left="8.0" />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="txpesquisa" prefHeight="25.0" prefWidth="154.0" promptText="Informe o nome....">
+                              <TextField fx:id="txtPesquisa" prefHeight="25.0" prefWidth="154.0" promptText="Informe o nome....">
                                  <font>
                                     <Font size="11.0" />
                                  </font></TextField>
@@ -166,7 +166,11 @@
                                  </HBox.margin></Button>
                            </children>
                         </HBox>
-                        <ListView fx:id="lvcolaboradores" prefHeight="460.0" prefWidth="293.0" />
+                        <TableView fx:id="tabela" prefHeight="460.0" prefWidth="293.0">
+                          <columns>
+                            <TableColumn fx:id="tableViewNomeProduto" prefWidth="293.0" text="Produto" />
+                          </columns>
+                        </TableView>
                         <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" prefWidth="274.0" spacing="5.0" style="-fx-background-color: gray;">
                            <children>
                               <Button mnemonicParsing="false" onAction="#btnAlterar" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Alterar">

@@ -57,11 +57,11 @@ public class ProdutoDAO {
     }
     public boolean insere(Produto p){
         
-        String sql="insert into produto(pro_codigo,pro_nome,pro_descricao, pro_status values(?,?,?,?);";
+        String sql="insert into produto(pro_codigo,pro_nome,pro_descricao, pro_status) values(?,?,?,?);";
                 try(Connection conn = Conecta.abreConexaoBanco()) {
                     if(conn !=null){
                         try (PreparedStatement ps = conn.prepareStatement(sql)){
-                            ps.setInt(1, p.getCodigo());
+                           ps.setInt(1, p.getCodigo());
                             ps.setString(2, p.getNome());
                             ps.setString(3, p.getDescricao());
                             ps.setBoolean(4, p.isStatus());
@@ -70,6 +70,7 @@ public class ProdutoDAO {
                         } 
                     }
         } catch (SQLException e) {
+            erro="erro ao gravar";
         }
        return false; 
     }
@@ -114,19 +115,22 @@ public class ProdutoDAO {
         return cod+1;
     }
     public  boolean altera(Produto p) {
-        String sql = "update produto set pro_nome = ?, pro_descricao=?, pro_status=?;";
+        String sql = "update produto set pro_nome = ?, pro_descricao=?, pro_status=? where pro_codigo=?;";
+        //produto(pro_codigo,pro_nome,pro_descricao, pro_status)
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setString(2, p.getNome());
-                    ps.setString(3, p.getDescricao());
-                    ps.setBoolean(4, p.isStatus());
-                    ps.executeUpdate();
-                    return true;
+                            ps.setInt(1, p.getCodigo());
+                            ps.setString(2, p.getNome());
+                            ps.setString(3, p.getDescricao());
+                            ps.setBoolean(4, p.isStatus());
+                        //    ps.executeLargeUpdate();
+                            ps.executeUpdate();
+                            return true;
                 }
             }
         } catch (SQLException e) {
-            //erro = "Erro alterando produto!";
+            erro = "Erro alterando produto!";
         }
         return false;
     }

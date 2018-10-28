@@ -5,11 +5,14 @@
  */
 package red.controller.home;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import red.dao.util.Conecta;
 
 /**
  *
@@ -30,6 +33,16 @@ public class Red extends Application {
       //  stage.setResizable(false);//Desativa o redimensionar:
        // stage.initStyle(StageStyle.UNDECORATED);//Remove os 3 botões e a borda:
 
+        try (Connection conn = Conecta.abreConexaoBanco()) {
+            
+            if (conn != null) {
+                System.out.println("conectado no banco red");
+            }
+            else
+                System.out.println("nao conectado no banco red");
+            
+        }
+       
         stage.setTitle("Sistema de Gestão de Qualidade");
         stage.show();
         
