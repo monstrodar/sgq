@@ -3,29 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.model.producao.lote;
+package red.model.util;
 
 /**
  *
  * @author Daniel
  */
-public class Produto {
-    
+public class Cidade {
     
     private int codigo;
     private String nome;
-    private String descricao;
+    private UF uf;
 
-
-    private boolean status;
-
-    public Produto(int codigo, String nome, String descricao, boolean status) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.status = status;
+    public Cidade() {
     }
 
+    public Cidade(int codigo, String nome, UF uf) {
+        this.codigo = codigo;
+        this.nome = nome;
+        this.uf = uf;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -43,20 +40,15 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public UF getUf() {
+        return uf;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setUf(UF uf) {
+        this.uf = uf;
     }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-
-    }
+    
+    
+    
+    
 }
