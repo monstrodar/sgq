@@ -7,7 +7,10 @@ package red.controller.colaborador.perfil;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,7 +41,7 @@ public class CadastroColaboradorController implements Initializable {
     @FXML
     private TextField txpesquisa;
     @FXML
-    private ListView<?> lvcolaboradores;
+    private ListView<Colaborador> lvcolaboradores;
     @FXML
     private VBox pnDireita;
     @FXML
@@ -63,8 +66,6 @@ public class CadastroColaboradorController implements Initializable {
     private TextField txsenha;
     @FXML
     private TextField txsenha1;
-
-    private boolean firstAc;
     @FXML
     private Button btBuscar;
     @FXML
@@ -77,6 +78,9 @@ public class CadastroColaboradorController implements Initializable {
     private Button btConfirmar;
     @FXML
     private Button btCancelar;
+    
+    private Colaborador colA;
+    private boolean firstAc;
     /**
      * Initializes the controller class.
      */
@@ -91,7 +95,6 @@ public class CadastroColaboradorController implements Initializable {
         else
         {
             firstAc = false;
-            
         }
             
     }    
@@ -106,25 +109,81 @@ public class CadastroColaboradorController implements Initializable {
     @FXML
     private void clkBuscar(ActionEvent event) 
     {
-
+        
+        ArrayList<Colaborador> lista = new ArrayList<>();
+        if(!txpesquisa.getText().trim().equals("") && !txpesquisa1.getText().trim().equals(""))
+        {
+            lista = colA.serch(txpesquisa.getText(), txpesquisa1.getText());
+        }
+        else
+        {
+            lista = colA.serch(txpesquisa.getText());
+        }
+        if(lista != null)
+        {
+            ObservableList<Colaborador> modelo;
+            modelo = FXCollections.observableArrayList(lista);    
+            lvcolaboradores.setItems(modelo);
+            Alterar();
+        }
     }
 
     @FXML
     private void clkAlterar(ActionEvent event) 
     {
-
+        colA = new Colaborador();
+        colA = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
+        
+        txnome.setText(""+colA.getNome());
+        txcpf.setText(""+colA.getCpf());
+        txcelular.setText(""+colA.getCelular());
+        txcargo.setText(""+colA.getCargo());
+        txsenha.setText(""+colA.getSenha());
+        switch(colA.getNivel())
+        {
+            case 0: rbbasico.setSelected(true);  break;
+            case 1: rbauditor.setSelected(true); break;
+            default: rbadministrador.setSelected(true);
+        }
+        txsenha1.setText("");
+        Editando();
     }
 
     @FXML
     private void alkApagar(ActionEvent event) 
     {
-
+        if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse Colaborador?", "Confirmacao", JOptionPane.INFORMATION_MESSAGE) == 1)
+        {
+            colA = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
+            if(colA.getNivel() == 2)
+            {
+                if(colA.ReturnQtdColaboradorNivel(colA.getNivel()) == 1)
+                {
+                    JOptionPane.showMessageDialog(null, "Nao é possivel excluir o colaborador pelo fato de existir somente 1 colaborador como administrador ", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    if(colA.excluir(colA.getCodigo()))
+                        JOptionPane.showMessageDialog(null, "Colaborador excluido com suceso", "Erro", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Erro ao excluir", "Erro", JOptionPane.ERROR_MESSAGE);
+                }    
+            }
+            else
+            {
+                if(colA.excluir(colA.getCodigo()))
+                        JOptionPane.showMessageDialog(null, "Colaborador excluido com suceso", "Erro", JOptionPane.ERROR_MESSAGE);
+                    else
+                        JOptionPane.showMessageDialog(null, "Erro ao excluir", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            Original();
+        }
     }
 
     @FXML
     private void clkNovo(ActionEvent event) 
     {
-
+        Editando();
     }
 
     @FXML
@@ -142,6 +201,31 @@ public class CadastroColaboradorController implements Initializable {
                         {
                             //fazer as varidacoes;
                             Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), 0, txcelular.getText());
+                            if(colA.getCodigo() == 0)
+                            {
+                                if(c.gravar(c))
+                                {
+                                    JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                    limpar();
+                                    Original();
+                                }
+                                else
+                                {
+                                     JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                            else
+                            {
+                                c.setCodigo(colA.getCodigo());
+                                if(c.alterar(c))
+                                {
+                                    JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                    limpar();
+                                    Original();
+                                }
+                                else
+                                    JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                            }    
                         }
                         else
                         {
@@ -194,17 +278,44 @@ public class CadastroColaboradorController implements Initializable {
     
     private void Original()
     {
-        
+        btAlterar.setDisable(false);
+        btApagar.setDisable(false);
+        btBuscar.setDisable(true);
+        btCancelar.setDisable(false);
+        btConfirmar.setDisable(false);
+        btNovo.setDisable(true);
+        colA = new Colaborador();
+    }
+    
+    private void Alterar()
+    {
+        btAlterar.setDisable(true);
+        btApagar.setDisable(true);
+        btBuscar.setDisable(true);
+        btCancelar.setDisable(false);
+        btConfirmar.setDisable(false);
+        btNovo.setDisable(true);
+        colA = new Colaborador();
     }
     
     private void Editando()
     {
-        
+        btAlterar.setDisable(false);
+        btApagar.setDisable(false);
+        btBuscar.setDisable(false);
+        btCancelar.setDisable(false);
+        btConfirmar.setDisable(true);
+        btNovo.setDisable(false);
     }
     
     private void limpar()
     {
-        
+        txnome.setText("");
+        txcpf.setText("");
+        txcelular.setText("");
+        txcargo.setText("");
+        txsenha.setText("");
+        txsenha1.setText("");
     }
 
     @FXML
