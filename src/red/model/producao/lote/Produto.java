@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package red.model.producao.lote;
-
+import java.util.ArrayList;
+import java.util.List;
+import red.model.producao.lote.Composicao;
 /**
  *
  * @author Daniel
@@ -22,6 +24,7 @@ public class Produto {
         this.nome = nome;
         this.descricao = descricao;
         this.status = status;
+ 
     }
 
     public Produto() {
