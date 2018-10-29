@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import red.model.producao.lote.Produto;
 import red.model.util.Cidade;
 import red.model.util.UF;
 
@@ -152,5 +153,28 @@ public class CidadeDAO {
         }
         return false;
     }
-    
+     public List<Cidade> get(int codigo)
+    {   
+        String sql="select * from cidade where est_codigo="+codigo;
+        List<Cidade> lista =new ArrayList<>();
+        UFDAO dao = new UFDAO();
+        UF uf =null;
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+                            uf = dao.busca(rs.getInt("est_codigo"));
+                            lista.add(new Cidade(rs.getInt("cid_codigo"),
+                                    rs.getString("cid_nome"),
+                                    uf)
+                            );
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
 }
