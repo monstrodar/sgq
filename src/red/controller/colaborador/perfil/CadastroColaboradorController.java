@@ -25,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javax.swing.JOptionPane;
 import red.model.colaborador.Colaborador;
+import util.MaskFieldUtil;
 import util.mask;
 
 /**
@@ -285,6 +286,8 @@ public class CadastroColaboradorController implements Initializable {
         btConfirmar.setDisable(false);
         btNovo.setDisable(true);
         colA = new Colaborador();
+        MaskFieldUtil.cpfCnpjField(txcpf);
+        MaskFieldUtil.foneField(txcelular);
     }
     
     private void Alterar()
