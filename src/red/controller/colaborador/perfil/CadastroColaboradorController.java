@@ -194,6 +194,15 @@ public class CadastroColaboradorController implements Initializable {
                         if(!txcpf.getText().trim().equals(""))
                         {
                             //fazer as varidacoes;
+                            String cepfC, cpfA;
+                            cpfA = txcpf.getText();
+                            cpfA = cpfA.replaceAll(".", "");
+                            cpfA = cpfA.replaceAll("/", "");
+                            cpfA = cpfA.replaceAll("-", "");
+                            int dig1, dig2;
+                            dig1 = PrimeiroDigito(cpfA);
+                            dig2 = SegundoDigito(cpfA);
+                            
                             Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), 0, txcelular.getText());
                             if(colA.getCodigo() == 0)
                             {
@@ -251,6 +260,24 @@ public class CadastroColaboradorController implements Initializable {
     @FXML
     private void clCancelar(ActionEvent event) {
         
+    }
+    
+      @FXML
+    private void selectB(ActionEvent event) {
+        rbauditor.setSelected(false);
+        rbadministrador.setSelected(false);
+    }
+
+    @FXML
+    private void selectA(ActionEvent event) {
+        rbbasico.setSelected(false);
+        rbadministrador.setSelected(false);
+    }
+
+    @FXML
+    private void selectAdm(ActionEvent event) {
+        rbauditor.setSelected(false);
+        rbbasico.setSelected(false);
     }
 
     private void StatusFirstAcsses()
@@ -313,22 +340,38 @@ public class CadastroColaboradorController implements Initializable {
         txsenha.setText("");
         txsenha1.setText("");
     }
-
-    @FXML
-    private void selectB(ActionEvent event) {
-        rbauditor.setSelected(false);
-        rbadministrador.setSelected(false);
+    
+    private int PrimeiroDigito(String cpf)
+    {
+        int soma = 0, resultado = 0, resto = 0, num;
+        for(int i = 0, x = 10; i < 9; i++, x--)
+        {
+            num = Character.digit(cpf.charAt(i), 10);
+            soma = soma + num * x; 
+        }
+        resto = soma%11;
+        resultado = 11 - resto;
+        if(resultado == 10 || resultado == 11)
+        {
+            return 0;
+        }
+        return resultado;
     }
 
-    @FXML
-    private void selectA(ActionEvent event) {
-        rbbasico.setSelected(false);
-        rbadministrador.setSelected(false);
-    }
-
-    @FXML
-    private void selectAdm(ActionEvent event) {
-        rbauditor.setSelected(false);
-        rbbasico.setSelected(false);
+    private int SegundoDigito(String cpf)
+    {
+        int soma = 0, resultado = 0, resto = 0, num;
+        for(int i = 0, x = 11; i < 10; i++, x--)
+        {
+            num = Character.digit(cpf.charAt(i), 10);
+            soma = soma + num * x; 
+        }
+        resto = soma%11;
+        resultado = 11 - resto;
+        if(resultado == 10 || resultado == 11)
+        {
+            return 0;
+        }
+        return resultado;
     }
 }
