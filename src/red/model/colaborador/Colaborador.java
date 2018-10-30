@@ -23,7 +23,6 @@ public class Colaborador
     private String cpf;
     private int nivel;
     private String celular;
-    private Colaborador col;
 
     public Colaborador(int codigo, String nome, String senha, String cargo, boolean status, String cpf, int nivel, String celular) {
         this.codigo = codigo;
@@ -109,14 +108,6 @@ public class Colaborador
 
     public void setCelular(String celular) {
         this.celular = celular;
-    }
-    
-    public Colaborador getCol() {
-        return col;
-    }
-
-    public void setCol(Colaborador col) {
-        this.col = col;
     }
     
     // Area banco  DAL---------------------------------------------------------------------------------
@@ -319,34 +310,5 @@ public class Colaborador
         return lista;
     }
     
-    public Colaborador Logim(String cpf, String senha)
-    {
-        ArrayList<Colaborador> lista = new ArrayList<>();
-        String sql = "select * "
-                   + "from colaborador "
-                   + "where col_cpf = ? and col_senha = ?";
-        try(Connection con = Conexao.abre())
-        {
-            if(con != null)
-            {
-                try(PreparedStatement ps = con.prepareStatement(sql)) 
-                {
-                    ps.setString(1, cpf);
-                    ps.setString(2, senha);
-                    try(ResultSet rs = ps.executeQuery())
-                    {
-                        if(rs.next())
-                        {
-                            return new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(6), rs.getInt(7), rs.getString(8));
-                        }
-                    }    
-                } 
-            }
-        } catch (SQLException ex) 
-        {
-            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return new Colaborador();
-    }
+    
 }

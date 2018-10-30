@@ -89,7 +89,14 @@ public class CadastroColaboradorController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         Colaborador c = new Colaborador();
-        firstAc = c.FirstAcssesNecessary() == 0;
+        if(c.FirstAcssesNecessary() == 0)
+        {
+            firstAc = true;
+        }
+        else
+        {
+            firstAc = false;
+        }
             
     }    
 
