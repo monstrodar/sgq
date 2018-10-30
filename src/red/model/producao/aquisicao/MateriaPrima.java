@@ -3,29 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.model.producao.lote;
+package red.model.producao.aquisicao;
 
 /**
  *
  * @author Daniel
  */
-public class Produto {
-    
+public class MateriaPrima {
     
     private int codigo;
     private String nome;
-    private String descricao;
-
-
+    private String num_lote;
+    private int estoque;
     private boolean status;
 
-    public Produto(int codigo, String nome, String descricao, boolean status) {
+    public MateriaPrima(int codigo, String nome, String num_lote, int estoque, boolean status) {
         this.codigo = codigo;
         this.nome = nome;
-        this.descricao = descricao;
+        this.num_lote = num_lote;
+        this.estoque = estoque;
         this.status = status;
     }
 
+    public MateriaPrima() {
+    }
 
     public int getCodigo() {
         return codigo;
@@ -43,12 +44,20 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getNum_lote() {
+        return num_lote;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setNum_lote(String num_lote) {
+        this.num_lote = num_lote;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
     }
 
     public boolean isStatus() {
@@ -57,6 +66,10 @@ public class Produto {
 
     public void setStatus(boolean status) {
         this.status = status;
-
     }
+    
+    
+    
+    
+    
 }

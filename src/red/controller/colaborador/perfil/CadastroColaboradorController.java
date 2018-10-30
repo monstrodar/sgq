@@ -331,7 +331,4 @@ public class CadastroColaboradorController implements Initializable {
         rbauditor.setSelected(false);
         rbbasico.setSelected(false);
     }
-
-    
-
 }

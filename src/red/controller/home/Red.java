@@ -5,6 +5,7 @@
  */
 package red.controller.home;
 
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,7 +19,8 @@ import javafx.stage.Stage;
 public class Red extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception 
+    {
         Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
         
         Scene scene = new Scene(root);
@@ -30,22 +32,11 @@ public class Red extends Application {
       //  stage.setResizable(false);//Desativa o redimensionar:
        // stage.initStyle(StageStyle.UNDECORATED);//Remove os 3 botões e a borda:
 
-        stage.setTitle("Sistema de Gestão de Qualidade");
-        stage.show();
-        
-        
-        
-        
 
-        
-        
-    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
+
     }
-    
 }
