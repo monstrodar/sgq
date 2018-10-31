@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,7 +92,14 @@ public class CadastroColaboradorController implements Initializable {
         // TODO
         Colaborador c = new Colaborador();
         firstAc = c.FirstAcssesNecessary() == 0;
-            
+        if(firstAc)
+        {
+            StatusFirstAcsses();
+        }
+        else
+        {
+            Original();
+        }
     }    
 
 
@@ -103,7 +112,6 @@ public class CadastroColaboradorController implements Initializable {
     @FXML
     private void clkBuscar(ActionEvent event) 
     {
-        
         ArrayList<Colaborador> lista = new ArrayList<>();
         if(!txpesquisa.getText().trim().equals("") && !txpesquisa1.getText().trim().equals(""))
         {
@@ -191,44 +199,67 @@ public class CadastroColaboradorController implements Initializable {
                 {
                     if(txcelular.getText().trim().equals(""))
                     {
-                        if(!txcpf.getText().trim().equals(""))
+                        if(!txcpf.getText().trim().equals("") && txcpf.getText().length() == 14)
                         {
                             //fazer as varidacoes;
-                            String cepfC, cpfA;
+                            String cpfA;
                             cpfA = txcpf.getText();
                             cpfA = cpfA.replaceAll(".", "");
                             cpfA = cpfA.replaceAll("/", "");
-                            cpfA = cpfA.replaceAll("-", "");
+                            cpfA = cpfA.replaceAll("-", "");//460.005.538/11
                             int dig1, dig2;
                             dig1 = PrimeiroDigito(cpfA);
                             dig2 = SegundoDigito(cpfA);
-                            
-                            Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), 0, txcelular.getText());
-                            if(colA.getCodigo() == 0)
+                            if(cpfA.charAt(9) == dig1 && cpfA.charAt(10) == dig2)
                             {
-                                if(c.gravar(c))
+                                int nivel;
+                                if(rbbasico.isSelected())
+                                    nivel = 1;
+                                else
+                                    if(rbauditor.isSelected())
+                                        nivel = 2;
+                                    else
+                                       nivel = 3; 
+                                Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), nivel, txcelular.getText());
+                                if(colA.getCodigo() == 0)
                                 {
-                                    JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
-                                    limpar();
-                                    Original();
+                                    if(c.gravar(c))
+                                    {
+                                        JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                        limpar();
+                                        Original();
+                                        if(firstAc)
+                                        {
+                                            AnchorPane a;
+                                            try 
+                                            {
+                                                a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/homr/Login.fxml"));
+                                                painelTotal.getChildren().setAll(a);
+                                            } 
+                                            catch (IOException ex) 
+                                            {
+                                                Logger.getLogger(CadastroColaboradorController.class.getName()).log(Level.SEVERE, null, ex);
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                         JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                                    }
                                 }
                                 else
                                 {
-                                     JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
-                                }
+                                    c.setCodigo(colA.getCodigo());
+                                    if(c.alterar(c))
+                                    {
+                                        JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                        limpar();
+                                        Original();
+                                    }
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                                }    
                             }
-                            else
-                            {
-                                c.setCodigo(colA.getCodigo());
-                                if(c.alterar(c))
-                                {
-                                    JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
-                                    limpar();
-                                    Original();
-                                }
-                                else
-                                    JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
-                            }    
                         }
                         else
                         {

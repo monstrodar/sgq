@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import red.model.colaborador.Colaborador;
 
 /**
  *
@@ -21,10 +22,8 @@ public class Red extends Application {
     @Override
     public void start(Stage stage) throws Exception 
     {
-        Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
    //     stage.setFullScreen(true);
 

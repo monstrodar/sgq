@@ -5,6 +5,7 @@
  */
 package red.controller.home;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import red.model.colaborador.Colaborador;
+import util.ColaboradorLogado;
 
 /**
  * FXML Controller class
@@ -24,19 +27,39 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private AnchorPane painelPrincipal;
+    @FXML
+    private JFXButton doc;
+    @FXML
+    private JFXButton direction;
+    @FXML
+    private JFXButton resourse;
+    @FXML
+    private JFXButton production;
+    @FXML
+    private JFXButton measurement;
+    @FXML
+    private JFXButton parametrizacao;
 
      @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Colaborador c = ColaboradorLogado.col;
+        switch(c.getNivel())
+        {
+            case 1: Nivel1(); break;
+                
+            case 2: Nivel2(); break;
+                
+            default: Nivel3(); break;
+                   
+        }
     } 
 
 
     @FXML
     private void acaoProducao(ActionEvent event) throws IOException {
         
-          AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/PrincipalProducao.fxml"));
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/PrincipalProducao.fxml"));
         painelPrincipal.getChildren().setAll(a);
-        
         
     }
 
@@ -60,11 +83,35 @@ public class PrincipalController implements Initializable {
        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/PrincipalParametrizacao.fxml"));
         painelPrincipal.getChildren().setAll(a); 
         
-     
-
+    }
+    
+    private void Nivel1()
+    {
+        doc.setDisable(true);
+        direction.setDisable(false);
+        resourse.setDisable(true);
+        production.setDisable(false);
+        measurement.setDisable(false);
+        parametrizacao.setDisable(false);
     }
 
-
+    private void Nivel2()
+    {
+        doc.setDisable(false);
+        direction.setDisable(true);
+        resourse.setDisable(false);
+        production.setDisable(false);
+        measurement.setDisable(false);
+        parametrizacao.setDisable(false);
+    }
     
-    
+    private void Nivel3()
+    {
+        doc.setDisable(true);
+        direction.setDisable(true);
+        resourse.setDisable(true);
+        production.setDisable(true);
+        measurement.setDisable(true);
+        parametrizacao.setDisable(true);
+    }
 }

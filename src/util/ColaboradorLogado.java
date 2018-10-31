@@ -12,14 +12,14 @@ import red.model.colaborador.Colaborador;
  * @author Bruno Yoshino
  */
 public class ColaboradorLogado {
-    public Colaborador col;
+    public static Colaborador col;
 
     public Colaborador getCol() {
         return col;
     }
 
     public void setCol(Colaborador col) {
-        this.col = col;
+        ColaboradorLogado.col = col;
     }
     
 }
