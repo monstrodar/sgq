@@ -36,7 +36,7 @@ public class CidadeDAO {
         erro=null;
     }
     
-    public static Cidade busca(String nome) {
+    public  Cidade busca(String nome) {
         String sql = "select cid_codigo, cid_nome, uf_codigo from cidade where cid_nome = ? ;";
         UFDAO dao = new UFDAO();
         UF uf =null;
@@ -46,7 +46,7 @@ public class CidadeDAO {
                     st.setString(1, nome);
                     try (ResultSet rs = st.executeQuery()) {
                         if (rs.next()) {
-                            uf = dao.busca(rs.getInt("uf_codigo"));
+                            uf = dao.busca(rs.getInt("est_codigo"));
                             return new Cidade(rs.getInt("cid_codigo"),
                                     rs.getString("cid_nome"),
                                     uf);
@@ -58,8 +58,8 @@ public class CidadeDAO {
         }
         return null;
     }
-    public static Cidade busca(int codigo) {
-        String sql = "select cid_codigo, cid_nome, uf_codigo from cidade where cid_codigo = ? ;";
+    public  Cidade busca(int codigo) {
+        String sql = "select  *  from cidade where cid_codigo = ? ;";
         UFDAO dao = new UFDAO();
         UF uf =null;
         try (Connection conn = Conecta.abreConexaoBanco()) {
@@ -68,7 +68,7 @@ public class CidadeDAO {
                     st.setInt(1, codigo);
                     try (ResultSet rs = st.executeQuery()) {
                         if (rs.next()) {
-                            uf = dao.busca(rs.getInt("uf_codigo"));
+                            uf = dao.busca(rs.getInt("est_codigo"));
                             return new Cidade(rs.getInt("cid_codigo"),
                                     rs.getString("cid_nome"),
                                     uf);

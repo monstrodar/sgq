@@ -6,7 +6,6 @@
 package red.controller.parametrizacao;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,30 +13,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import red.dao.parametrizacao.ParametrizacaoDAO;
-import red.dao.producao.aquisicao.MateriaPrimaDAO;
-import red.dao.producao.lote.ComposicaoDAO;
-import red.dao.producao.lote.ProdutoDAO;
 import red.dao.util.CidadeDAO;
 import red.dao.util.UFDAO;
 import red.model.parametrizacao.Parametrizacao;
-import red.model.producao.aquisicao.MateriaPrima;
-import red.model.producao.lote.Composicao;
-import red.model.producao.lote.Produto;
 import red.model.util.Cidade;
+import red.model.util.MaskFieldUtil;
 import red.model.util.UF;
 
 /**
@@ -70,16 +57,27 @@ public class ParametrizacaoController implements Initializable{
     private ComboBox<UF> cbbEstado;
     @FXML
     private ComboBox<Cidade> cbbCidade;
+    @FXML
+    private Label menssagemInicial;
+    @FXML
+    private Button txtBtnCadastrar;
+    @FXML
+    private Button txtBtnAlterar;
+    @FXML
+    private Button txtBtnConfirma;
+    @FXML
+    private Button txtBtnCancelar;
+    @FXML
+    private Label menssagemFinal;
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-//       listaItensComposicao = new ArrayList<Composicao>();
-//       listaItensComposicaoRetirado = new ArrayList<Composicao>();
-//        estadoOriginal();
-//        tableViewNomeProduto.setCellValueFactory(new PropertyValueFactory("nome"));
-//     //   tableColumnItemDeProduto.setCellValueFactory(new PropertyValueFactory("nome"));
+        
+        menssagemFinal.setText(""); 
+        MaskFieldUtil.foneField(this.txtTelefone);
+        MaskFieldUtil.cepField(this.txtCep);
+        MaskFieldUtil.cnpjField(this.txtCnpj);
         estadoOriginal();
     }  
     @FXML
@@ -89,12 +87,8 @@ public class ParametrizacaoController implements Initializable{
     @FXML
     private void btnConfirmar(ActionEvent event) {
         
-           Alert b = new Alert(Alert.AlertType.INFORMATION);
+        Alert b = new Alert(Alert.AlertType.INFORMATION);
         String msg ="";
-//        if(txtCodigo.getText().length()==0){
-//             msg+="Por favor, informe o Código do produto\n";
-//            txtCodigo.requestFocus();
-//        }
         if(txtRazaoSocial.getText().length()==0){
              msg+="Por favor, informe a Razão Social da Empresa\n";
              txtRazaoSocial.requestFocus();
@@ -155,36 +149,52 @@ public class ParametrizacaoController implements Initializable{
             
             ParametrizacaoDAO dal = new ParametrizacaoDAO();
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            if (p.getCodigo() == 0) // novo cadastro
-            {
-                if (dal.insere(p)) {
-                    a.setContentText("Gravado com Sucesso");
-                } else {
-                    a.setContentText("Problemas ao Gravar");
-                }
-            } else //alteração de cadastro
-            {
-                if (dal.altera(p)) {
-                    a.setContentText("Alterado com Sucesso");
-                } else {
-                    a.setContentText("Problemas ao Alterar");
-                }
+
+            if (dal.altera(p)) {
+                a.setContentText("Alterado com Sucesso");
+            } else {
+                a.setContentText("Problemas ao Alterar");
             }
             a.showAndWait();
+            menssagemFinal.setText("Atualizado com sucesso! Sistema pronto para ser utilizar"); 
+            menssagemInicial.setText("");
             estadoOriginal();
+            
         } 
-   
     }
 
     @FXML
     private void btnCancelar(ActionEvent event) {
+        estadoOriginal();
+        txtBtnCadastrar.setDisable(false);
     }
-
+    
+    @FXML
+    private void btnCadastrar(ActionEvent event) {
+        estadoOriginal();
+        habilitaTudo();
+        comboEstadoAlterado();  
+        
+        txtBtnCancelar.setDisable(false);
+        txtBtnConfirma.setDisable(false);
+        txtBtnCadastrar.setDisable(true);
+    }
     @FXML
     private void btnAlterar(ActionEvent event) {
+        estadoOriginal();
+        habilitaTudo();
+        comboEstadoAlterado();
+        txtBtnCancelar.setDisable(false);
+        txtBtnConfirma.setDisable(false);
+        txtBtnAlterar.setDisable(true);
+        
+        
+    }
+
+    private void estadoOriginal() {
         
         ParametrizacaoDAO dao = new ParametrizacaoDAO();
-        Parametrizacao p= dao.busca(1);
+        Parametrizacao p= dao.busca();
         
         txtCodigo.setText(""+p.getCodigo());
         txtBairro.setText(""+p.getBairro());
@@ -202,29 +212,64 @@ public class ParametrizacaoController implements Initializable{
         ObservableList<Cidade> mp;
         mp = FXCollections.observableArrayList(res);
         cbbCidade.setItems(mp);
+        UFDAO daoUf = new UFDAO();
+        UF uf = daoUf.busca(p.getCidade().getUf().getCodigo());
         
-    }
-
-    @FXML
-    private void btnNovo(ActionEvent event) {
-    }
-    private void estadoOriginal() {
-
-        cbbCidade.getSelectionModel().select(0);
-        cbbEstado.getSelectionModel().select(0);
-        carregaEstado();
-    }
-    @FXML
-    private void btnApagar(ActionEvent event) {
-        
-          Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setContentText("Confirma a exclusão");
-        if (a.showAndWait().get() == ButtonType.OK) {
-           ParametrizacaoDAO dal = new ParametrizacaoDAO();
-           Parametrizacao  p = dal.busca(1);
-            dal.exclui(p);
+        cbbCidade.setValue(cidade);
+        cbbEstado.setValue(uf);  
+        if(txtCnpj.getText().equalsIgnoreCase("00.000.000/0000-00")){
+             
+             menssagemInicial.setText("O Sistema ainda não foi parametrizado. Cadastre os dados da empresa.");
+             txtBtnAlterar.setDisable(true);
+             txtBtnConfirma.setDisable(true);
+             txtBtnCancelar.setDisable(true);
         }
+        else{
+            menssagemInicial.setText("O Sistema já foi parametrizado. Clique em Alterar caso haja alterações."); 
+            txtBtnCadastrar.setDisable(true);
+            txtBtnConfirma.setDisable(true);
+            txtBtnCancelar.setDisable(true);
+        }
+        desabilitaTudo();   
         
+    }
+    public void comboEstadoAlterado(){
+        
+        UFDAO daoUf = new UFDAO();
+        CidadeDAO daoCid = new CidadeDAO();
+        List<UF> res = daoUf.lista();
+        List<Cidade> res2 = daoCid.get(0);
+        ObservableList<UF> mp;
+        mp = FXCollections.observableArrayList(res);
+      
+        cbbEstado.setItems(mp);
+        cbbCidade.getSelectionModel().select(0); // 5  
+    }
+    public void desabilitaTudo(){
+        txtCodigo.setDisable(true);
+        txtBairro.setDisable(true);
+        txtCep.setDisable(true);
+        txtCnpj.setDisable(true);
+        txtEmail.setDisable(true);
+        txtNumero.setDisable(true);
+        txtRazaoSocial.setDisable(true);
+        txtRua.setDisable(true);
+        txtTelefone.setDisable(true);
+        cbbCidade.setDisable(true);
+        cbbEstado.setDisable(true);
+    }
+    public void habilitaTudo(){
+        txtCodigo.setDisable(false);
+        txtBairro.setDisable(false);
+        txtCep.setDisable(false);
+        txtCnpj.setDisable(false);
+        txtEmail.setDisable(false);
+        txtNumero.setDisable(false);
+        txtRazaoSocial.setDisable(false);
+        txtRua.setDisable(false);
+        txtTelefone.setDisable(false);
+        cbbCidade.setDisable(false);
+        cbbEstado.setDisable(false);
     }
     private void carregaCidade(int codigo) {
         CidadeDAO dal = new CidadeDAO();
@@ -248,4 +293,5 @@ public class ParametrizacaoController implements Initializable{
             carregaCidade(estado.getCodigo());
         }       
     }
+
 }

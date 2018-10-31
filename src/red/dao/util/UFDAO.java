@@ -38,8 +38,8 @@ public class UFDAO {
                 
         );
     }
-    public static UF busca(int codigo) {
-        String sql = "select est_codigo, est_nome from estado where est_codigo = ?;";
+    public  UF busca(int codigo) {
+        String sql = "select  *  from estado where est_codigo = ?;";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement st = conn.prepareStatement(sql)) {
@@ -60,7 +60,7 @@ public class UFDAO {
         return null;
     }
     
-    public static List<UF> lista() {
+    public  List<UF> lista() {
         List<UF> lista = new ArrayList<>();
         String sql = "select est_codigo, est_nome from estado order by est_nome";
         try (Connection conn = Conecta.abreConexaoBanco()) {

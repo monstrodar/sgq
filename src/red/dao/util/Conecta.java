@@ -7,6 +7,9 @@ package red.dao.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -26,5 +29,22 @@ public class Conecta {
             conn=null;
         }
         return conn;
+    }
+      private Connection connect;
+    private String erro="";
+     public ResultSet consultar(String sql)
+    {   ResultSet rs=null;
+        try {
+           Statement statement = connect.createStatement();
+             //ResultSet.TYPE_SCROLL_INSENSITIVE,
+             //ResultSet.CONCUR_READ_ONLY);
+           rs = statement.executeQuery( sql );
+           //statement.close();
+        }
+        catch ( SQLException sqlex )
+        { erro="Erro: "+sqlex.toString();
+          return null;
+        }
+        return rs;
     }
 }

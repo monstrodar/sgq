@@ -7,7 +7,6 @@ package red.controller.producao.lote;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -50,22 +49,16 @@ public class ProdutoController implements Initializable{
     private AnchorPane PainelLateral;
     @FXML
     private TextField txtPesquisa;
-    
     @FXML
     private AnchorPane PainelCentral;
-    
-    
     @FXML
     private TableView<Composicao> tableViewItensDeProduto;
     @FXML
     private TableColumn<?, ?> tableColumnItemDeProduto;
     @FXML
     private TableColumn<?, ?> tableColumnItemQuantidade;
-    
-    
     @FXML
     private JFXTextField txtDescricao;
-    
     @FXML
     private JFXTextField txtCodigo;
     @FXML
@@ -82,16 +75,13 @@ public class ProdutoController implements Initializable{
     private JFXCheckBox cbStatus;
     
     private List<Composicao> listaItensComposicao=null;
-    private List<Composicao> listaItensComposicaoRetirado = null;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       listaItensComposicao = new ArrayList<Composicao>();
-       listaItensComposicaoRetirado = new ArrayList<Composicao>();
+
         estadoOriginal();
+        
         tableViewNomeProduto.setCellValueFactory(new PropertyValueFactory("nome"));
-     //   tableColumnItemDeProduto.setCellValueFactory(new PropertyValueFactory("nome"));
     }  
     
     @FXML
@@ -102,55 +92,80 @@ public class ProdutoController implements Initializable{
     }
 
     @FXML
-    private void evtProduto(ActionEvent event) {
-    }
-
-    @FXML
-    private void evtRelatorio(ActionEvent event) {
-    }
-            
-    @FXML
     private void btnBuscar(ActionEvent event) {
-          carregaTabela("upper(mp_nome) like '%"+txtPesquisa.getText().toUpperCase()+"%'");
-    } //"upper(mp_nome) like '\%FIL%\'" como tirar as barras ERRO
+        
+        if(txtPesquisa.getText()==""){
+            carregaTabela("");
+        }
+        else{
+            ProdutoDAO dal = new ProdutoDAO();
+            List<Produto> res = dal.pesquisa(txtPesquisa.getText().toUpperCase());
+            ObservableList<Produto> produto;
+            produto = FXCollections.observableArrayList(res);
+            tabela.setItems(produto);   
+        }   
+        txtPesquisa.requestFocus();
+   } 
 
     @FXML
     private void btnAlterar(ActionEvent event) {
-        Produto p = (Produto)tabela.getSelectionModel().getSelectedItem();
-        txtCodigo.setText(""+p.getCodigo());
-        txtNome.setText(""+p.getNome());
-        txtDescricao.setText(""+p.getDescricao());
-        cbStatus.setSelected(p.isStatus());   
-        estadoEdicao();
-        carregaComposicao(p.getCodigo());
-       tableColumnItemDeProduto.setCellValueFactory(new PropertyValueFactory("materia_prima"));
-        tableColumnItemQuantidade.setCellValueFactory(new PropertyValueFactory("qtde"));
-       
-        ComposicaoDAO dal = new ComposicaoDAO();
-        listaItensComposicao = dal.get(p.getCodigo());
-       
+        
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        if(tabela.getSelectionModel().getSelectedIndex() < 0){
+            cbbMateriaPrima.requestFocus();
+            a.setContentText("Por favor, seleciona um produto na tabela");
+            a.showAndWait();
+        }
+        else{
+            listaItensComposicao = new ArrayList<Composicao>();
+            Produto p = (Produto)tabela.getSelectionModel().getSelectedItem();
+            txtCodigo.setText(""+p.getCodigo());
+            txtNome.setText(""+p.getNome());
+            txtDescricao.setText(""+p.getDescricao());;
+            cbStatus.setSelected(p.isStatus());   
+
+            estadoEdicao();//ok carr txt e chebo, e cbbmp
+            ComposicaoDAO dao = new ComposicaoDAO();
+            listaItensComposicao = dao.get(p.getCodigo());
+            carregaComposicao();//listaItensComposicao 
+            tableColumnItemDeProduto.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+            tableColumnItemQuantidade.setCellValueFactory(new PropertyValueFactory("qtde"));   
+        } 
     }
     
-    
-   
     @FXML
     private void btnApagar(ActionEvent event) {
         
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setContentText("Confirma a exclusão");
-        if (a.showAndWait().get() == ButtonType.OK) {
-           ProdutoDAO dal = new ProdutoDAO();
-           Produto p = tabela.getSelectionModel().getSelectedItem();
-            dal.exclui(p);
-            carregaTabela("");
+        if(tabela.getSelectionModel().getSelectedIndex() < 0){
+            cbbMateriaPrima.requestFocus();
+            a.setContentText("Por favor, seleciona um produto na tabela");
+            a.showAndWait();
         }
+        else{
+            a.setContentText("Confirma a exclusão");
+            if (a.showAndWait().get() == ButtonType.OK) {
+               ProdutoDAO dal = new ProdutoDAO();
+               Produto p = tabela.getSelectionModel().getSelectedItem();
+               dal.exclui(p);
+               //APAGA A LISTA DE COMPOSICAO DO PRODUTO NO BANCO
+               ComposicaoDAO daoComp = new ComposicaoDAO();
+               List<Composicao> listaComp = daoComp.get(p.getCodigo());
+               for (Composicao composicao : listaComp) {
+                        daoComp.exclui(composicao);
+               } 
+               carregaTabela("");
+            }
+        }          
     }
 
     @FXML
     private void btnNovo(ActionEvent event) {
-        
-        ProdutoDAO dao = new ProdutoDAO();
-       // txtCodigo.setText(Integer.toString(dao.ultimoId())); 
+        listaItensComposicao = new ArrayList<Composicao>();
+        txtCodigo.setDisable(true);
+        carregaComposicao();
+        tableColumnItemDeProduto.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+        tableColumnItemQuantidade.setCellValueFactory(new PropertyValueFactory("qtde"));
         estadoEdicao();
     }
 
@@ -158,15 +173,10 @@ public class ProdutoController implements Initializable{
     @FXML
     private void btnConfirma(ActionEvent event) {
          
-//         cbMarcas.getSelectionModel().select(0);
-//        cbMarcas.getSelectionModel().select(m.getMarca());
-//        
         Alert b = new Alert(Alert.AlertType.INFORMATION);
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        Alert d = new Alert(Alert.AlertType.CONFIRMATION);
         String msg ="";
-//        if(txtCodigo.getText().length()==0){
-//             msg+="Por favor, informe o Código do produto\n";
-//            txtCodigo.requestFocus();
-//        }
         if(txtNome.getText().length()==0){
              msg+="Por favor, informe o Nome do produto\n";
              txtNome.requestFocus();
@@ -175,10 +185,7 @@ public class ProdutoController implements Initializable{
             msg+="Por favor, informe a Descrição do produto\n";
             txtDescricao.requestFocus();
         }
-        if(!cbStatus.isSelected()){
-            msg+="Por favor, informe se o produto está ativo\n";
-            cbStatus.requestFocus();
-        }
+        
         if (msg!=""){
            b.setContentText(msg); 
            b.showAndWait();
@@ -191,61 +198,94 @@ public class ProdutoController implements Initializable{
             } catch (Exception e) {
                 cod = 0;
             }
-            Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),true);
+            Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),cbStatus.isSelected());
             ProdutoDAO dal = new ProdutoDAO();
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            if (p.getCodigo() == 0) // novo cadastro
-            {
-                if (dal.insere(p)) {
-                    a.setContentText("Gravado com Sucesso");
-                } else {
-                    a.setContentText("Problemas ao Gravar");
-                }
-            } else //alteração de cadastro
-            {
-                if (dal.altera(p)) {
-                    a.setContentText("Alterado com Sucesso");
-                } else {
-                    a.setContentText("Problemas ao Alterar");
-                }
+            
+            Alert j = new Alert(Alert.AlertType.CONFIRMATION);
+            if(!cbStatus.isSelected() || cbStatus.equals(null)){
+                cbStatus.requestFocus();
+                j.setContentText("Tem certeza que deseje que o produto fique inativo. Verifique o Status");
             }
-            a.showAndWait();
-            estadoOriginal();
+            else
+                 j.setContentText("Confirma a Gravação ?");
+                
+            
+            if (j.showAndWait().get() != ButtonType.OK)
+                    
+                estadoEdicao();
+            else
+            {
+
+                if (p.getCodigo() == 0) // novo cadastro
+                {
+                    int codUltimoIdMaisUm=dal.ultimoId();
+                    if (dal.insere(p)) {
+                       Produto auxPro = dal.busca(codUltimoIdMaisUm);
+
+                          //altero a lista com o novo produto REAL
+                       List<Composicao> listaRealItensProduto = new ArrayList<Composicao>();
+                       for (Composicao comp2 : listaItensComposicao) {
+                           Composicao cb = new Composicao(comp2.getMateria_prima(),auxPro,comp2.getQtde());
+                           listaRealItensProduto.add(cb);
+                       }                  
+                        ComposicaoDAO daoComp = new ComposicaoDAO();
+                           for (Composicao composicao : listaRealItensProduto) {
+                            daoComp.insere(composicao);
+                        } 
+                        listaRealItensProduto=null;
+                        listaItensComposicao=null;
+                        a.setContentText("Gravado com Sucesso");
+                    } else {
+                        a.setContentText("Problemas ao Gravar");
+                    }
+                } 
+                else{
+                    if (dal.altera(p)) {
+
+                        ComposicaoDAO daoComp = new ComposicaoDAO();
+                        List<Composicao> listaexclusao= daoComp.get(cod);
+                        for (Composicao composicao1 : listaexclusao) {
+                            daoComp.exclui(composicao1);
+                        }   
+                        for (Composicao composicao2 : listaItensComposicao) {
+                            daoComp.insere(composicao2);
+                        } 
+                        listaItensComposicao=null;
+
+                        a.setContentText("Alterado com Sucesso");
+                    } 
+                    else {
+                        a.setContentText("Problemas ao Alterar");
+                    }
+                }
+                a.showAndWait();
+                estadoOriginal();   
+            }  
         } 
     }
 
     @FXML
     private void btnCancelar(ActionEvent event) {
-        
-//        ComposicaoDAO daoComp = new ComposicaoDAO();
-//        Composicao comp=null;
-//        for(int i=0;i<listaItensComposicao.size();i++){
-//            comp=listaItensComposicao.remove(i);
-//            daoComp.exclui(comp);
-//        }
-//        for(int i=0;i<listaItensComposicaoRetirado.size();i++){
-//            comp=listaItensComposicao.remove(i);
-//            daoComp.insere(comp);
-//        }
+        listaItensComposicao=null;
         estadoOriginal();
     }
     
-     private void carregaTabela(String filtro) {
+    private void carregaTabela(String filtro) {
         ProdutoDAO dal = new ProdutoDAO();
-        List<Produto> res = dal.get(filtro);
+        List<Produto> res = dal.lista();
         ObservableList<Produto> produto;
         produto = FXCollections.observableArrayList(res);
         tabela.setItems(produto);
     }
-     private void carregaComposicao(int codigo) {
-        ComposicaoDAO dal = new ComposicaoDAO();
-        List<Composicao> res = dal.get(codigo);
+    
+    private void carregaComposicao() {
+        List<Composicao> res = listaItensComposicao;//dal.get(codigo);
         ObservableList<Composicao> mp;
         mp = FXCollections.observableArrayList(res);
         tableViewItensDeProduto.setItems(mp);
     }
     
-     private void carregaMateriaPrima() {
+    private void carregaMateriaPrima() {
         MateriaPrimaDAO dal = new MateriaPrimaDAO();
         List<MateriaPrima> res = dal.get("");
         ObservableList<MateriaPrima> mp;
@@ -253,16 +293,15 @@ public class ProdutoController implements Initializable{
         cbbMateriaPrima.setItems(mp);
     }
      
-     private void estadoOriginal() {
+    private void estadoOriginal() {
         PainelCentral.setDisable(true);
         PainelLateral.setDisable(false);
         txtCodigo.setText("");
         txtNome.setText("");
         txtDescricao.setText("");
+        txtQtde.setText("");
         cbStatus.setSelected(false);
         cbbMateriaPrima.getSelectionModel().select(0);
-        
-
         ObservableList<Node> componentes = PainelLateral.getChildren(); //”limpa” os componentes
         for (Node n : componentes) {
             if (n instanceof TextInputControl) // textfield, textarea e htmleditor
@@ -270,21 +309,16 @@ public class ProdutoController implements Initializable{
                 ((TextInputControl) n).setText("");
             }
         }
-
         carregaTabela("");
     }
-      private void estadoEdicao() {     
-        
-        
+    private void estadoEdicao() {     
         PainelCentral.setDisable(false);
         PainelLateral.setDisable(true);
+        txtCodigo.setDisable(true);
         txtNome.requestFocus();
-        cbStatus.setSelected(true);
         carregaMateriaPrima();
-        
-        
-        
-         ObservableList<Node> componentes = PainelCentral.getChildren(); //”limpa” os componentes
+        txtQtde.setText("");
+        ObservableList<Node> componentes = PainelCentral.getChildren(); //”limpa” os componentes
         for (Node n : componentes) {
             if (n instanceof TextInputControl) // textfield, textarea e htmleditor
             {
@@ -293,24 +327,21 @@ public class ProdutoController implements Initializable{
              if (n instanceof ComboBox) {
                 ((ComboBox) n).getItems().clear();
             }
-        }
-        
+        } 
     }
 
     @FXML
     private void btnMaisItens(ActionEvent event) {
         
         Alert b = new Alert(Alert.AlertType.INFORMATION);
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         String msg ="";
-        
-       
-         int qtde =0;
+         int qtde;
             try {
                 qtde =Integer.parseInt(txtQtde.getText());// qtde da materia prima(composicao)informada
             } catch (Exception e) {
                 qtde = 0;
             }
-        
         if(qtde==0){
             msg+="Por favor, informe uma maior que zero\n";
             txtQtde.requestFocus();
@@ -324,53 +355,77 @@ public class ProdutoController implements Initializable{
            b.setContentText(msg); 
            b.showAndWait();
         }
-        else{
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
+        else
+        {        
+            Produto pro =null;
+            Composicao comp=null;
             int cod;
-            try {
-                cod = Integer.parseInt(txtCodigo.getText());//codigo do produto
-            } catch (Exception e) {
-                cod = 0;
-            }
-            
-            try {
-                qtde =Integer.parseInt(txtQtde.getText());// qtde da materia prima(composicao)informada
-            } catch (Exception e) {
-                qtde = 0;
+            try
+            {
+                cod = Integer.parseInt(txtCodigo.getText());//codigo do produto caso não seja novo
+            } 
+            catch (Exception e) 
+            {
+                cod = 0;//produto novo
             }
             MateriaPrima mp = (MateriaPrima)cbbMateriaPrima.getSelectionModel().getSelectedItem();//busca a materia prima
-            ProdutoDAO daoPro = new ProdutoDAO();
-            Produto pro = daoPro.busca(cod); // acha o produto
-            ComposicaoDAO daoComp = new ComposicaoDAO();
-            Composicao comp = new Composicao(mp,pro,qtde);
-            
-                if (daoComp.insere(comp)) {
-                    a.setContentText("Gravado com Sucesso");
-                    cbbMateriaPrima.requestFocus();
-                } else {
-                    a.setContentText("Problemas ao Gravar");
-                }
+            ProdutoDAO daoPro = new ProdutoDAO();          
+            if(cod==0)
+            {
+                int auxcod= daoPro.ultimoId();// busca o ultimo ID no banco para poder ter um produto para instanciar o produto
+                pro = new Produto(auxcod+1);
+                comp = new Composicao(mp,pro,qtde);   
+            }
+            else
+            {
+                pro = daoPro.busca(cod); // acha o produto
+                comp = new Composicao(mp,pro,qtde);
+            }
+            a.setContentText("Confirma a inserção da matéria prima");
 
-            a.showAndWait();
-            carregaComposicao(comp.getProduto().getCodigo());
-        
-        }
+            if (a.showAndWait().get() == ButtonType.OK){   
+//
+              if (listaItensComposicao.add(comp)){
+                   b.setContentText("Inserido com Sucesso");
+                   cbbMateriaPrima.requestFocus();
+                }
+            } 
+            else{
+                b.setContentText("Problemas ao Inserir");
+            }  
+            b.showAndWait();
+         //   a.showAndWait();
+            carregaComposicao();
+        } 
     }
 
     @FXML
     private void btnMenosItens(ActionEvent event) {
         
-         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-        a.setContentText("Confirma a exclusão");
-        if (a.showAndWait().get() == ButtonType.OK) {
-           ComposicaoDAO dal = new ComposicaoDAO();
-           Composicao p = tableViewItensDeProduto.getSelectionModel().getSelectedItem();
-           listaItensComposicaoRetirado.add(p);
-           dal.exclui(p);
-            carregaComposicao(p.getProduto().getCodigo());
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        if(tableViewItensDeProduto.getSelectionModel().getSelectedIndex() < 0){
+            cbbMateriaPrima.requestFocus();
+            a.setContentText("Por favor, seleciona um item na tabela");
+            a.showAndWait();
+        }
+        else{
+            a.setContentText("Confirma a exclusão");
+            if (a.showAndWait().get() == ButtonType.OK){   
+                Composicao p = tableViewItensDeProduto.getSelectionModel().getSelectedItem();
+                listaItensComposicao.remove(p);
+                carregaComposicao();
+            }   
         }
     }
+    
+    @FXML
+    private void evtProduto(ActionEvent event) {
+    }
 
+    @FXML
+    private void evtRelatorio(ActionEvent event) {
+    }
+            
 
     
 }
