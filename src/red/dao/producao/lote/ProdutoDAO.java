@@ -149,4 +149,23 @@ public class ProdutoDAO {
         }
         return false;
     }
+    
+    public int QtdProduto()
+    {
+        String sql = "select count(*) from produto;";
+        int qtd=0;
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        if(rs.next()){
+                                    qtd=rs.getInt("count");
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }           
+        return qtd;
+    }
 }

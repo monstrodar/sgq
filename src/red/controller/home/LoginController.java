@@ -20,7 +20,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javax.swing.JOptionPane;
 import red.model.colaborador.Colaborador;
+import red.model.producao.lote.Produto;
 import util.ColaboradorLogado;
+import red.dao.producao.lote.ProdutoDAO;
 
 /**
  * FXML Controller class
@@ -42,6 +44,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Colaborador c = new Colaborador();
+        ProdutoDAO p = new ProdutoDAO();
         if(c.FirstAcssesNecessary() == 0)
         {
             AnchorPane a;
@@ -57,8 +60,20 @@ public class LoginController implements Initializable {
         }
         else
         {
-            // verificar o produto       
-                
+            // verificar o produto
+            if(p.QtdProduto() == 0)
+            {
+                AnchorPane a;
+                try 
+                {
+                    a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
+                    pane.getChildren().setAll(a);
+                } 
+                catch (IOException ex) 
+                {
+                    Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }    
 
