@@ -26,6 +26,10 @@ public class Produto {
         this.status = status;
  
     }
+    public Produto(int codigo) {
+        this.codigo = codigo;
+        
+    }
 
     public Produto() {
     }
