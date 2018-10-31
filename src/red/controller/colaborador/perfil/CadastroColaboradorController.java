@@ -205,66 +205,74 @@ public class CadastroColaboradorController implements Initializable {
                 {
                     if(txcelular.getText().trim().equals(""))
                     {
-                        if(!txcpf.getText().trim().equals("") && txcpf.getText().length() == 14) // remover a verificacao do lenght 14 e colocar no outro if
+                        String cpfA;
+                        cpfA = txcpf.getText();
+                        cpfA = cpfA.replaceAll("\\.", "");
+                        cpfA = cpfA.replaceAll("/", "");
+                        cpfA = cpfA.replaceAll("-", "");
+                        if(!cpfA.trim().equals("")) // remover a verificacao do lenght 14 e colocar no outro if
                         {
                             //fazer as varidacoes;
-                            String cpfA;
-                            cpfA = txcpf.getText();
-                            cpfA = cpfA.replaceAll(".", "");
-                            cpfA = cpfA.replaceAll("/", "");
-                            cpfA = cpfA.replaceAll("-", "");//460.005.538/11
-                            int dig1, dig2;
-                            dig1 = PrimeiroDigito(cpfA);
-                            dig2 = SegundoDigito(cpfA);
-                            if(cpfA.charAt(9) == dig1 && cpfA.charAt(10) == dig2)
+//460.005.538/11
+                            if(cpfA.length() == 14)
                             {
-                                int nivel;
-                                if(rbbasico.isSelected())
-                                    nivel = 1;
-                                else
-                                    if(rbauditor.isSelected())
-                                        nivel = 2;
-                                    else
-                                       nivel = 3; 
-                                Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), nivel, txcelular.getText());
-                                if(colA.getCodigo() == 0)
-                                {
-                                    if(c.gravar(c))
-                                    {
-                                        JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
-                                        limpar();
-                                        Original();
-                                        if(firstAc)
-                                        {
-                                            AnchorPane a;
-                                            try 
-                                            {
-                                                a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/homr/Login.fxml"));
-                                                painelTotal.getChildren().setAll(a);
-                                            } 
-                                            catch (IOException ex) 
-                                            {
-                                                Logger.getLogger(CadastroColaboradorController.class.getName()).log(Level.SEVERE, null, ex);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                         JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
-                                    }
-                                }
-                                else
-                                {
-                                    c.setCodigo(colA.getCodigo());
-                                    if(c.alterar(c))
-                                    {
-                                        JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
-                                        limpar();
-                                        Original();
-                                    }
-                                    else
-                                        JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
-                                }    
+                              int dig1, dig2;
+                              dig1 = PrimeiroDigito(cpfA);
+                              dig2 = SegundoDigito(cpfA);  
+                              if(cpfA.charAt(9) == dig1 && cpfA.charAt(10) == dig2)
+                              {
+                                  int nivel;
+                                  if(rbbasico.isSelected())
+                                      nivel = 1;
+                                  else
+                                      if(rbauditor.isSelected())
+                                          nivel = 2;
+                                      else
+                                         nivel = 3; 
+                                  Colaborador c = new Colaborador(0, txnome.getText(), txsenha.getText(), txcargo.getText(), true, txcpf.getText(), nivel, txcelular.getText());
+                                  if(colA.getCodigo() == 0)
+                                  {
+                                      if(c.gravar(c))
+                                      {
+                                          JOptionPane.showMessageDialog(null, "Gravado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                          limpar();
+                                          Original();
+                                          if(firstAc)
+                                          {
+                                              AnchorPane a;
+                                              try 
+                                              {
+                                                  a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/homr/Login.fxml"));
+                                                  painelTotal.getChildren().setAll(a);
+                                              } 
+                                              catch (IOException ex) 
+                                              {
+                                                  Logger.getLogger(CadastroColaboradorController.class.getName()).log(Level.SEVERE, null, ex);
+                                              }
+                                          }
+                                      }
+                                      else
+                                      {
+                                           JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                                      }
+                                  }
+                                  else
+                                  {
+                                      c.setCodigo(colA.getCodigo());
+                                      if(c.alterar(c))
+                                      {
+                                          JOptionPane.showMessageDialog(null, "Alterado com sucesso", "Informacao", JOptionPane.INFORMATION_MESSAGE);
+                                          limpar();
+                                          Original();
+                                      }
+                                      else
+                                          JOptionPane.showMessageDialog(null, "Erro ao gravar", "Erro", JOptionPane.ERROR_MESSAGE);
+                                  }    
+                              }  
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(null, "CPF invaliddo!", "Erro", JOptionPane.ERROR_MESSAGE);
                             }
                         }
                         else
