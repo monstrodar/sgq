@@ -45,53 +45,70 @@
                            <children>
                               <Label text="Nome" textFill="DARKGREEN">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font></Label>
                               <Label text="Quantidade" textFill="DARKGREEN" GridPane.rowIndex="3">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font></Label>
                               <Label text="Matéria Prima" textFill="DARKGREEN" GridPane.rowIndex="2">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font></Label>
                               <TableView fx:id="tableViewItensDeProduto" prefHeight="246.0" prefWidth="392.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <columns>
-                                    <TableColumn fx:id="tableColumnItemDeProduto" prefWidth="274.0" text="Matéria Prima" />
-                                    <TableColumn fx:id="tableColumnItemQuantidade" prefWidth="112.0" text="Quantidade" />
+                                    <TableColumn fx:id="tableColumnItemDeProduto" prefWidth="274.0" style="-fx-font-size: 16;" text="Matéria Prima" />
+                                    <TableColumn fx:id="tableColumnItemQuantidade" prefWidth="112.0" style="-fx-font-size: 16;" text="Quantidade" />
                                  </columns>
                               </TableView>
                               <Label text="Itens" textFill="DARKGREEN" GridPane.rowIndex="4">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font></Label>
                               <Label text="Descrição" textFill="DARKGREEN" GridPane.rowIndex="1">
                                  <font>
-                                    <Font name="System Bold" size="12.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <JFXTextField fx:id="txtDescricao" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <JFXTextField fx:id="txtDescricao" alignment="BOTTOM_LEFT" opacity="0.8" prefHeight="25.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtNome" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1">
+                              <JFXTextField fx:id="txtNome" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
                               </JFXTextField>
-                              <JFXTextField fx:id="txtQtde" alignment="BOTTOM_LEFT" opacity="0.45" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <JFXTextField fx:id="txtQtde" alignment="BOTTOM_LEFT" opacity="0.85" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <GridPane.margin>
                                     <Insets right="250.0" />
                                  </GridPane.margin>
-                              </JFXTextField>
-                              <JFXComboBox fx:id="cbbMateriaPrima" opacity="0.66" prefHeight="25.0" prefWidth="238.0" promptText="           Selecione a matéria prima" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" onAction="#btnItem" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
-                                    <Font name="System Bold" size="14.0" />
+                                    <Font size="16.0" />
+                                 </font>
+                              </JFXTextField>
+                              <JFXComboBox fx:id="cbbMateriaPrima" opacity="0.88" prefHeight="25.0" prefWidth="238.0" promptText="     Selecione a matéria prima" style="-fx-font-size: 14;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button mnemonicParsing="false" onAction="#btnMaisItens" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
                                  </font>
                                  <GridPane.margin>
                                     <Insets left="300.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#btnMenosItens" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: red; -fx-border-color: gray;" text="- Item" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="200.0" />
                                  </GridPane.margin>
                               </Button>
                            </children>
@@ -100,11 +117,11 @@
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.0" minWidth="10.0" prefWidth="392.0" />
                            </columnConstraints>
                            <rowConstraints>
-                              <RowConstraints maxHeight="34.0" minHeight="30.0" prefHeight="30.0" />
-                              <RowConstraints maxHeight="39.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="236.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="42.0" minHeight="30.0" prefHeight="42.0" />
+                              <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="217.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
                         <Label layoutX="74.0" layoutY="104.0" text="Código:" textFill="DARKGREEN">
@@ -112,7 +129,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="276.0" layoutY="22.0" text=" Cadastro Produto" textFill="DARKGREEN">
+                        <Label layoutX="276.0" layoutY="22.0" text="Cadastro Produto" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>
@@ -122,16 +139,19 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton fx:id="rbStatus" layoutX="529.0" layoutY="106.0" text="Ativado" />
-                        <JFXTextField fx:id="txtCodigo" alignment="BOTTOM_LEFT" layoutX="210.0" layoutY="103.0" opacity="0.45" prefHeight="25.0" prefWidth="232.0" />
+                        <JFXCheckBox fx:id="cbStatus" layoutX="538.0" layoutY="106.0" text="Ativo" />
+                        <JFXTextField fx:id="txtCodigo" alignment="BOTTOM_LEFT" layoutX="210.0" layoutY="97.0" opacity="0.8" prefHeight="30.0" prefWidth="83.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font></JFXTextField>
                         <Button layoutX="489.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnConfirma" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
                         <Button layoutX="355.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="32.0" prefWidth="118.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
                      </children>
@@ -168,7 +188,7 @@
                         </HBox>
                         <TableView fx:id="tabela" prefHeight="460.0" prefWidth="293.0">
                           <columns>
-                            <TableColumn fx:id="tableViewNomeProduto" prefWidth="293.0" text="Produto" />
+                            <TableColumn fx:id="tableViewNomeProduto" prefWidth="293.0" style="-fx-font-size: 16;" text="Produto" />
                           </columns>
                         </TableView>
                         <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" prefWidth="274.0" spacing="5.0" style="-fx-background-color: gray;">
