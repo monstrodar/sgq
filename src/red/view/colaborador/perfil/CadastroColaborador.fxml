@@ -158,6 +158,7 @@
                                        </HBox.margin></Button>
                                  </children>
                               </HBox>
+                              <TextField fx:id="txcodigo" prefHeight="25.0" prefWidth="191.0" />
                            </children>
                            <padding>
                               <Insets left="10.0" right="110.0" />

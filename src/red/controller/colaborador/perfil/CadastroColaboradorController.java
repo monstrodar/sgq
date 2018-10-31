@@ -84,12 +84,15 @@ public class CadastroColaboradorController implements Initializable {
     
     private Colaborador colA;
     private boolean firstAc;
+    @FXML
+    private TextField txcodigo;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        txcodigo.setVisible(false);
         Colaborador c = new Colaborador();
         firstAc = c.FirstAcssesNecessary() == 0;
         if(firstAc)
@@ -99,7 +102,8 @@ public class CadastroColaboradorController implements Initializable {
         else
         {
             Original();
-        }
+        }       
+        
     }    
 
 
@@ -133,21 +137,22 @@ public class CadastroColaboradorController implements Initializable {
     @FXML
     private void clkAlterar(ActionEvent event) 
     {
-        colA = new Colaborador();
-        colA = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
+        Colaborador c = new Colaborador();
+        c = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
         
-        txnome.setText(""+colA.getNome());
-        txcpf.setText(""+colA.getCpf());
-        txcelular.setText(""+colA.getCelular());
-        txcargo.setText(""+colA.getCargo());
-        txsenha.setText(""+colA.getSenha());
-        switch(colA.getNivel())
+        txnome.setText(""+c.getNome());
+        txcpf.setText(""+c.getCpf());
+        txcelular.setText(""+c.getCelular());
+        txcargo.setText(""+c.getCargo());
+        txsenha.setText(""+c.getSenha());
+        switch(c.getNivel())
         {
             case 0: rbbasico.setSelected(true);  break;
             case 1: rbauditor.setSelected(true); break;
             default: rbadministrador.setSelected(true);
         }
         txsenha1.setText("");
+        txcodigo.setText(""+c.getCodigo());
         Editando();
     }
 
@@ -156,16 +161,16 @@ public class CadastroColaboradorController implements Initializable {
     {
         if(JOptionPane.showConfirmDialog(null, "Deseja realmente excluir esse Colaborador?", "Confirmacao", JOptionPane.INFORMATION_MESSAGE) == 1)
         {
-            colA = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
-            if(colA.getNivel() == 2)
+            Colaborador c = (Colaborador) lvcolaboradores.getSelectionModel().getSelectedItem();
+            if(c.getNivel() == 2)
             {
-                if(colA.ReturnQtdColaboradorNivel(colA.getNivel()) == 1)
+                if(c.ReturnQtdColaboradorNivel(c.getNivel()) == 1)
                 {
                     JOptionPane.showMessageDialog(null, "Nao é possivel excluir o colaborador pelo fato de existir somente 1 colaborador como administrador ", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
                 else
                 {
-                    if(colA.excluir(colA.getCodigo()))
+                    if(c.excluir(c.getCodigo()))
                         JOptionPane.showMessageDialog(null, "Colaborador excluido com suceso", "Erro", JOptionPane.ERROR_MESSAGE);
                     else
                         JOptionPane.showMessageDialog(null, "Erro ao excluir", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -186,6 +191,7 @@ public class CadastroColaboradorController implements Initializable {
     private void clkNovo(ActionEvent event) 
     {
         Editando();
+        txcodigo.setText("0");
     }
 
     @FXML
@@ -199,7 +205,7 @@ public class CadastroColaboradorController implements Initializable {
                 {
                     if(txcelular.getText().trim().equals(""))
                     {
-                        if(!txcpf.getText().trim().equals("") && txcpf.getText().length() == 14)
+                        if(!txcpf.getText().trim().equals("") && txcpf.getText().length() == 14) // remover a verificacao do lenght 14 e colocar no outro if
                         {
                             //fazer as varidacoes;
                             String cpfA;
@@ -290,7 +296,8 @@ public class CadastroColaboradorController implements Initializable {
 
     @FXML
     private void clCancelar(ActionEvent event) {
-        
+        limpar();
+        Original();
     }
     
       @FXML
@@ -314,6 +321,8 @@ public class CadastroColaboradorController implements Initializable {
     private void StatusFirstAcsses()
     {
         txnome.setText("adm");
+        txcodigo.setText("0");
+        txcodigo.setVisible(false);
         txnome.setEditable(false);
         btAlterar.setDisable(false);
         btApagar.setDisable(false);
@@ -370,6 +379,7 @@ public class CadastroColaboradorController implements Initializable {
         txcargo.setText("");
         txsenha.setText("");
         txsenha1.setText("");
+        txcodigo.setText("");
     }
     
     private int PrimeiroDigito(String cpf)
