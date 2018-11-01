@@ -149,31 +149,26 @@ public class ProdutoDAO {
         }
         return false;
     }
-     public List<Produto> get(String filtro)
-    {   
-       
-        String sql="select * from produto";
-        if (!filtro.isEmpty())
-           sql+=" where "+filtro +"order by pro_nome;";
-         List<Produto> lista =new ArrayList<>();
+    
+    public int QtdProduto()
+    {
+        String sql = "select count(*) from produto;";
+        int qtd=0;
         try (Connection conn = Conecta.abreConexaoBanco()){
             if(conn !=null){
                 try(PreparedStatement ps = conn.prepareStatement(sql)) {
                     try(ResultSet rs = ps.executeQuery()) {
-                        while(rs.next()){
-                            lista.add(new Produto(rs.getInt("pro_codigo"),
-                                    rs.getString("pro_nome"), 
-                                    rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status"))
-                            );
+                        if(rs.next()){
+                                    qtd=rs.getInt("count");
                         }
                     } 
                 } 
             }
         } catch (SQLException e) {
-        }              
-        return lista;
+        }           
+        return qtd;
     }
+    
      public List<Produto> pesquisa(String chave){
         
         String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
@@ -196,4 +191,5 @@ public class ProdutoDAO {
         }              
         return lista;
     }
+
 }

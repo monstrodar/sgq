@@ -5,14 +5,15 @@
  */
 package red.controller.home;
 
+
 import java.sql.Connection;
-import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import red.dao.util.Conecta;
+import red.model.colaborador.Colaborador;
 
 /**
  *
@@ -21,11 +22,10 @@ import red.dao.util.Conecta;
 public class Red extends Application {
     
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception 
+    {
         Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
-        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
    //     stage.setFullScreen(true);
 
@@ -33,7 +33,7 @@ public class Red extends Application {
       //  stage.setResizable(false);//Desativa o redimensionar:
        // stage.initStyle(StageStyle.UNDECORATED);//Remove os 3 botões e a borda:
 
-        try (Connection conn = Conecta.abreConexaoBanco()) {
+try (Connection conn = Conecta.abreConexaoBanco()) {
             
             if (conn != null) {
                 System.out.println("conectado no banco red");
@@ -43,22 +43,12 @@ public class Red extends Application {
             
         }
        
-        stage.setTitle("Sistema de Gestão de Qualidade");
+        stage.setTitle("Sistema de GestÃ£o de Qualidade");
         stage.show();
-        
-        
-        
-        
-
-        
-        
-    }
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        launch(args);
+
     }
-    
 }

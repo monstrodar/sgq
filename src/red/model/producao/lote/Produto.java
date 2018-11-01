@@ -17,6 +17,8 @@ public class Produto {
     private int codigo;
     private String nome;
     private String descricao;
+
+
     private boolean status;
 
     public Produto(int codigo, String nome, String descricao, boolean status) {
@@ -31,8 +33,6 @@ public class Produto {
         
     }
 
-    public Produto() {
-    }
 
     public int getCodigo() {
         return codigo;
@@ -64,10 +64,6 @@ public class Produto {
 
     public void setStatus(boolean status) {
         this.status = status;
+
     }
-    
-    
-    
-    
-    
 }

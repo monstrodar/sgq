@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.home.PrincipalController">
+<AnchorPane id="AnchorPane" fx:id="painelPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.home.PrincipalController">
    <children>
       <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -77,24 +79,24 @@
                   <Insets left="240.0" top="150.0" />
                </padding>
             </Label>
-            <JFXButton onAction="#clickDoc" prefHeight="270.0" prefWidth="640.0" style="-fx-background-image: #8FBC8F;" text="DOC" textFill="DARKGREEN">
+            <JFXButton fx:id="doc" onAction="#clickDoc" prefHeight="270.0" prefWidth="640.0" style="-fx-background-image: #8FBC8F;" text="DOC" textFill="DARKGREEN">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font>
             </JFXButton>
-            <JFXButton prefHeight="270.0" prefWidth="640.0" text="DIRECTION" textFill="DARKGREEN" GridPane.rowIndex="1">
+            <JFXButton fx:id="direction" prefHeight="270.0" prefWidth="640.0" text="DIRECTION" textFill="DARKGREEN" GridPane.rowIndex="1">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font></JFXButton>
-            <JFXButton onAction="#acaoColaborador" prefHeight="270.0" prefWidth="640.0" text="RESOURSE" textFill="DARKGREEN" GridPane.rowIndex="2">
+            <JFXButton fx:id="resourse" onAction="#acaoColaborador" prefHeight="270.0" prefWidth="640.0" text="RESOURSE" textFill="DARKGREEN" GridPane.rowIndex="2">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font></JFXButton>
-            <JFXButton onAction="#acaoProducao" prefHeight="270.0" prefWidth="640.0" text="PRODUCTION" textFill="DARKGREEN" GridPane.columnIndex="1">
+            <JFXButton fx:id="production" onAction="#acaoProducao" prefHeight="270.0" prefWidth="640.0" text="PRODUCTION" textFill="DARKGREEN" GridPane.columnIndex="1">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font></JFXButton>
-            <JFXButton prefHeight="270.0" prefWidth="640.0" text="MEASUREMENT" textFill="DARKGREEN" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton fx:id="measurement" prefHeight="270.0" prefWidth="640.0" text="MEASUREMENT" textFill="DARKGREEN" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font></JFXButton>
@@ -106,7 +108,7 @@
                   <Insets left="170.0" top="150.0" />
                </padding>
             </Label>
-            <JFXButton onAction="#acaoParametrizacao" prefHeight="270.0" prefWidth="640.0" text="PARAMETRIZAÇÃO" textFill="DARKGREEN" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <JFXButton fx:id="parametrizacao" onAction="#acaoParametrizacao" prefHeight="270.0" prefWidth="640.0" text="PARAMETRIZAÇÃO" textFill="DARKGREEN" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="48.0" />
                </font></JFXButton>

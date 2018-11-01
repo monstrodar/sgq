@@ -33,10 +33,14 @@ import red.model.util.UF;
  */
 public class ParametrizacaoController implements Initializable{
 
+
     @FXML
     private AnchorPane painelTotal;
     @FXML
     private TextField txtRazaoSocial;
+
+
+
     @FXML
     private TextField txtCnpj;
     @FXML
