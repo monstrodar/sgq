@@ -14,10 +14,8 @@ import java.util.List;
 import red.dao.producao.aquisicao.MateriaPrimaDAO;
 import red.dao.util.Conecta;
 import red.model.producao.aquisicao.MateriaPrima;
-import red.model.producao.lote.Composicao;
 import red.model.producao.lote.ItensSaida;
 import red.model.producao.lote.MontagemLote;
-import red.model.producao.lote.Produto;
 
 /**
  *
