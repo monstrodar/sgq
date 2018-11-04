@@ -18,7 +18,7 @@ import red.model.producao.lote.Produto;
 
 /**
  *
- * @author Daniel
+ * @author Daniel Ramiro
  */
 public class MontagemLoteDAO {
     

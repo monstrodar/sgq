@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import red.dao.util.Conecta;
 import red.model.producao.aquisicao.MateriaPrima;
-import red.model.producao.lote.Produto;
 
 /**
  *
