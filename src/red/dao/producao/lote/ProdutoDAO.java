@@ -35,7 +35,7 @@ public class ProdutoDAO {
     }
     
     public Produto busca(int codigo) {
-        String sql = "select pro_codigo, pro_nome, pro_descricao, pro_status from produto where pro_codigo = ? ";
+        String sql = "select pro_codigo,pro_nome, pro_descricao, pro_status from produto where pro_codigo = ? ";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement st = conn.prepareStatement(sql)) {

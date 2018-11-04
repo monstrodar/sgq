@@ -5,9 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import red.conexcao.Conexao;
+import red.dao.util.Conecta;
+import red.model.producao.lote.Produto;
 
 /**
  *
@@ -337,4 +340,71 @@ public class Colaborador
         
         return c;
     }
+    
+    ////////////////////////DANIEL CRIOU ESSAS CLASSES ABAIXO, NÃO ALTERI NEHUMA CLASSE SUA.
+    
+    public Colaborador busca(int codigo) {
+        String sql = "select * from colaborador where col_codigo = ? ";
+        try (Connection conn = Conecta.abreConexaoBanco()) {
+            if (conn != null) {
+                try (PreparedStatement st = conn.prepareStatement(sql)) {
+                    st.setInt(1, codigo);
+                    try (ResultSet rs = st.executeQuery()) {
+                        if (rs.next()) {
+                            return new Colaborador(rs.getInt("col_codigo"),
+                                            rs.getString("col_nome"),
+                                            rs.getString("col_senha"), 
+                                            rs.getString("col_cargo"), 
+                                            rs.getBoolean("col_status"),
+                                            rs.getString("col_cpf"),
+                                            rs.getInt("col_nivel"), 
+                                            rs.getString("col_celular"));
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        }
+        return null;
+    }
+      public List<Colaborador> lista(){
+        
+        String sql="select col_codigo, col_nome, col_senha, col_cargo, col_status, col_cpf, col_nivel, col_celular from colaborador ";
+      List<Colaborador> lista =new ArrayList<>();
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+
+                            lista.add(new  Colaborador(rs.getInt("col_codigo"),
+                                            rs.getString("col_nome"),
+                                            rs.getString("col_senha"), 
+                                            rs.getString("col_cargo"), 
+                                            rs.getBoolean("col_status"),
+                                            rs.getString("col_cpf"),
+                                            rs.getInt("col_nivel"), 
+                                            rs.getString("col_celular")));
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
