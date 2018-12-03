@@ -73,4 +73,10 @@ public class Produto {
     }
     
     
+    @Override
+    public boolean equals(Object ob){
+        
+        
+        return ob instanceof Produto && this.codigo==((Produto)ob).getCodigo();
+    }
 }

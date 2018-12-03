@@ -152,11 +152,12 @@ public class ComposicaoDAO {
         return lista;
     }
     public boolean exclui(Composicao p) {
-        String sql = "delete from composicao where mp_codigo = ?;";
+        String sql = "delete from composicao where mp_codigo = ? and pro_codigo=?;";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
                     ps.setInt(1, p.getMateria_prima().getCodigo());
+                     ps.setInt(2, p.getProduto().getCodigo());
                     ps.executeUpdate();
                     return true;
                 }

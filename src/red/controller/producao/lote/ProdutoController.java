@@ -79,6 +79,10 @@ public class ProdutoController implements Initializable{
     private JFXCheckBox cbStatus;
     
     private List<Composicao> listaItensComposicao=null;
+    @FXML
+    private JFXCheckBox cbStatusBuscaAtivo;
+    @FXML
+    private JFXCheckBox cbStatusBuscaInativo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -98,16 +102,47 @@ public class ProdutoController implements Initializable{
     @FXML
     private void btnBuscar(ActionEvent event) {
         
-        if(txtPesquisa.getText()==""){
-            carregaTabela("");
+        if(txtPesquisa.getText().isEmpty() && !cbStatusBuscaAtivo.isSelected() && !cbStatusBuscaInativo.isSelected()){
+
+                  carregaTabela("");
         }
-        else{
+        else if(txtPesquisa.getText().isEmpty() && cbStatusBuscaAtivo.isSelected() && !cbStatusBuscaInativo.isSelected())
+        {
+                  ProdutoDAO dal = new ProdutoDAO();
+                  List<Produto> res = dal.listaAtivo();
+                  ObservableList<Produto> produto;
+                  produto = FXCollections.observableArrayList(res);
+                  tabela.setItems(produto);
+        }
+        else if (txtPesquisa.getText().isEmpty() && !cbStatusBuscaAtivo.isSelected() && cbStatusBuscaInativo.isSelected())
+        {
+                  ProdutoDAO dal = new ProdutoDAO();
+                  List<Produto> res = dal.listaInativo();
+                  ObservableList<Produto> produto;
+                  produto = FXCollections.observableArrayList(res);
+                  tabela.setItems(produto);   
+        }else if(!txtPesquisa.getText().isEmpty() && !cbStatusBuscaAtivo.isSelected() && !cbStatusBuscaInativo.isSelected())
+        {
             ProdutoDAO dal = new ProdutoDAO();
             List<Produto> res = dal.pesquisa(txtPesquisa.getText().toUpperCase());
             ObservableList<Produto> produto;
             produto = FXCollections.observableArrayList(res);
             tabela.setItems(produto);   
-        }   
+        } 
+        else if(txtPesquisa.getText().isEmpty() && cbStatusBuscaAtivo.isSelected() && !cbStatusBuscaInativo.isSelected()){
+            ProdutoDAO dal = new ProdutoDAO();
+            List<Produto> res = dal.pesquisaAtivo(txtPesquisa.getText().toUpperCase());
+            ObservableList<Produto> produto;
+            produto = FXCollections.observableArrayList(res);
+            tabela.setItems(produto);   
+        } 
+          else{
+            ProdutoDAO dal = new ProdutoDAO();
+            List<Produto> res = dal.pesquisaInativo(txtPesquisa.getText().toUpperCase());
+            ObservableList<Produto> produto;
+            produto = FXCollections.observableArrayList(res);
+            tabela.setItems(produto);   
+        } 
         txtPesquisa.requestFocus();
    } 
 
@@ -189,89 +224,99 @@ public class ProdutoController implements Initializable{
             msg+="Por favor, informe a Descrição do produto\n";
             txtDescricao.requestFocus();
         }
+        if(listaItensComposicao.isEmpty() && cbStatus.isSelected()){
+            msg+="Não é possível cadastrar um produto ativo sem itens de composição\n";
+            txtDescricao.requestFocus();
+        }
         
         if (msg!=""){
            b.setContentText(msg); 
            b.showAndWait();
         }
-        else{
+        else
+        {
             
-            int cod;
-            try {
-                cod = Integer.parseInt(txtCodigo.getText());
-            } catch (Exception e) {
-                cod = 0;
-            }
-            Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),cbStatus.isSelected());
-            ProdutoDAO dal = new ProdutoDAO();
-            
-            Alert j = new Alert(Alert.AlertType.CONFIRMATION);
-            if(!cbStatus.isSelected() || cbStatus.equals(null)){
-                cbStatus.requestFocus();
-                j.setContentText("Tem certeza que deseje que o produto fique inativo. Verifique o Status");
-            }
-            else
-                 j.setContentText("Confirma a Gravação ?");
-                
-            
-            if (j.showAndWait().get() != ButtonType.OK)
-                    
-                estadoEdicao();
-            else
-            {
+                  int cod;
+                  try {
+                           cod = Integer.parseInt(txtCodigo.getText());
+                  } catch (Exception e) {
+                           cod = 0;
+                  }
+                  Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),cbStatus.isSelected());
+                  ProdutoDAO dal = new ProdutoDAO();
 
-                if (p.getCodigo() == 0) // novo cadastro
-                {
-                    int codUltimoIdMaisUm=dal.ultimoId();
-                    if (dal.insere(p)) {
-                       Produto auxPro = dal.busca(codUltimoIdMaisUm);
+                  Alert j = new Alert(Alert.AlertType.CONFIRMATION);
+                  if(!cbStatus.isSelected() || cbStatus.equals(null)){
+                           cbStatus.requestFocus();
+                            j.setContentText("Cadastrar produto como inativo!! Verifique o Status");
+                  }
+                  else
+                           j.setContentText("Confirma a Gravação ?");
 
-                          //altero a lista com o novo produto REAL
-                       List<Composicao> listaRealItensProduto = new ArrayList<Composicao>();
-                       for (Composicao comp2 : listaItensComposicao) {
-                           Composicao cb = new Composicao(comp2.getMateria_prima(),auxPro,comp2.getQtde());
-                           listaRealItensProduto.add(cb);
-                       }                  
-                        ComposicaoDAO daoComp = new ComposicaoDAO();
-                           for (Composicao composicao : listaRealItensProduto) {
-                            daoComp.insere(composicao);
-                        } 
-                        listaRealItensProduto=null;
-                        listaItensComposicao=null;
-                        a.setContentText("Gravado com Sucesso");
-                    } else {
-                        a.setContentText("Problemas ao Gravar");
-                    }
-                } 
-                else{
-                    if (dal.altera(p)) {
 
-                        ComposicaoDAO daoComp = new ComposicaoDAO();
-                        List<Composicao> listaexclusao= daoComp.get(cod);
-                        for (Composicao composicao1 : listaexclusao) {
-                            daoComp.exclui(composicao1);
-                        }   
-                        for (Composicao composicao2 : listaItensComposicao) {
-                            daoComp.insere(composicao2);
-                        } 
-                        listaItensComposicao=null;
+                  if (j.showAndWait().get() != ButtonType.OK)
+                           estadoEdicao();
+                   else
+                  {
 
-                        a.setContentText("Alterado com Sucesso");
-                    } 
-                    else {
-                        a.setContentText("Problemas ao Alterar");
-                    }
-                }
-                a.showAndWait();
-                estadoOriginal();   
-            }  
+                            if (p.getCodigo() == 0) // novo cadastro
+                            {
+                                    int codUltimoIdMaisUm=dal.ultimoId();
+                                    if (dal.insere(p)) {
+                                             Produto auxPro = dal.busca(codUltimoIdMaisUm);
+                                                  //altero a lista com o novo produto REAL
+                                             List<Composicao> listaRealItensProduto = new ArrayList<Composicao>();
+                                             for (Composicao comp2 : listaItensComposicao) {
+                                                      Composicao cb = new Composicao(comp2.getMateria_prima(),auxPro,comp2.getQtde());
+                                                      listaRealItensProduto.add(cb);
+                                             }       
+                                             
+                                             ComposicaoDAO daoComp = new ComposicaoDAO();
+                                             for (Composicao composicao : listaRealItensProduto) {
+                                                      daoComp.insere(composicao);
+                                             } 
+                                             listaRealItensProduto=null;
+                                             listaItensComposicao=null;
+                                             a.setContentText("Gravado com Sucesso");
+                                    }
+                                    else 
+                                    {
+                                             a.setContentText("Problemas ao Gravar");
+                                    }
+                           } 
+                           else
+                           {
+                                    if (dal.altera(p)) {
+
+                                             ComposicaoDAO daoComp = new ComposicaoDAO();
+                                             List<Composicao> listaexclusao= daoComp.get(cod);
+                                             for (Composicao composicao1 : listaexclusao) {
+                                                      daoComp.exclui(composicao1);
+                                             }   
+                                             for (Composicao composicao2 : listaItensComposicao) {
+                                                      daoComp.insere(composicao2);
+                                             } 
+                                             listaItensComposicao=null;
+
+
+
+                                             a.setContentText("Alterado com Sucesso");
+                                    } 
+                                    else {
+                                             a.setContentText("Problemas ao Alterar");
+                                    }
+                           }
+                           a.showAndWait();
+                           estadoOriginal();   
+                  }  
         } 
     }
 
     @FXML
     private void btnCancelar(ActionEvent event) {
         listaItensComposicao=null;
-        estadoOriginal();
+       
+       estadoOriginal();
     }
     
     private void carregaTabela(String filtro) {
@@ -298,6 +343,7 @@ public class ProdutoController implements Initializable{
     }
      
     private void estadoOriginal() {
+       
         PainelCentral.setDisable(true);
         PainelLateral.setDisable(false);
         txtCodigo.setText("");
@@ -305,14 +351,9 @@ public class ProdutoController implements Initializable{
         txtDescricao.setText("");
         txtQtde.setText("");
         cbStatus.setSelected(false);
-        cbbMateriaPrima.getSelectionModel().select(0);
-        ObservableList<Node> componentes = PainelLateral.getChildren(); //”limpa” os componentes
-        for (Node n : componentes) {
-            if (n instanceof TextInputControl) // textfield, textarea e htmleditor
-            {
-                ((TextInputControl) n).setText("");
-            }
-        }
+        cbbMateriaPrima.getSelectionModel().select(null);
+        tableViewItensDeProduto.getItems().clear();
+  
         carregaTabela("");
     }
     private void estadoEdicao() {     
@@ -389,18 +430,37 @@ public class ProdutoController implements Initializable{
 
             if (a.showAndWait().get() == ButtonType.OK){   
 //
-              if (listaItensComposicao.add(comp)){
-                   b.setContentText("Inserido com Sucesso");
-                   cbbMateriaPrima.requestFocus();
-                }
+                   boolean flag=true;        
+                  for (int i = 0 ; i<listaItensComposicao.size();i++) {
+
+                           if(listaItensComposicao.get(i).getMateria_prima().getNome().equalsIgnoreCase(comp.getMateria_prima().getNome()) ){
+                                    flag=false;
+                                    listaItensComposicao.get(i).setQtde(Integer.parseInt(txtQtde.getText())+listaItensComposicao.get(i).getQtde());
+                           }
+                  } 
+                  if(!flag){
+                           b.setContentText("Alteração de Matéria Prima já cadastrada");
+                              tableViewItensDeProduto.setItems(null);
+                     //      carregaComposicao();
+
+                  }
+                  else{
+                      
+                           listaItensComposicao.add(comp);
+                           b.setContentText("Inserido com Sucesso");
+                           cbbMateriaPrima.requestFocus();
+                  }
             } 
             else{
                 b.setContentText("Problemas ao Inserir");
             }  
             b.showAndWait();
          //   a.showAndWait();
-            carregaComposicao();
+            
         } 
+     
+        carregaComposicao();
+        
     }
 
     @FXML
@@ -428,6 +488,44 @@ public class ProdutoController implements Initializable{
 
     @FXML
     private void evtRelatorio(ActionEvent event) {
+    }
+
+    @FXML
+    private void clkAtivoBusca(ActionEvent event) {
+
+        cbStatusBuscaInativo.setSelected(false);
+         if(!cbStatusBuscaAtivo.isSelected())  {
+                  
+             carregaMateriaPrima();
+             
+         }
+         else{
+                  ProdutoDAO dal = new ProdutoDAO();
+                  List<Produto> res = dal.listaAtivo();
+                  ObservableList<Produto> produto;
+                  produto = FXCollections.observableArrayList(res);
+                  tabela.setItems(produto);
+                  txtPesquisa.setText("");
+         }
+       
+    }
+
+    @FXML
+    private void clkInativoBusca(ActionEvent event) {
+        cbStatusBuscaAtivo.setSelected(false);
+        
+         if(!cbStatusBuscaInativo.isSelected()) {
+             carregaMateriaPrima();
+         }else{
+                  ProdutoDAO dal = new ProdutoDAO();
+                  List<Produto> res = dal.listaInativo();
+                  ObservableList<Produto> produto;
+                  produto = FXCollections.observableArrayList(res);
+                  tabela.setItems(produto);
+             
+         }
+                  
+         txtPesquisa.setText("");
     }
             
 

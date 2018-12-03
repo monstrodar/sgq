@@ -119,8 +119,8 @@
                            <rowConstraints>
                               <RowConstraints maxHeight="42.0" minHeight="30.0" prefHeight="42.0" />
                               <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="49.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="226.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="217.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
@@ -154,6 +154,11 @@
                               <Font name="System Bold" size="15.0" />
                            </font>
                         </Button>
+                        <Label layoutX="46.0" layoutY="541.0" text="* Todos os campos são de preenchimento obrigatório." textFill="#f8160a">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
@@ -179,14 +184,34 @@
                               <TextField fx:id="txtPesquisa" prefHeight="25.0" prefWidth="154.0" promptText="Informe o nome....">
                                  <font>
                                     <Font size="11.0" />
-                                 </font></TextField>
+                                 </font>
+                              </TextField>
                               <Button mnemonicParsing="false" onAction="#btnBuscar" prefHeight="25.0" prefWidth="61.0" text="Buscar" textFill="#111111">
                                  <HBox.margin>
                                     <Insets right="5.0" />
-                                 </HBox.margin></Button>
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
-                        <TableView fx:id="tabela" prefHeight="460.0" prefWidth="293.0">
+                        <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" spacing="5.0" style="-fx-background-color: gray;">
+                           <children>
+                              <Label text="Status:" textFill="#f5f8f5">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="80.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <JFXCheckBox fx:id="cbStatusBuscaAtivo" onAction="#clkAtivoBusca" prefHeight="18.0" prefWidth="77.0" text="Ativo" textAlignment="CENTER" textFill="#fffbfb" unCheckedColor="#f5efef">
+                                 <HBox.margin>
+                                    <Insets left="-60.0" />
+                                 </HBox.margin>
+                              </JFXCheckBox>
+                              <JFXCheckBox fx:id="cbStatusBuscaInativo" onAction="#clkInativoBusca" text="Inativo" textAlignment="CENTER" textFill="#fffbfb" unCheckedColor="#f5efef" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="tabela" prefHeight="400.0" prefWidth="293.0">
                           <columns>
                             <TableColumn fx:id="tableViewNomeProduto" prefWidth="293.0" style="-fx-font-size: 16;" text="Produto" />
                           </columns>

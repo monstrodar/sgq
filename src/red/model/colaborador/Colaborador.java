@@ -113,6 +113,13 @@ public class Colaborador
         this.celular = celular;
     }
     
+     @Override
+    public boolean equals(Object ob){
+        
+        
+        return ob instanceof Colaborador && this.codigo==((Colaborador)ob).getCodigo();
+    }
+    
     // Area banco  DAL---------------------------------------------------------------------------------
     public boolean gravar(Colaborador c)
     {

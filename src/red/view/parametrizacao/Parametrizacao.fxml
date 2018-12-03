@@ -48,6 +48,15 @@
                                     <Insets left="330.0" top="50.0" />
                                  </VBox.margin>
                               </Label>
+                              <JFXButton onAction="#btnCNPJ" text="cnpj" />
+                              <Label text="* Todos os campos são de preenchimento obrigatório." textFill="#f8160a">
+                                 <font>
+                                    <Font name="System Bold" size="11.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets left="300.0" />
+                                 </VBox.margin>
+                              </Label>
                               <GridPane prefHeight="226.0" prefWidth="899.0">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" prefHeight="17.0" prefWidth="225.0" text="Código:" textFill="DARKGREEN">
@@ -190,6 +199,7 @@
                               </GridPane>
                               <HBox alignment="CENTER_RIGHT" prefHeight="126.0" prefWidth="540.0" spacing="20.0">
                                  <children>
+                                    <JFXCheckBox fx:id="cbStatus" text="Ativo" />
                                     <Button fx:id="txtBtnCadastrar" mnemonicParsing="false" onAction="#btnCadastrar" prefHeight="40.0" prefWidth="98.0" text="Cadastrar" textFill="DARKGREEN">
                                        <font>
                                           <Font name="System Bold" size="14.0" />

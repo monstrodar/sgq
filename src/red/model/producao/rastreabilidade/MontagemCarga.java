@@ -3,51 +3,53 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.model.producao.lote;
+package red.model.producao.rastreabilidade;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import red.model.colaborador.Colaborador;
+import red.model.util.Regiao;
 
 /**
  *
  * @author Daniel
  */
-public class MontagemLote {
+public class MontagemCarga {
     
-    private int numero;
-    private Produto produto;
+    private int codigo;
+    private Regiao regiao; //subistitui no lugar de regiao por estdo
     private Colaborador colaborador;
     private LocalDate data_inicio; 
-    private LocalDate data_fim;;
-    private int estoque;
+    private LocalDate data_fim;
+    private boolean status;
 
-    public MontagemLote(int numero, Produto produto  ,Colaborador colaborador, LocalDate data_inicio, LocalDate data_fim, int estoque) {
-        this.numero = numero;
-        this.produto = produto;
+    public MontagemCarga(int codigo, Regiao regiao, Colaborador colaborador, LocalDate data_inicio, LocalDate data_fim, boolean status) {
+        this.codigo = codigo;
+        this.regiao = regiao;
         this.colaborador = colaborador;
         this.data_inicio = data_inicio;
         this.data_fim = data_fim;
-        this.estoque = estoque;
+        this.status = status;
     }
-     public MontagemLote(int numero) {
-        this.numero = numero;
+     public MontagemCarga(int numero) {
+        this.codigo = numero;
         
     }
-    public int getNumero() {
-        return numero;
+
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Regiao getRegiao() {
+        return regiao;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setRegiao(Regiao regiao) {
+        this.regiao = regiao;
     }
 
     public Colaborador getColaborador() {
@@ -74,20 +76,19 @@ public class MontagemLote {
         this.data_fim = data_fim;
     }
 
-    public int getEstoque() {
-        return estoque;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return  "Lote: " + numero ;
+        return "Código:  " + codigo ;
     }
     
-
     
     
     

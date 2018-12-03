@@ -5,6 +5,7 @@
  */
 package red.controller.parametrizacao;
 
+import com.jfoenix.controls.JFXCheckBox;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -73,6 +74,8 @@ public class ParametrizacaoController implements Initializable{
     private Button txtBtnCancelar;
     @FXML
     private Label menssagemFinal;
+    @FXML
+    private JFXCheckBox cbStatus;
     
     
     @Override
@@ -82,6 +85,7 @@ public class ParametrizacaoController implements Initializable{
         MaskFieldUtil.foneField(this.txtTelefone);
         MaskFieldUtil.cepField(this.txtCep);
         MaskFieldUtil.cnpjField(this.txtCnpj);
+        
         estadoOriginal();
     }  
     @FXML
@@ -133,6 +137,12 @@ public class ParametrizacaoController implements Initializable{
             msg+="Por favor, informe o Estado\n";
             cbbEstado.requestFocus();
         }
+         
+          if(!MaskFieldUtil.isCNPJ(txtCnpj.getText()) &&  !cbStatus.isSelected()){
+            msg+="O CNPJ não é Válido!\n";
+            cbbEstado.requestFocus();
+        }
+         
         if (msg!=""){
            b.setContentText(msg); 
            b.showAndWait();
@@ -221,8 +231,8 @@ public class ParametrizacaoController implements Initializable{
         
         cbbCidade.setValue(cidade);
         cbbEstado.setValue(uf);  
-        if(txtCnpj.getText().equalsIgnoreCase("00.000.000/0000-00")){
-             
+      if(txtCnpj.getText().equalsIgnoreCase("00.000.000/0000-00")){
+    //     if(txtCnpj.getText().equalsIgnoreCase("38.981.361/0001-39")){    
              menssagemInicial.setText("O Sistema ainda não foi parametrizado. Cadastre os dados da empresa.");
              txtBtnAlterar.setDisable(true);
              txtBtnConfirma.setDisable(true);
@@ -296,6 +306,12 @@ public class ParametrizacaoController implements Initializable{
             UF estado= cbbEstado.getSelectionModel().getSelectedItem();
             carregaCidade(estado.getCodigo());
         }       
+    }
+
+    @FXML
+    private void btnCNPJ(ActionEvent event) {
+        
+        txtCnpj.setText("38.981.361/0001-39 ");
     }
 
 }

@@ -191,5 +191,92 @@ public class ProdutoDAO {
         }              
         return lista;
     }
-
+      public List<Produto> listaAtivo(){
+        
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where pro_status='true'  "
+                + "order by pro_nome;";
+        List<Produto> lista =new ArrayList<>();
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+                            lista.add(new Produto(rs.getInt("pro_codigo"),
+                                    rs.getString("pro_nome"), 
+                                    rs.getString("pro_descricao"),
+                                    rs.getBoolean("pro_status")));
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
+      public List<Produto> listaInativo(){
+        
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where pro_status='false'   "
+                + "order by pro_nome;";
+        List<Produto> lista =new ArrayList<>();
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+                            lista.add(new Produto(rs.getInt("pro_codigo"),
+                                    rs.getString("pro_nome"), 
+                                    rs.getString("pro_descricao"),
+                                    rs.getBoolean("pro_status")));
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
+      public List<Produto> pesquisaAtivo(String chave){
+        
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
+                + "like '%"+chave+"%'  and pro_status='true' order by pro_nome;";
+        List<Produto> lista =new ArrayList<>();
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+                            lista.add(new Produto(rs.getInt("pro_codigo"),
+                                    rs.getString("pro_nome"), 
+                                    rs.getString("pro_descricao"),
+                                    rs.getBoolean("pro_status")));
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
+      public List<Produto> pesquisaInativo(String chave){
+        
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
+                + "like '%"+chave+"%'  and pro_status='false' order by pro_nome;";
+        List<Produto> lista =new ArrayList<>();
+        try (Connection conn = Conecta.abreConexaoBanco()){
+            if(conn !=null){
+                try(PreparedStatement ps = conn.prepareStatement(sql)) {
+                    try(ResultSet rs = ps.executeQuery()) {
+                        while(rs.next()){
+                            lista.add(new Produto(rs.getInt("pro_codigo"),
+                                    rs.getString("pro_nome"), 
+                                    rs.getString("pro_descricao"),
+                                    rs.getBoolean("pro_status")));
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
+        return lista;
+    }
 }

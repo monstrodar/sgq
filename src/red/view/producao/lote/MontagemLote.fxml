@@ -27,7 +27,7 @@
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtRelatorio" prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -97,17 +97,18 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txtNumLote" alignment="CENTER" layoutX="205.0" layoutY="42.0" opacity="0.45" prefHeight="25.0" prefWidth="85.0" style="-fx-font-size: 16;" />
+                        <JFXTextField fx:id="txtNumLotePro" alignment="CENTER" layoutX="205.0" layoutY="42.0" opacity="0.45" prefHeight="25.0" prefWidth="85.0" style="-fx-font-size: 16;" />
                         <JFXComboBox fx:id="cbbColaborador" layoutX="165.0" layoutY="527.0" opacity="0.66" prefHeight="25.0" prefWidth="228.0" promptText="Selecione o Colaborador Resp." style="-fx-font-size: 15;" />
                         <JFXTextField fx:id="txtQtdeMP" layoutX="358.0" layoutY="169.0" opacity="0.53" prefHeight="25.0" prefWidth="129.0">
                            <font>
                               <Font size="16.0" />
                            </font></JFXTextField>
-                        <JFXComboBox fx:id="cbbMateriaPrima" layoutX="75.0" layoutY="176.0" opacity="0.66" prefHeight="25.0" prefWidth="261.0" promptText="Selecione a matéria prima para o lote" style="-fx-font-size: 15;" />
+                        <JFXComboBox fx:id="cbbMateriaPrima" layoutX="75.0" layoutY="176.0" opacity="0.66" prefHeight="25.0" prefWidth="261.0" promptText="      Selecione uma Matéria Prima " style="-fx-font-size: 15;" />
                         <JFXTextField fx:id="txtLoteMP" alignment="CENTER" layoutX="509.0" layoutY="169.0" opacity="0.42" prefHeight="25.0" prefWidth="165.0">
                            <font>
                               <Font size="16.0" />
-                           </font></JFXTextField>
+                           </font>
+                        </JFXTextField>
                         <TableView fx:id="tabelaMP" layoutX="68.0" layoutY="233.0" prefHeight="232.0" prefWidth="606.0">
                            <columns>
                               <TableColumn fx:id="colQtdeMp" prefWidth="115.0" style="-fx-font-size: 15;" text="Quantidade" />
@@ -120,7 +121,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXComboBox fx:id="cbbProduto" layoutX="146.0" layoutY="106.0" opacity="0.62" prefHeight="25.0" prefWidth="244.0" style="-fx-font-size: 15;" />
+                        <JFXComboBox fx:id="cbbProduto" layoutX="146.0" layoutY="106.0" opacity="0.62" prefHeight="25.0" prefWidth="244.0" promptText="        Selecione um Produto " style="-fx-font-size: 15;" />
                         <Button layoutX="587.0" layoutY="473.0" mnemonicParsing="false" onAction="#btnMaisItens" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -139,6 +140,11 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
+                        <Label layoutX="250.0" layoutY="216.0" text="* Todos os campos são de preenchimento obrigatório." textFill="#f8160a">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children></AnchorPane>

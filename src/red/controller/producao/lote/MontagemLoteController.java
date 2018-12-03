@@ -10,34 +10,37 @@ import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
+import javafx.util.Callback;
 import red.dao.producao.aquisicao.MateriaPrimaDAO;
-import red.dao.producao.lote.ComposicaoDAO;
 import red.dao.producao.lote.ItensSaidaDAO;
 import red.dao.producao.lote.MontagemLoteDAO;
 import red.dao.producao.lote.ProdutoDAO;
 import red.model.producao.aquisicao.MateriaPrima;
 import red.model.producao.lote.Produto;
 import red.model.colaborador.Colaborador;
-import red.model.producao.lote.Composicao;
 import red.model.producao.lote.ItensSaida;
 import red.model.producao.lote.MontagemLote;
 
@@ -65,8 +68,6 @@ public class MontagemLoteController implements Initializable {
     @FXML
     private DatePicker dpInicio;
     @FXML
-    private JFXTextField txtNumLote;
-    @FXML
     private JFXComboBox<Colaborador> cbbColaborador;
     @FXML
     private JFXComboBox<MateriaPrima> cbbMateriaPrima;
@@ -75,9 +76,9 @@ public class MontagemLoteController implements Initializable {
     @FXML
     private TableColumn<?, ?> colQtdeMp;
     @FXML
-    private TableColumn<String, ?> colMatPrimaMp;
+    private TableColumn<?, ?> colMatPrimaMp;
     @FXML
-    private TableColumn<String, ?> colLoteMp;
+    private TableColumn<ItensSaida, String> colLoteMp;
     @FXML
     private JFXComboBox<Produto> cbbProduto;
     @FXML
@@ -96,6 +97,8 @@ public class MontagemLoteController implements Initializable {
     private List<ItensSaida> listaItensSaida=null;
     @FXML
     private JFXTextField txtLoteMP;
+    @FXML
+    private JFXTextField txtNumLotePro;
    
 
     /**
@@ -106,119 +109,183 @@ public class MontagemLoteController implements Initializable {
         // TODO
         
        
+
         estadoOriginal();
        
         
     }    
+    
+    
+    
+    
     private void carregaTabelasEdicaoCbb(){
      
-       carregaProduto("");
-       carregaMateriaPrima();
-         carregaColaborador();
+        carregaProduto("");
+        carregaMateriaPrima();
+        carregaColaborador();
     }
 
     private void estadoOriginal() {
         PainelCentral.setDisable(true);
         PainelLateral.setDisable(false);
-       carregaLote("");
-    //    cbbMateriaPrima.getSelectionModel().select(0);
-        ObservableList<Node> componentes = PainelLateral.getChildren(); //”limpa” os componentes
-        for (Node n : componentes) {
-            if (n instanceof TextInputControl) // textfield, textarea e htmleditor
-            {
-                ((TextInputControl) n).setText("");
-            }
-        }
-         colLoteLT.setCellValueFactory(new PropertyValueFactory("numero"));
+        carregaLote("");
+        cbbMateriaPrima.getSelectionModel().select(null);
+        cbbProduto.getSelectionModel().select(null);
+        cbbColaborador.getSelectionModel().select(null);
+        tabelaMP.getItems().clear();
+        txtLoteMP.setText("");
+        txtNumLotePro.setText("");
+        txtQtdeMP.setText("");
+        txtQtdePro.setText("");
+        dpInicio.setValue(null);
+        dpTermino.setValue(null);
+        colLoteLT.setCellValueFactory(new PropertyValueFactory("numero"));
         colDataInicioLT.setCellValueFactory(new PropertyValueFactory("data_inicio"));
         colDataFimLT.setCellValueFactory(new PropertyValueFactory("data_fim"));
-     
-         
     }
     private void estadoEdicao() {     
         PainelCentral.setDisable(false);
         PainelLateral.setDisable(true);
         
-//        txtQtdePro.setText("");
-//        txtNumLote.setText("");
-//        txtQtdeMP.setText("");
-//        
-        
-        
-       
-//        ObservableList<Node> componentes = PainelCentral.getChildren(); //”limpa” os componentes
-//        for (Node n : componentes) {
-//            if (n instanceof TextInputControl) // textfield, textarea e htmleditor
-//            {
-//                ((TextInputControl) n).setText("");
-//            }
-//             if (n instanceof ComboBox) {
-//                ((ComboBox) n).getItems().clear();
-//            }
-//        } 
-        
+       // txtQtdePro.setText("");
+        txtLoteMP.setText("");
+        txtQtdeMP.setText("");
         carregaTabelasEdicaoCbb();
     }
 
-    
-
     @FXML
     private void btnBusca(ActionEvent event) {
-        
-         if(txtBuscaLote.getText().isEmpty()){
-            estadoOriginal();
+     
+        LocalDate inicio=dpBuscaInicio.getValue();//mudar para recuper certo a data
+        LocalDate fim = dpBuscaFim.getValue();
+            
+        if(!txtBuscaLote.getText().isEmpty() && inicio==null && fim==null){//busca por palavras/codigo
+                
+                MontagemLoteDAO dal = new MontagemLoteDAO();
+                List<MontagemLote> res = dal.pesquisa2( Integer.parseInt(txtBuscaLote.getText()) );
+                ObservableList<MontagemLote> lote;
+                lote = FXCollections.observableArrayList(res);
+                tabelaLote.setItems(lote);
         }
-        else{
+        if(txtBuscaLote.getText().isEmpty() && inicio!=null && fim!=null){//busca pro data
+
+                MontagemLoteDAO dal = new MontagemLoteDAO();
+                List<MontagemLote> res = dal.pesquisaData( inicio,fim );
+                ObservableList<MontagemLote> lote;
+                lote = FXCollections.observableArrayList(res);
+                tabelaLote.setItems(lote);
+
+        }
+        if(txtBuscaLote.getText().isEmpty() && inicio==null && fim==null){//mostra tudo
+            
             MontagemLoteDAO dal = new MontagemLoteDAO();
-            List<MontagemLote> res = dal.pesquisa2( Integer.parseInt(txtBuscaLote.getText()) );
+            List<MontagemLote> res = dal.lista();
             ObservableList<MontagemLote> lote;
             lote = FXCollections.observableArrayList(res);
-            tabelaLote.setItems(lote);   
+            tabelaLote.setItems(lote);
+ 
+       
+         
+            
+            
+           // estadoOriginal();
         }   
+           colLoteLT.setCellValueFactory(new PropertyValueFactory("numero"));
+        colDataInicioLT.setCellValueFactory(new PropertyValueFactory("data_inicio"));
+        colDataFimLT.setCellValueFactory(new PropertyValueFactory("data_fim"));
+            
+               
+          
+        txtBuscaLote.setText("");
+        dpBuscaFim.setValue(null);
+        dpBuscaInicio.setValue(null);
         txtBuscaLote.requestFocus();
     }
 
 
     @FXML
     private void btnAlterar(ActionEvent event) {
-        
+
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         if(tabelaLote.getSelectionModel().getSelectedIndex() < 0){
     //      cbbMateriaPrima.requestFocus();
-            a.setContentText("Por favor, seleciona um lote na tabela");
-            a.showAndWait();
+                  a.setContentText("Por favor, seleciona um lote na tabela");
+                  a.showAndWait();
         }
         else{
-            txtNumLote.setDisable(true);
-           listaItensSaida = new ArrayList<ItensSaida>();//inicializa uma lista dos itens de MP do lote    
-            estadoEdicao();//carrega cbb(produto, mp, colaborador)    
+
             MontagemLote  lote = (MontagemLote)tabelaLote.getSelectionModel().getSelectedItem();//cria objeto lote seelecionado do click
-            txtNumLote.setText(""+lote.getNumero());
-             txtQtdePro.setText("");// criar este atributo na classe monatgem getQtde Produto
-             dpInicio.setValue(lote.getData_inicio().toLocalDateTime().toLocalDate());
-            dpTermino.setValue(lote.getData_fim().toLocalDateTime().toLocalDate());     //Tudo certo   
-         
-           cbbColaborador.setValue(lote.getColaborador());
-           cbbProduto.setValue(lote.getProduto());
+            txtNumLotePro.setText(""+lote.getNumero());
+            txtQtdePro.setText(""+lote.getEstoque());
+            txtNumLotePro.setDisable(true); 
+            dpInicio.setValue(lote.getData_inicio());
+            dpTermino.setValue(lote.getData_fim());  
+            cbbColaborador.setValue(lote.getColaborador());  
+            
+            ItensSaidaDAO dao = new ItensSaidaDAO(); //classe dao 
+            listaItensSaida = new ArrayList<ItensSaida>();
+            listaItensSaida = dao.buscaItensDoLote(lote.getNumero());
+            List<ItensSaida> res = listaItensSaida; ///dal.get(codigo);
+            
+            ObservableList<ItensSaida> produtos;
+            produtos = FXCollections.observableArrayList(res);
+            tabelaMP.setItems(produtos);
+            
+            colQtdeMp.setCellValueFactory(new PropertyValueFactory("qtde"));
+            colMatPrimaMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+            colLoteMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+            
+             colLoteMp.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ItensSaida, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ItensSaida, String> param) {
+                return new SimpleStringProperty(param.getValue().getMateria_prima().getNum_lote());
+            }
+        });
 
-
-                ItensSaidaDAO daoIS = new ItensSaidaDAO(); //classe dao 
-              listaItensSaida = new ArrayList<ItensSaida>();//inicializa uma lista dos itens de MP do lote  
-              listaItensSaida = daoIS.buscaItensDoLote(lote.getNumero());
-              txtQtdeMP.setText("");
-              
-              
-              carregaItensSaida();//listaItensComposicao 
-    
-      
-           
-      //     estadoEdicao();
-        } 
+            
+            estadoEdicao();
+            cbbProduto.setValue(lote.getProduto());
+            txtNumLotePro.setText(""+lote.getNumero());
+            txtQtdePro.setText(""+lote.getEstoque());
+            txtNumLotePro.setDisable(true); 
+            dpInicio.setValue(lote.getData_inicio());
+            dpTermino.setValue(lote.getData_fim());  
+            cbbColaborador.setValue(lote.getColaborador());
+            
+     
+        }       
        
     }
 
     @FXML
     private void btnApagar(ActionEvent event) {
+        
+        Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+        if(tabelaLote.getSelectionModel().getSelectedIndex() < 0){
+    //        cbbMateriaPrima.requestFocus();
+            a.setContentText("Por favor, seleciona um lote na tabela");
+            a.showAndWait();
+        }
+        else{
+            a.setContentText("Confirma a exclusão");
+            if (a.showAndWait().get() == ButtonType.OK) {
+               MontagemLoteDAO dal = new MontagemLoteDAO();
+               MontagemLote lote = tabelaLote.getSelectionModel().getSelectedItem();
+               dal.exclui(lote);
+               //APAGA O LOTE, E TEM QUE APAGAR O ITENSSAIDA NO  BANCO E ATUALIZAR ESTOQUE
+               ItensSaidaDAO daoIS = new ItensSaidaDAO();
+               List<ItensSaida> listaitens = daoIS.buscaItensDoLote(lote.getNumero());
+               for (ItensSaida itens : listaitens) {
+                        daoIS.exclui(itens);
+               } 
+                carregaLote("");
+            }
+        }          
+        
+        
+        
+        
+        
         estadoOriginal();
     }
 
@@ -227,9 +294,12 @@ public class MontagemLoteController implements Initializable {
         
         
         listaItensSaida = new ArrayList<ItensSaida>();
-        txtNumLote.setDisable(true);
-        carregaItensSaida();
+        txtNumLotePro.setDisable(true);
+        dpInicio.setValue(null);
+        dpTermino.setValue(null);
         estadoEdicao();
+        carregaItensSaida();
+        
         
     }
 
@@ -241,13 +311,155 @@ public class MontagemLoteController implements Initializable {
 
     @FXML
     private void btnConfirma(ActionEvent event) {
-         estadoOriginal();
+
+        
+        LocalDate inicio=dpInicio.getValue();//mudar para recuper certo a data
+        LocalDate fim = dpTermino.getValue();
+        Alert b = new Alert(Alert.AlertType.INFORMATION);
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        Alert d = new Alert(Alert.AlertType.CONFIRMATION);
+        String msg ="";
+        int qtdeMP, qtdePro;
+        try {
+                qtdeMP =Integer.parseInt(txtQtdeMP.getText());// qtde da materia prima(composicao)informada
+        } 
+        catch (Exception e) {
+                qtdeMP = 0;
+        }
+            
+        try {
+                qtdePro =Integer.parseInt(txtQtdePro.getText());// qtde da materia prima(composicao)informada
+        } 
+        catch (Exception e) {
+                qtdePro = 0;
+        }
+        if(qtdePro<=0){
+            msg+="Por favor, informe uma quantidade  de Produtos maior que zero\n";
+            txtQtdePro.requestFocus();
+        }
+//        if(qtdeMP<=0){
+//            msg+="Por favor, informe uma quantidade  de Materia Prima maior que zero\n";
+//            txtQtdePro.requestFocus();
+//        }
+        if(cbbProduto.getSelectionModel().getSelectedIndex() < 0)//verifica se o cbb esta marcado com a mp
+        {
+            msg+="Por favor, Selecione um  Produto\n";
+            cbbMateriaPrima.requestFocus();
+        }
+         if(inicio==null)//verifica se o cbb esta marcado com a mp
+        {
+            msg+="Por favor, Selecione uma Data Inicio da montagem\n";
+      //     dpInicio.requestFocus();
+        }
+         if(inicio!=null && inicio.isAfter(fim))//verifica se o cbb esta marcado com a mp
+        {
+            msg+="ERRO!! Data de Inicio é depois da data término.\n";
+        }
+        if(fim==null)//verifica se o cbb esta marcado com a mp
+        {
+            msg+="Por favor, Selecione uma Data Final da montagem\n";
+     //      dpTermino.requestFocus();
+        }
+         if(cbbColaborador.getSelectionModel().getSelectedIndex() < 0)//verifica se o cbb esta marcado com a mp
+        {
+            msg+="Por favor, Selecione um Colaborador\n";
+            cbbColaborador.requestFocus();
+        }
+        if (msg!=""){
+           b.setContentText(msg); 
+           b.showAndWait();
+        }
+        else{
+                 
+            Produto produto=null;
+            ProdutoDAO daoPro = new ProdutoDAO();
+            MontagemLote lote =null;
+            MontagemLoteDAO daoLote = new MontagemLoteDAO();
+            Colaborador colaborador =null; 
+            int estoque=0 ;
+
+            int numero;
+            try {                   
+                     numero = Integer.parseInt(txtNumLotePro.getText()); //o lote jáexiste
+
+            } catch (Exception e) {             
+                      numero = 0;                
+            }
+                    
+            if (numero == 0) // novo cadastro lote
+            {
+                int ultimoNumeroMaisUm=daoLote.ultimoNumero(); // pega o ultimo numero de lote e coloca mais um
+                colaborador =cbbColaborador.getSelectionModel().getSelectedItem();
+                produto = cbbProduto.getSelectionModel().getSelectedItem(); // pega no comb0obox o selecionadp
+                inicio=dpInicio.getValue();
+                fim = dpTermino.getValue();
+      
+                lote = new MontagemLote(numero,produto,colaborador,inicio,fim,qtdePro); // cria novo lote
+                            
+                if (daoLote.insere(lote)) {  //grava banco o lote
+                           
+                    MontagemLote auxLote = daoLote.busca(ultimoNumeroMaisUm);
+
+                                      //altero a lista com o novo lote REAL
+                    List<ItensSaida> listaRealItensLote = new ArrayList<ItensSaida>();
+
+                    for (ItensSaida is2 : listaItensSaida) {
+                             ItensSaida is = new ItensSaida(is2.getMateria_prima(),auxLote,is2.getQtde());
+                             listaRealItensLote.add(is);
+                    }                  
+                                  
+                    ItensSaidaDAO daoIS = new ItensSaidaDAO();
+
+                    for (ItensSaida itens : listaRealItensLote) {
+                             daoIS.insere(itens);
+                    } 
+                    listaRealItensLote=null;
+                    listaItensSaida=null;
+                    a.setContentText("Gravado com Sucesso");
+                } 
+                else 
+                {
+                    a.setContentText("Problemas ao Gravar");
+                }
+            } 
+            else
+            {
+                int codCarga = Integer.parseInt(txtNumLotePro.getText());
+                colaborador =cbbColaborador.getSelectionModel().getSelectedItem();
+                produto = cbbProduto.getSelectionModel().getSelectedItem();
+                inicio=dpInicio.getValue();//mudar para recuper certo a data
+                fim = dpTermino.getValue();
+        
+                lote = new MontagemLote(codCarga,produto,colaborador,inicio,fim,qtdePro); // cria novo lote
+              
+                if (daoLote.altera(lote)) {
+                  
+                    ItensSaidaDAO daoIS = new ItensSaidaDAO();
+                    List<ItensSaida> listaexclusao= daoIS.buscaItensDoLote(numero);
+                    for (ItensSaida composicao1 : listaexclusao) {
+                        daoIS.exclui(composicao1);
+                    }   
+                    for (ItensSaida composicao2 : listaItensSaida) {
+                        daoIS.insere(composicao2);
+                    } 
+                    listaItensSaida=null;
+
+                    a.setContentText("Alterado com Sucesso");
+                } 
+                else
+                {  
+                    a.setContentText("Problemas ao Alterar");
+                }
+            }
+            a.showAndWait();
+            estadoOriginal();   
+        }  
     }
 
     @FXML
     private void btnMaisItens(ActionEvent event) {
-      //   estadoEdicao();
-          Alert b = new Alert(Alert.AlertType.INFORMATION);
+     
+        Alert b = new Alert(Alert.AlertType.INFORMATION);
         Alert a = new Alert(Alert.AlertType.CONFIRMATION);
         String msg ="";
          int qtde;
@@ -278,28 +490,36 @@ public class MontagemLoteController implements Initializable {
         {        
             MontagemLote lote =null;
             ItensSaida itens=null;
-            int numero;
+            int numero; //numero do lote do produto
             try
             {
-                numero = Integer.parseInt(txtNumLote.getText());//codigo do produto caso não seja novo
+                numero = Integer.parseInt(txtNumLotePro.getText());//verifica se o lote existe
             } 
             catch (Exception e) 
             {
-                numero = 0;//produto novo
+                numero = 0;//é um lote novo 
             }
             MateriaPrima mp = (MateriaPrima) cbbMateriaPrima.getSelectionModel().getSelectedItem();//busca a materia prima
-            mp.setNum_lote(txtLoteMP.getText());
+            
+            // PRECISO VERIFICAR SE EXISTE SALDO EM ESTOQUE DESTA MATERIA PRIMA
+            //  int saldo = verificaSaldoMP(mp);
+            //desconto a quantidade no saldo = ( saldo  -  qtde de materia prima )
+            
+            
+            
+        //    mp.setNum_lote(txtLoteMP.getText());
             MontagemLoteDAO daoLote = new MontagemLoteDAO();          
+            
             if(numero==0)
             {
-                int auxnumero= daoLote.ultimoNumero();// busca o ultimo ID no banco para poder ter um produto para instanciar o produto
-                lote = new MontagemLote(auxnumero+1);
-                itens = new ItensSaida(mp,lote,qtde);   
+                int auxnumero= daoLote.ultimoNumero();// busca o ultimo numero no banco para poder ter um lote para instanciar o lote
+                lote = new MontagemLote(auxnumero+1);// tenho um lote fictcio
+                itens = new ItensSaida(mp,lote,qtde);    // criou um objeto itens para inserir na lista de itens
             }
             else
             {
-                lote = daoLote.busca(numero); // acha o produto
-                itens = new ItensSaida(mp,lote,qtde);
+                lote = daoLote.busca(numero); // acha o lote , significa que vou alterar
+                itens = new ItensSaida(mp,lote,qtde); // criou um objeto itens para inserir na lista de itens
             }
             a.setContentText("Confirma a inserção da matéria prima");
 
@@ -316,8 +536,8 @@ public class MontagemLoteController implements Initializable {
             b.showAndWait();
          //   a.showAndWait();
             carregaItensSaida();
-            txtLoteMP.setText("");
-            txtQtdeMP.setText("");
+             txtLoteMP.setText("");
+        txtQtdeMP.setText("");
             carregaMateriaPrima();
         } 
          
@@ -383,9 +603,44 @@ public class MontagemLoteController implements Initializable {
         ObservableList<ItensSaida> mp;
         mp = FXCollections.observableArrayList(res);
         tabelaMP.setItems(mp);
-           colQtdeMp.setCellValueFactory(new PropertyValueFactory("qtde"));
-           colMatPrimaMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
-           colLoteMp.setCellValueFactory(new PropertyValueFactory("lote"));
+       
+       
+//           colQtdeMp.setCellValueFactory(new PropertyValueFactory("qtde"));
+//           colMatPrimaMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+//           colLoteMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
+           
+        colQtdeMp.setCellValueFactory(new PropertyValueFactory<>("qtde"));
+        colMatPrimaMp.setCellValueFactory(new PropertyValueFactory<>("materia_prima"));
+        colLoteMp.setCellValueFactory(new PropertyValueFactory<>("materia_prima"));
+        
+        tabelaMP.setItems(FXCollections.observableArrayList(mp));
+        
+//        colQtdeMp.setCellFactory(
+//                TextFieldTableCell.forTableColumn());
+//        
+//        colMatPrimaMp.setCellFactory(
+//                TextFieldTableCell.forTableColumn());
+//        
+
+        // crie as referências para os atributos do objeto prêmio
+        colLoteMp.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ItensSaida, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<ItensSaida, String> param) {
+                return new SimpleStringProperty(param.getValue().getMateria_prima().getNum_lote());
+            }
+        });
+
+//        tabelaMP.setRowFactory(tv -> new TableRow<ItensSaida>() {
+//            @Override
+//            public void updateItem(ItensSaida item, boolean empty) {
+//                super.updateItem(item, empty);
+//                if (item != null && item.isEntregue()) 
+//                    setStyle("-fx-background-color: tomato;");
+//                else 
+//                    setStyle("");
+//                
+//            }
+//        });
     }
     
      
@@ -400,5 +655,16 @@ public class MontagemLoteController implements Initializable {
 
     @FXML
     private void evtPedido(ActionEvent event) {
+        
+      
+    }
+
+    @FXML
+    private void evtRelatorio(ActionEvent event) {
+          WebView webView = new WebView();
+       webView.setPrefSize(750, 580);
+       webView.getEngine().load("http://www.unoeste.br");
+        
+       PainelCentral.getChildren().add(webView);
     }
 }

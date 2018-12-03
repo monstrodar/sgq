@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.dao.producao.lote;
+package red.dao.producao.rastreabilidade;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,19 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import red.dao.producao.aquisicao.MateriaPrimaDAO;
+import red.dao.producao.lote.MontagemLoteDAO;
 import red.dao.util.Conecta;
-import red.model.producao.aquisicao.MateriaPrima;
-import red.model.producao.lote.ItensSaida;
 import red.model.producao.lote.MontagemLote;
+import red.model.producao.rastreabilidade.EntradaLote;
+import red.model.producao.rastreabilidade.MontagemCarga;
 
 /**
  *
  * @author Daniel
  */
-public class ItensSaidaDAO {
-    
-     private String erro="";
+public class EntradaLoteDAO {
+   
+      private String erro="";
 
     public String getErro() {
         return erro;
@@ -33,26 +33,26 @@ public class ItensSaidaDAO {
         this.erro = erro;
     }
     
-    public ItensSaidaDAO() {
+    public EntradaLoteDAO() {
         erro=null;
     }
     
-    public ItensSaida busca(int lo_numero) {
-        String sql = "select * from itens_saida where lo_numero=?;";
+    public EntradaLote busca(int codigo) {
+        String sql = "select ca_codigo, lo_numero, el_qtde from entrada_lote where ca_codigo=?;";
         MontagemLoteDAO daoLt = new MontagemLoteDAO();
         MontagemLote lote= null;
-        MateriaPrimaDAO daoMp = new MateriaPrimaDAO();
-        MateriaPrima materia_prima = null; 
+        MontagemCargaDAO daoCarga = new MontagemCargaDAO();
+        MontagemCarga carga = null; 
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement st = conn.prepareStatement(sql)) {
-                    st.setInt(1, lo_numero);
+                    st.setInt(1, codigo);
                     try (ResultSet rs = st.executeQuery()) {
                         if (rs.next()) {
                             lote = daoLt.busca(rs.getInt("lo_numero"));
-                            materia_prima = daoMp.busca(rs.getInt("mp_codigo"));
-                            return new ItensSaida(materia_prima, 
-                                    lote,rs.getInt("is_qtde"));
+                            carga = daoCarga.busca(rs.getInt("ca_codigo"));
+                            return new EntradaLote(carga, 
+                                    lote,rs.getInt("el_qtde"));
                         }
                     }
                 }
@@ -61,15 +61,15 @@ public class ItensSaidaDAO {
         }
         return null;
     }
-    public boolean insere(ItensSaida is){
+    public boolean insere(EntradaLote el){
         
-        String sql="insert into itens_saida(mp_codigo,lo_numero,is_qtde) values(?,?,?);";
+        String sql="insert into entada_lote (ca_codigo,lo_numero,el_qtde) values(?,?,?);";
                 try(Connection conn = Conecta.abreConexaoBanco()) {
                     if(conn !=null){
                         try (PreparedStatement ps = conn.prepareStatement(sql)){
-                           ps.setInt(1, is.getMateria_prima().getCodigo());
-                            ps.setInt(2, is.getLote().getNumero());
-                            ps.setInt(3, is.getQtde());
+                           ps.setInt(1, el.getCarga().getCodigo());
+                            ps.setInt(2, el.getLote().getNumero());
+                            ps.setInt(3, el.getQtde());
                             ps.executeUpdate();
                             return true;
                         } 
@@ -79,24 +79,25 @@ public class ItensSaidaDAO {
         }
        return false; 
     }
-    public List<ItensSaida> lista(){
+    public List<EntradaLote> lista(){
         
-        String sql="select mp_codigo,lo_numero,is_qtde from itens_saida order by mp_codigo;";
-        List<ItensSaida> lista =new ArrayList<>();
+        String sql="select ca_codigo,lo_numero,el_qtde from entrada_lote order by  ca_codigo;";
+        List<EntradaLote> lista =new ArrayList<>();
         MontagemLoteDAO daoLt = new MontagemLoteDAO();
         MontagemLote lote= null;
-        MateriaPrimaDAO daoMp = new MateriaPrimaDAO();
-        MateriaPrima materia_prima = null; 
+        MontagemCargaDAO daoCarga = new MontagemCargaDAO();
+        MontagemCarga carga = null; 
         try (Connection conn = Conecta.abreConexaoBanco()){
             if(conn !=null){
                 try(PreparedStatement ps = conn.prepareStatement(sql)) {
                     try(ResultSet rs = ps.executeQuery()) {
                         while(rs.next()){
                             
-                            lote = daoLt.busca(rs.getInt("lo_numero"));
-                            materia_prima = daoMp.busca(rs.getInt("mp_codigo"));
-                            lista.add(new  ItensSaida(materia_prima, 
-                                    lote,rs.getInt("is_qtde")));
+                             lote = daoLt.busca(rs.getInt("lo_numero"));
+                            carga = daoCarga.busca(rs.getInt("ca_codigo"));
+                          
+                            lista.add(new EntradaLote(carga, 
+                                    lote,rs.getInt("el_qtde")));
                             
                         }
                     } 
@@ -107,16 +108,16 @@ public class ItensSaidaDAO {
         return lista;
     }
     
-    public  boolean altera(ItensSaida is) {
-        String sql = "update itens_saida set mp_codigo=? ,lo_numero=? ,is_qtde=? "
-                + "where lo_numero = "+is.getLote().getNumero()+" ; ";
+    public  boolean altera(EntradaLote el) {
+        String sql = "update entrada_lote set ca_codigo=? ,lo_numero=? ,el_qtde=? "
+                + "where ca_codigo = "+el.getCarga().getCodigo()+" ; ";
   
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                            ps.setInt(1, is.getMateria_prima().getCodigo());
-                            ps.setInt(2, is.getLote().getNumero());
-                            ps.setInt(3, is.getQtde());
+                            ps.setInt(1, el.getCarga().getCodigo());
+                            ps.setInt(2, el.getLote().getNumero());
+                            ps.setInt(3, el.getQtde());
                             ps.executeUpdate();
                             return true;
                 }
@@ -126,29 +127,26 @@ public class ItensSaidaDAO {
         }
         return false;
     }
-    public List<ItensSaida> buscaItensDoLote(int numero)
+    public List<EntradaLote> buscaItensDaCarga(int codigo)
     {   
-        String sql="select * from itens_saida  where lo_numero=? order by mp_codigo ";
-         List<ItensSaida> lista =new ArrayList<>();
-       
-         MontagemLoteDAO daoLt = new MontagemLoteDAO();
+        String sql="select * from entrada_lote where ca_codigo=?";
+         List<EntradaLote> lista =new ArrayList<>();
+       MontagemLoteDAO daoLt = new MontagemLoteDAO();
         MontagemLote lote= null;
-        MateriaPrimaDAO daoMp = new MateriaPrimaDAO();
-        MateriaPrima materia_prima = null;
-      
+        MontagemCargaDAO daoCarga = new MontagemCargaDAO();
+        MontagemCarga carga = null; 
         try (Connection conn = Conecta.abreConexaoBanco()){
             if(conn !=null){
                 try(PreparedStatement ps = conn.prepareStatement(sql)) {
-                  ps.setInt(1, numero);
+                  ps.setInt(1, codigo);
                     try(ResultSet rs = ps.executeQuery()) {
                         while(rs.next()){
                            
                             lote = daoLt.busca(rs.getInt("lo_numero"));
-                            
-                            materia_prima = daoMp.busca(rs.getInt("mp_codigo"));
-                     
-                            lista.add(new  ItensSaida(materia_prima, 
-                                    lote,rs.getInt("is_qtde")));
+                            carga = daoCarga.busca(rs.getInt("ca_codigo"));
+                          
+                            lista.add(new EntradaLote(carga, 
+                                    lote,rs.getInt("el_qtde")));
                             
                         }
                     } 
@@ -158,13 +156,13 @@ public class ItensSaidaDAO {
         }              
         return lista;
     }
-    public boolean exclui(ItensSaida is) {
-        String sql = "delete from itens_saida where lo_numero = ? and mp_codigo=?;";
+    public boolean exclui(EntradaLote el) {
+        String sql = "delete from entrada_lote where lo_numero = ? and ca_codigo=?;";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setInt(1, is.getLote().getNumero());
-                       ps.setInt(2, is.getMateria_prima().getCodigo());
+                    ps.setInt(1, el.getLote().getNumero());
+                       ps.setInt(2, el.getCarga().getCodigo());
                     ps.executeUpdate();
                     return true;
                 }
@@ -174,12 +172,12 @@ public class ItensSaidaDAO {
         }
         return false;
     }
-    public boolean exclui2(ItensSaida is) {
-        String sql = "delete from itens_saida where lo_numero= ?;";
+    public boolean exclui2(EntradaLote el) {
+        String sql = "delete from entrada_lote where ca_codigo= ?;";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                    ps.setInt(1, is.getLote().getNumero());
+                    ps.setInt(1, el.getCarga().getCodigo());
                     ps.executeUpdate();
                     return true;
                 }

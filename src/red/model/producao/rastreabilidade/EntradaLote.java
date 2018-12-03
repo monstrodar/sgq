@@ -3,32 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.model.producao.lote;
+package red.model.producao.rastreabilidade;
 
-import red.model.producao.aquisicao.MateriaPrima;
+import red.model.producao.lote.MontagemLote;
 
 /**
  *
  * @author Daniel
  */
-public class ItensSaida { //itens Lote
+public class EntradaLote {
     
-    private MateriaPrima materia_prima;
+    private MontagemCarga carga;
     private MontagemLote lote;
     private int qtde;
 
-    public ItensSaida(MateriaPrima materia_prima, MontagemLote lote, int qtde) {
-        this.materia_prima = materia_prima;
+    public EntradaLote(MontagemCarga carga, MontagemLote lote, int qtde) {
+        this.carga = carga;
         this.lote = lote;
         this.qtde = qtde;
     }
 
-    public MateriaPrima getMateria_prima() {
-        return materia_prima;
+    public MontagemCarga getCarga() {
+        return carga;
     }
 
-    public void setMateria_prima(MateriaPrima materia_prima) {
-        this.materia_prima = materia_prima;
+    public void setCarga(MontagemCarga carga) {
+        this.carga = carga;
     }
 
     public MontagemLote getLote() {
@@ -49,8 +49,11 @@ public class ItensSaida { //itens Lote
 
     @Override
     public String toString() {
-        return  materia_prima.getNum_lote() + " " + lote + " " + qtde ;
+        return "carga " + carga  ;
     }
+    
+    
+    
     
     
     
