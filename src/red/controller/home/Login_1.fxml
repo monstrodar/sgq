@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" fx:id="PainelTotal" prefHeight="800.0" prefWidth="1280.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.home.Login_1Controller">
+    <stylesheets>
+        <URL value="@login.css" />
+    </stylesheets>
+   <children>
+      <AnchorPane fx:id="painelCentral" prefHeight="730.0" prefWidth="1280.0">
+         <children>
+            <GridPane prefHeight="493.0" prefWidth="394.0" AnchorPane.bottomAnchor="233.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="74.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <JFXTextField fx:id="txtUser" alignment="CENTER" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXTextField>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="63.0" prefWidth="394.0" text="Informe o usuário" textAlignment="JUSTIFY" GridPane.rowIndex="2">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="59.0" prefWidth="394.0" text="Senha" textAlignment="CENTER" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="30.0" />
+                     </padding>
+                  </Label>
+                  <JFXButton onAction="#btnEntrar" prefHeight="39.0" prefWidth="401.0" text="Entrar" GridPane.rowIndex="6">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="84.0" prefWidth="548.0" text="SGQ">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <JFXPasswordField fx:id="txtSenha" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

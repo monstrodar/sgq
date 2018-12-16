@@ -43,16 +43,24 @@ public class PrincipalParametrizacaoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        
-        
-       AnchorPane a;
-        try {
-            a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/Parametrizacao.fxml"));
-             painelCentral.getChildren().setAll(a); 
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalParametrizacaoController.class.getName()).log(Level.SEVERE, null, ex);
+        if(util.ColaboradorLogado.primeiroAcesso)
+        {
+            AnchorPane a;
+            try {
+                a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/Parametrizacao.fxml"));
+                 painelModulo.getChildren().setAll(a); 
+            } catch (IOException ex) {
+                Logger.getLogger(PrincipalParametrizacaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-       
+//       AnchorPane a;
+//        try {
+//            a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/Parametrizacao.fxml"));
+//             painelCentral.getChildren().setAll(a); 
+//        } catch (IOException ex) {
+//            Logger.getLogger(PrincipalParametrizacaoController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//       
         // TODO
     }    
 

@@ -24,12 +24,13 @@ public class Red extends Application {
     @Override
     public void start(Stage stage) throws Exception 
     {
-        Parent root = FXMLLoader.load(getClass().getResource("Principal.fxml"));
+     // Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Login.fxml"));//bruno
+      Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Login_1.fxml"));//daniel
         Scene scene = new Scene(root);
         stage.setScene(scene);
-   //     stage.setFullScreen(true);
+       // stage.setFullScreen(true);
 
-      //  stage.setMaximized(true);
+       stage.setMaximized(true);
       //  stage.setResizable(false);//Desativa o redimensionar:
        // stage.initStyle(StageStyle.UNDECORATED);//Remove os 3 botões e a borda:
 

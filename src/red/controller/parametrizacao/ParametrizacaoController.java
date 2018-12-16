@@ -6,6 +6,7 @@
 package red.controller.parametrizacao;
 
 import com.jfoenix.controls.JFXCheckBox;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -93,7 +95,7 @@ public class ParametrizacaoController implements Initializable{
     }
 
     @FXML
-    private void btnConfirmar(ActionEvent event) {
+    private void btnConfirmar(ActionEvent event)  {
         
         Alert b = new Alert(Alert.AlertType.INFORMATION);
         String msg ="";
@@ -166,6 +168,19 @@ public class ParametrizacaoController implements Initializable{
 
             if (dal.altera(p)) {
                 a.setContentText("Alterado com Sucesso");
+                if(util.ColaboradorLogado.primeiroAcesso)
+                {
+                    util.ColaboradorLogado.primeiroAcesso = false;
+                   
+                    try {
+                        AnchorPane j;
+                         j= (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/home/Principal.fxml"));
+                        painelTotal.getChildren().setAll(j);
+                    } catch (Exception e) {
+                        
+                    }
+                       
+                }
             } else {
                 a.setContentText("Problemas ao Alterar");
             }

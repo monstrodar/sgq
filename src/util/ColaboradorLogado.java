@@ -13,7 +13,10 @@ import red.model.colaborador.Colaborador;
  */
 public class ColaboradorLogado {
     public static Colaborador col;
+    public static boolean primeiroAcesso = false;
 
+
+    
     public Colaborador getCol() {
         return col;
     }
@@ -21,5 +24,8 @@ public class ColaboradorLogado {
     public void setCol(Colaborador col) {
         ColaboradorLogado.col = col;
     }
+    
+    
+    
     
 }

@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+ 
 package red.controller.home;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
@@ -30,17 +28,17 @@ import util.MaskFieldUtil;
  *
  * @author Daniel
  */
-public class LoginController implements Initializable {
+public class Login_1Controller implements Initializable {
 
     @FXML
     private JFXTextField txtUser;
     @FXML
-    private JFXTextField txtSenha;
+    private JFXPasswordField txtSenha;
     private AnchorPane pane;
     @FXML
-    private AnchorPane painelCentral;
-    @FXML
     private AnchorPane PainelTotal;
+    @FXML
+    private AnchorPane painelCentral;
 
     /**
      * Initializes the controller class.
@@ -55,8 +53,7 @@ public class LoginController implements Initializable {
             try 
             {
                 a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/colaborador/perfil/CadastroColaborador.fxml"));
-                painelCentral.getChildren().setAll(a);
-              //  pane.getChildren().setAll(a);//bruno
+                PainelTotal.getChildren().setAll(a);
             } 
             catch (IOException ex) 
             {
@@ -72,7 +69,7 @@ public class LoginController implements Initializable {
                 try 
                 {
                     a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
-                    pane.getChildren().setAll(a);
+                    PainelTotal.getChildren().setAll(a);
                 } 
                 catch (IOException ex) 
                 {
@@ -95,16 +92,12 @@ public class LoginController implements Initializable {
         {
             ColaboradorLogado col = new ColaboradorLogado();
             col.setCol(c);
-            AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/home/Principal.fxml"));
+           // AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/home/Principal.fxml"));
+            AnchorPane a= (AnchorPane) FXMLLoader.load(getClass().getResource("/red/controller/home/Principal.fxml"));
            
-            
-              painelCentral.getChildren().setAll(a);
-              //  pane.getChildren().setAll(a);//bruno
+           PainelTotal.getChildren().setAll(a);
         }
     }
 
-    @FXML
-    private void evtCadastrar(ActionEvent event) {
-    }
     
 }

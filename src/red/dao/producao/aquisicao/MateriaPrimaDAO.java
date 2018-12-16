@@ -61,7 +61,8 @@ public class MateriaPrimaDAO {
    
     public List<MateriaPrima> lista(){
         
-        String sql="select mp_codigo, mp_nome, mp_num_lote, mp_estoque, mp_status from materia_prima order by mp_nome;";
+        String sql="select mp_codigo, mp_nome, mp_num_lote, mp_estoque, mp_status "
+                + "from materia_prima order by mp_nome;";
         List<MateriaPrima> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
             if(conn !=null){

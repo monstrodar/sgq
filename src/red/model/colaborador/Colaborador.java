@@ -13,7 +13,7 @@ import red.dao.util.Conecta;
 import red.model.producao.lote.Produto;
 
 /**
- *
+ *  //iguais
  * @author Bruno Yoshino
  */
 public class Colaborador 
@@ -48,7 +48,16 @@ public class Colaborador
         this.nivel = 0;
         this.celular = "";
     }
-
+    public Colaborador(int codigo) {
+        this.codigo = codigo;
+        this.nome = "";
+        this.senha = "";
+        this.cargo = "";
+        this.status = false;
+        this.cpf = "";
+        this.nivel = 0;
+        this.celular = "";
+    }
     public int getCodigo() {
         return codigo;
     }
@@ -137,6 +146,7 @@ public class Colaborador
                     ps.setString(5, c.cpf);
                     ps.setInt(6, c.nivel);
                     ps.setString(7, c.celular);
+                    ps.executeUpdate();
                     return true;
                 } 
                 
@@ -151,7 +161,8 @@ public class Colaborador
     
     public boolean alterar(Colaborador c)
     {
-        String sql = "update colaborador col_nome=?, col_senha=?, col_cargo=?, col_status=?, col_cpf=?, col_nivel=?, col_celular=? where col_codigo = ?;";
+        String sql = "update colaborador set col_nome = ?, col_senha = ?, col_cargo = ?, col_status = ?, col_cpf = ?, "
+                + " col_nivel = ?, col_celular = ? where col_codigo = ?;";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -161,16 +172,15 @@ public class Colaborador
                     ps.setString(1, c.nome);
                     ps.setString(2, c.senha);
                     ps.setString(3, c.cargo);
-                    ps.setBoolean(4, c.status);
+                    ps.setBoolean(4, true);
                     ps.setString(5, c.cpf);
                     ps.setInt(6, c.nivel);
                     ps.setString(7, c.celular);
                     ps.setInt(8, c.codigo);
+                    ps.executeUpdate();
                     return true;
                 } 
-                
             }
-            
         } catch (SQLException ex) 
         {
             Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,7 +190,7 @@ public class Colaborador
         
     public boolean excluir (int cod)
     {
-        String sql = "update colaborador col_status=false where col_codigo = ?;";
+        String sql = "update colaborador set col_status=false where col_codigo = ?;";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -188,6 +198,7 @@ public class Colaborador
                 try(PreparedStatement ps = con.prepareStatement(sql)) 
                 {
                     ps.setInt(1, cod);
+                    ps.executeUpdate();
                     return true;
                 } 
             }
@@ -201,7 +212,7 @@ public class Colaborador
     public int ReturnQtdColaboradorNivel(int nivel)
     {
         String sql = "select count(*) "
-                    + "from colaborador"
+                    + "from colaborador "
                     + "where col_nivel = ? and col_status != false";
         int qtd = 0;
         try(Connection con = Conexao.abre())
@@ -259,7 +270,7 @@ public class Colaborador
         ArrayList<Colaborador> lista = new ArrayList<>();
         String sql = "select * "
                    + "from colaborador "
-                   + "where (col_nome like ? or col_cpf = ?) and col_cargo = ?"
+                   + "where (col_nome like ? or col_cpf = ?) and col_cargo = ? and col_status = true "
                    + "order by col_nome";
         try(Connection con = Conexao.abre())
         {
@@ -268,13 +279,13 @@ public class Colaborador
                 try(PreparedStatement ps = con.prepareStatement(sql)) 
                 {
                     ps.setString(1, "%"+campo+"%");
-                    ps.setString(1, campo);
+                    ps.setString(2, campo);
                     ps.setString(3, cargo);
                     try(ResultSet rs = ps.executeQuery())
                     {
                         while(rs.next())
                         {
-                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
+                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(7), rs.getInt(6), rs.getString(8)));
                         }
                     }    
                 } 
@@ -292,7 +303,7 @@ public class Colaborador
         ArrayList<Colaborador> lista = new ArrayList<>();
         String sql = "select * "
                    + "from colaborador "
-                   + "where col_nome like ? or col_cpf = ? or col_cargo = ?"
+                   + "where (col_nome like ? or col_cpf = ?) and col_status = true "
                    + "order by col_nome";
         try(Connection con = Conexao.abre())
         {
@@ -302,12 +313,11 @@ public class Colaborador
                 {
                     ps.setString(1, "%"+campo+"%");
                     ps.setString(2, campo);
-                    ps.setString(3, campo);
                     try(ResultSet rs = ps.executeQuery())
                     {
                         while(rs.next())
                         {
-                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(6), rs.getInt(7), rs.getString(8)));
+                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(7), rs.getInt(6), rs.getString(8)));
                         }
                     }    
                 } 
@@ -323,7 +333,7 @@ public class Colaborador
     public Colaborador Logim(String cpf, String senha)
     {
         Colaborador c = new Colaborador();
-        String sql = "select * from colaborador  where col_cpf = '"+cpf+"' and col_senha = '"+senha+"'";
+        String sql = "select * from colaborador  where col_cpf = '"+cpf+"' and col_senha = '"+senha+"' and col_status = true ";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -344,10 +354,100 @@ public class Colaborador
             Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
-        
         return c;
     }
     
+    public ArrayList<Colaborador> serch2(String campo, String cargo)
+    {
+        ArrayList<Colaborador> lista = new ArrayList<>();
+        String sql = "select * "
+                   + "from colaborador "
+                   + "where (col_nome like ? or col_cpf = ?) or col_cargo = ? and col_status = true "
+                   + "order by col_nome";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    ps.setString(1, "%"+campo+"%");
+                    ps.setString(2, campo);
+                    ps.setString(3, cargo);
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        while(rs.next())
+                        {
+                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(7), rs.getInt(6), rs.getString(8)));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
+    }
+    
+        public Colaborador Existe(String cpf)
+    {
+        Colaborador c = new Colaborador();
+        cpf = "'"+cpf+"'";
+        String sql = "select * from colaborador  where col_cpf = "+cpf;
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        if(rs.next())
+                        {
+                           return c = new Colaborador(rs.getInt("col_codigo"), rs.getString("col_nome"), rs.getString("col_senha"), rs.getString("col_cargo"), rs.getBoolean("col_status"), rs.getString("col_cpf"), rs.getInt("col_nivel"), rs.getString("col_celular"));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+        }
+        return null;
+    }
+        
+        public ArrayList<Colaborador> tudo()
+    {
+        ArrayList<Colaborador> lista = new ArrayList<>();
+        String sql = "select * "
+                   + "from colaborador "
+                   + "where col_status = true "
+                   + "order by col_nome";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        while(rs.next())
+                        {
+                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(7), rs.getInt(6), rs.getString(8)));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
+    }
+
     ////////////////////////DANIEL CRIOU ESSAS CLASSES ABAIXO, NÃO ALTERI NEHUMA CLASSE SUA.
     
     public Colaborador busca(int codigo) {
