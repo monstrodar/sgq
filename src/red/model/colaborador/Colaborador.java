@@ -330,6 +330,38 @@ public class Colaborador
         return lista;
     }
     
+    public ArrayList<Colaborador> serchCargo(String campo)
+    {
+        ArrayList<Colaborador> lista = new ArrayList<>();
+        String sql = "select * "
+                   + "from colaborador "
+                   + "where col_cargo = ? and col_status = true "
+                   + "order by col_nome";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    ps.setString(1, "%"+campo+"%");
+                    ps.setString(2, campo);
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        while(rs.next())
+                        {
+                            lista.add(new Colaborador(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(5), rs.getString(7), rs.getInt(6), rs.getString(8)));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
+    }
+    
     public Colaborador Logim(String cpf, String senha)
     {
         Colaborador c = new Colaborador();

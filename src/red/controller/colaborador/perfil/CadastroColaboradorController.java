@@ -145,7 +145,7 @@ public class CadastroColaboradorController implements Initializable {
                 lista = c.serch(txpesquisa.getText());
             }
             else
-                lista = c.serch(txpesquisa.getText());
+                lista = c.serchCargo(txpesquisa1.getText());
         }
         if(lista != null)
         {
