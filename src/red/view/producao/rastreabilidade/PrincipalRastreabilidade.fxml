@@ -17,12 +17,27 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
                      <children>
-                        <JFXButton onAction="#evtCarga" prefHeight="50.0" prefWidth="150.0" text="Montar Carga" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtCarga" prefHeight="50.0" prefWidth="150.0" text="Carga" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Consulta" textFill="DARKGREEN">
+                        <JFXButton onAction="#evt_Relatorio" prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtRegiao" prefHeight="50.0" prefWidth="150.0" text="Região" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtEstado" prefHeight="50.0" prefWidth="150.0" text="Estado" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtCidade" prefHeight="50.0" prefWidth="150.0" text="Cidade" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -33,21 +48,25 @@
             </VBox>
          </top>
          <center>
-            <AnchorPane maxHeight="680.0" maxWidth="600.0" prefHeight="680.0" prefWidth="600.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="680.0" maxWidth="1048.0" prefHeight="680.0" prefWidth="1048.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="74.0" prefHeight="35.0" prefWidth="419.0" text="Painel Principal Rastreabilidade" textFill="DARKGREEN">
+                  <Label layoutX="41.0" layoutY="228.0" prefHeight="151.0" prefWidth="993.0" text="CONTROLE RASTREABILIDADE" textFill="#123904">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="68.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="41.0" layoutY="131.0" prefHeight="151.0" prefWidth="747.0" text="ISO 9001" textFill="#65c940">
+                     <font>
+                        <Font name="System Bold" size="72.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="261.0" layoutY="372.0" prefHeight="53.0" prefWidth="703.0" text="Gestão de Qualidade de Rastreabilidade" textFill="DARKGREEN">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
                </children></AnchorPane>
          </center>
-         <left>
-            <AnchorPane prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <AnchorPane maxHeight="680.0" maxWidth="50.0" prefHeight="680.0" prefWidth="50.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </children>
 </AnchorPane>

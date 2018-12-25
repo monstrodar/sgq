@@ -48,21 +48,25 @@
             </VBox>
          </top>
          <center>
-            <AnchorPane maxHeight="680.0" maxWidth="600.0" prefHeight="680.0" prefWidth="600.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="680.0" maxWidth="1049.0" prefHeight="680.0" prefWidth="1049.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="74.0" prefHeight="35.0" prefWidth="419.0" text="Painel Principal Aquisicao" textFill="DARKGREEN">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="290.0" layoutY="377.0" prefHeight="53.0" prefWidth="578.0" text="Sistema Gestão de Qualidade" textFill="DARKGREEN">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="20.0" layoutY="252.0" prefHeight="151.0" prefWidth="936.0" text="CONTROLE DE AQUISIÇÃO" textFill="#123904">
+                     <font>
+                        <Font name="System Bold" size="72.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="121.0" layoutY="124.0" prefHeight="151.0" prefWidth="747.0" text="ISO 9001" textFill="#65c940">
+                     <font>
+                        <Font name="System Bold" size="72.0" />
                      </font>
                   </Label>
                </children></AnchorPane>
          </center>
-         <left>
-            <AnchorPane prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <AnchorPane maxHeight="680.0" maxWidth="50.0" prefHeight="680.0" prefWidth="50.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
    </children>
 </AnchorPane>

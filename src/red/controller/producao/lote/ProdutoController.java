@@ -156,6 +156,7 @@ public class ProdutoController implements Initializable{
             a.showAndWait();
         }
         else{
+            
             listaItensComposicao = new ArrayList<Composicao>();
             Produto p = (Produto)tabela.getSelectionModel().getSelectedItem();
             txtCodigo.setText(""+p.getCodigo());
@@ -242,7 +243,7 @@ public class ProdutoController implements Initializable{
                   } catch (Exception e) {
                            cod = 0;
                   }
-                  Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),cbStatus.isSelected());
+                  Produto p = new Produto(cod,txtNome.getText(),txtDescricao.getText(),cbStatus.isSelected(),0,0);
                   ProdutoDAO dal = new ProdutoDAO();
 
                   Alert j = new Alert(Alert.AlertType.CONFIRMATION);

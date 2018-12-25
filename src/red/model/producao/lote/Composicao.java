@@ -52,11 +52,11 @@ public class Composicao {
         this.qtde = qtde;
     }
 
-    @Override
-    public String toString() {
-        return materia_prima.getNome();
-    }
-    
-    
+//    @Override
+//    public String toString() {
+//        return materia_prima.getNome();
+//    }
+//    
+//    
     
 }

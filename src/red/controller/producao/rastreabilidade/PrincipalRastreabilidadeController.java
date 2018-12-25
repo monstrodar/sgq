@@ -44,5 +44,21 @@ public class PrincipalRastreabilidadeController implements Initializable {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/MontagemCarga.fxml"));
         painelTotal.getChildren().setAll(a);
     }
+
+    @FXML
+    private void evt_Relatorio(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtRegiao(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtEstado(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtCidade(ActionEvent event) {
+    }
     
 }

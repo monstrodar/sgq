@@ -112,9 +112,24 @@
                                     </VBox>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane fx:id="painelModulo" maxHeight="730.0" maxWidth="1050.0" minHeight="0.0" minWidth="0.0" prefHeight="730.0" prefWidth="1050.0">
+                              <AnchorPane fx:id="painelModulo" maxHeight="730.0" maxWidth="1050.0" minHeight="0.0" minWidth="0.0" prefHeight="730.0" prefWidth="1050.0" style="-fx-background-color: #1002;">
                                  <children>
-                                    <ImageView fitHeight="730.0" fitWidth="1050.0" pickOnBounds="true" preserveRatio="true" />
+                                    <ImageView fitHeight="730.0" fitWidth="1050.0" pickOnBounds="true" preserveRatio="true" style="-fx-background: #1002;" />
+                                    <Label layoutX="53.0" layoutY="56.0" prefHeight="151.0" prefWidth="747.0" text="ISO 9001" textFill="#65c940">
+                                       <font>
+                                          <Font name="System Bold" size="72.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="53.0" layoutY="163.0" prefHeight="151.0" prefWidth="936.0" text="CONTROLE DE QUALIDADE" textFill="#123904">
+                                       <font>
+                                          <Font name="System Bold" size="68.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="361.0" layoutY="311.0" prefHeight="53.0" prefWidth="578.0" text="Sistema Gestão de Qualidade" textFill="DARKGREEN">
+                                       <font>
+                                          <Font name="System Bold" size="36.0" />
+                                       </font>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                            </items>

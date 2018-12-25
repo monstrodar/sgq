@@ -35,17 +35,20 @@ public class ProdutoDAO {
     }
     
     public Produto busca(int codigo) {
-        String sql = "select pro_codigo,pro_nome, pro_descricao, pro_status from produto where pro_codigo = ? ";
+        String sql = "select pro_codigo,pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao  "
+                + "from produto where pro_codigo = "+ codigo;
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement st = conn.prepareStatement(sql)) {
-                    st.setInt(1, codigo);
+                  //  st.setInt(1, codigo);
                     try (ResultSet rs = st.executeQuery()) {
                         if (rs.next()) {
                             return new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status"));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao"));
                         }
                     }
                 }
@@ -57,13 +60,17 @@ public class ProdutoDAO {
    
     public boolean insere(Produto p){
      
-        String sql="insert into produto(pro_nome,pro_descricao, pro_status) values(?,?,?);";
+        String sql="insert into produto(pro_nome,pro_descricao, pro_status, pro_litros, pro_vazao) values(?,?,?);";
                 try(Connection conn = Conecta.abreConexaoBanco()) {
                     if(conn !=null){
                         try (PreparedStatement ps = conn.prepareStatement(sql)){
                             ps.setString(1, p.getNome());
                             ps.setString(2, p.getDescricao());
-                            ps.setBoolean(3, p.isStatus());  
+                            ps.setBoolean(3, p.isStatus());
+                            ps.setFloat(4, p.getLitros());
+                            ps.setFloat(5, p.getVazao());
+                            ps.setInt(6,p.getCodigo());
+                        //    ps.executeLargeUpdate();
                             ps.executeUpdate();
                             return true;
                         } 
@@ -75,7 +82,7 @@ public class ProdutoDAO {
     }
     public List<Produto> lista(){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto  "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto  "
                 + "order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -86,7 +93,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 
@@ -115,7 +124,7 @@ public class ProdutoDAO {
         return cod+1;
     }
     public  boolean altera(Produto p) {
-        String sql = "update produto set pro_nome = ?, pro_descricao=?, pro_status=? where pro_codigo=?;";
+        String sql = "update produto set pro_nome = ?, pro_descricao=?, pro_status=? , pro_litros=?, pro_vazao=? where pro_codigo=?;";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -123,7 +132,9 @@ public class ProdutoDAO {
                             ps.setString(1, p.getNome());
                             ps.setString(2, p.getDescricao());
                             ps.setBoolean(3, p.isStatus());
-                            ps.setInt(4,p.getCodigo());
+                            ps.setFloat(4, p.getLitros());
+                            ps.setFloat(5, p.getVazao());
+                            ps.setInt(6,p.getCodigo());
                         //    ps.executeLargeUpdate();
                             ps.executeUpdate();
                             return true;
@@ -171,7 +182,7 @@ public class ProdutoDAO {
     
      public List<Produto> pesquisa(String chave){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto where upper(pro_nome) "
                 + "like '%"+chave+"%' order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -182,7 +193,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 
@@ -193,7 +206,7 @@ public class ProdutoDAO {
     }
       public List<Produto> listaAtivo(){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where pro_status='true'  "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto where pro_status='true'  "
                 + "order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -204,7 +217,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 
@@ -215,7 +230,7 @@ public class ProdutoDAO {
     }
       public List<Produto> listaInativo(){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where pro_status='false'   "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto where pro_status='false'   "
                 + "order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -226,7 +241,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 
@@ -237,7 +254,7 @@ public class ProdutoDAO {
     }
       public List<Produto> pesquisaAtivo(String chave){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto where upper(pro_nome) "
                 + "like '%"+chave+"%'  and pro_status='true' order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -248,7 +265,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 
@@ -259,7 +278,7 @@ public class ProdutoDAO {
     }
       public List<Produto> pesquisaInativo(String chave){
         
-        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status from produto where upper(pro_nome) "
+        String sql="select pro_codigo, pro_nome, pro_descricao, pro_status, pro_litros, pro_vazao from produto where upper(pro_nome) "
                 + "like '%"+chave+"%'  and pro_status='false' order by pro_nome;";
         List<Produto> lista =new ArrayList<>();
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -270,7 +289,9 @@ public class ProdutoDAO {
                             lista.add(new Produto(rs.getInt("pro_codigo"),
                                     rs.getString("pro_nome"), 
                                     rs.getString("pro_descricao"),
-                                    rs.getBoolean("pro_status")));
+                                    rs.getBoolean("pro_status"),
+                                    rs.getFloat("pro_litros"),
+                                    rs.getFloat("pro_vazao")));
                         }
                     } 
                 } 

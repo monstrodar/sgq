@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package red.dao.producao.lote;
 
 import java.sql.Connection;
@@ -40,26 +36,27 @@ public class MontagemLoteDAO {
     }
     public MontagemLote buscaDisponivel(int  numeroLote, Produto produto){
         String sql = "select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque  from lote where lo_estoque >0  and  lo_numero=? and pro_codigo=? ";
+                + "lo_data_fim, lo_qtde_prod_montado , lo_validade from montagem_lote where lo_qtde_pro >0  and  lo_numero== "+numeroLote+""
+                + " and pro_codigo== "+produto.getCodigo()+" ;";
         ProdutoDAO daoPro = new ProdutoDAO();
     
         Colaborador col = null, colaborador = new Colaborador();
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement st = conn.prepareStatement(sql)) {
-                   
-                     st.setInt(1, numeroLote);
-                      st.setInt(2, produto.getCodigo());
+
                     try (ResultSet rs = st.executeQuery()) {
                         if (rs.next()) {
-                            produto= daoPro.busca(rs.getInt("pro_codigo"));  ///erro
                             col =colaborador.busca(rs.getInt("col_codigo"));
                             return new MontagemLote(rs.getInt("lo_numero"),
                                     produto,
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque"));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                 //   rs.getDate("lo_validade").toLocalDate()
+                                    null
+                            );
                         }
                     }
                 }
@@ -70,7 +67,7 @@ public class MontagemLoteDAO {
     }
     public MontagemLote busca(int numero) {
         String sql = "select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque  from lote where lo_numero = ? ";
+                + "lo_data_fim, lo_qtde_prod_montado , lo_validade from montagem_lote where lo_numero = ? ";
         ProdutoDAO daoPro = new ProdutoDAO();
         Produto produto = null;
         Colaborador col = null, colaborador = new Colaborador();
@@ -87,7 +84,9 @@ public class MontagemLoteDAO {
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque"));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                  //  rs.getDate("lo_validade").toLocalDate()
+                            null);
                         }
                     }
                 }
@@ -97,14 +96,15 @@ public class MontagemLoteDAO {
         return null;
     }
    
-    public boolean insere(MontagemLote ml){
-     
-        String sql="insert into lote(pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque) values("+ml.getProduto().getCodigo()+","
-                +ml.getColaborador().getCodigo()+",'"+ml.getData_inicio()+"','"+ml.getData_fim()+"',"+ml.getEstoque()+");";
+    public boolean insere(MontagemLote ml){//ok
+
+        String sql="insert into montagem_lote(pro_codigo, col_codigo, lo_data_inicio, "
+                + "lo_data_fim, lo_qtde_prod_montado, lo_validade) values("+ml.getProduto().getCodigo()+","
+                +ml.getColaborador().getCodigo()+",'"+ml.getData_inicio()+"','"+ml.getData_fim()+"',"
+                +ml.getQtde_montada()+",null);";
                 try(Connection conn = Conecta.abreConexaoBanco()) {
                     if(conn !=null){
-                        try (PreparedStatement ps = conn.prepareStatement(sql)){
+                        try (PreparedStatement ps = conn.prepareStatement(sql)){   
                             ps.executeUpdate();
                             return true;
                         } 
@@ -114,11 +114,12 @@ public class MontagemLoteDAO {
         }
        return false; 
     }
-    public List<MontagemLote> lista(){
-        
+    public List<MontagemLote> lista(){//metodo conferido
+ 
         String sql="select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque from lote order by lo_numero;";
-      List<MontagemLote> lista =new ArrayList<>();
+                + "lo_data_fim, lo_qtde_prod_montado, lo_validade from montagem_lote";
+
+        List<MontagemLote> lista =new ArrayList<>();
         ProdutoDAO daoPro = new ProdutoDAO();
         Produto produto = null;
         Colaborador colaborador = new Colaborador();
@@ -135,7 +136,9 @@ public class MontagemLoteDAO {
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque")));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                   // rs.getDate("lo_validade").toLocalDate())
+                           null) );
                         }
                     } 
                 } 
@@ -148,9 +151,10 @@ public class MontagemLoteDAO {
    
     public  boolean altera(MontagemLote ml) {
        
-        String sql = "update lote set pro_codigo="+ml.getProduto().getCodigo()+", "
+        String sql = "UPDATE montagem_lote set pro_codigo="+ml.getProduto().getCodigo()+", "
                 + "col_codigo="+ml.getColaborador().getCodigo()+", lo_data_inicio= '"+ml.getData_inicio()+"', "
-                + "lo_data_fim= '"+ml.getData_fim()+"', lo_estoque="+ml.getEstoque()+"  where lo_numero="+ml.getNumero()+";";
+                + "lo_data_fim= '"+ml.getData_fim()+"', lo_qtde_prod_montado= "+ml.getQtde_montada()+" "
+                + ",lo_validade= null where lo_numero="+ml.getNumero()+";";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -160,12 +164,12 @@ public class MontagemLoteDAO {
                 }
             }
         } catch (SQLException e) {
-            erro = "Erro alterando produto!";
+            erro = "Erro alterando o lote!";
         }
         return false;
     }
     public boolean exclui(MontagemLote ml) {
-        String sql = "delete from lote where lo_numero = "+ml.getNumero()+";";
+        String sql = "delete from montagem_lote where lo_numero = "+ml.getNumero()+";";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -175,14 +179,14 @@ public class MontagemLoteDAO {
                 }
             }
         } catch (SQLException e) {
-          //  erro = "Erro excluindo produto!";
+          //  erro = "Erro excluindo lote!";
         }
         return false;
     }
     
     public int QtdLote()
     {
-        String sql = "select count(*) from lote;";
+        String sql = "select count(*) from montagem_lote;";
         int qtd=0;
         try (Connection conn = Conecta.abreConexaoBanco()){
             if(conn !=null){
@@ -201,7 +205,7 @@ public class MontagemLoteDAO {
     
      public List<MontagemLote> pesquisa(String chave){
         
-        String sql="select * from lote where lo_numero= ? order by lo_numero;";
+        String sql="select * from montagem_lote where lo_numero= ? order by lo_numero;";
         List<MontagemLote> lista =new ArrayList<>();
         ProdutoDAO daoPro = new ProdutoDAO();
         Produto produto = null;
@@ -218,7 +222,9 @@ public class MontagemLoteDAO {
                                     colaborador,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque")));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                //    rs.getDate("lo_validade").toLocalDate())
+                            null));
                         }
                     } 
                 } 
@@ -230,7 +236,7 @@ public class MontagemLoteDAO {
      public List<MontagemLote> pesquisa2(int numero){
         
         String sql="select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque  from lote where lo_numero = ?  order by lo_numero;";
+                + "lo_data_fim, lo_qtde_prod_montado, lo_validade from montagem_lote where lo_numero = ?  order by lo_numero;";
         List<MontagemLote> lista =new ArrayList<>();
         ProdutoDAO daoPro = new ProdutoDAO();
         Produto produto = null;
@@ -249,7 +255,9 @@ public class MontagemLoteDAO {
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque")));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                //    rs.getDate("lo_validade").toLocalDate()
+                            null));
                         }
                     } 
                 } 
@@ -260,7 +268,7 @@ public class MontagemLoteDAO {
     }
      
     public int ultimoNumero(){
-        String sql="select lo_numero from lote order by lo_numero;";
+        String sql="select lo_numero from montagem_lote order by lo_numero;";
         
         int numero=0;
         try (Connection conn = Conecta.abreConexaoBanco()){
@@ -275,11 +283,11 @@ public class MontagemLoteDAO {
             }
         } catch (SQLException e) {
         }           
-        return numero+1;
+        return numero;
     }
     public MontagemLote getSaldo(int numero) {
         String sql = "select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque  from lote where lo_numero = ? ";
+                + "lo_data_fim, lo_qtde_prod_montado, lo_validade from montagem_lote where lo_numero = ? ";
         ProdutoDAO daoPro = new ProdutoDAO();
         Produto produto = null;
         Colaborador col = null, colaborador = new Colaborador();
@@ -296,7 +304,9 @@ public class MontagemLoteDAO {
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque"));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                             //       rs.getDate("lo_validade").toLocalDate()
+                            null);
                         }
                     }
                 }
@@ -306,7 +316,7 @@ public class MontagemLoteDAO {
         return null;
     }
     public boolean atualizaEstoqueLote(MontagemLote lote){
-        String sql = "update lote set lo_estoque="+lote.getEstoque()+"  where lo_numero="+lote.getNumero()+";";
+        String sql = "update montagem_lote set lo_estoque="+0+"  where lo_numero="+lote.getNumero()+";";
         try (Connection conn = Conecta.abreConexaoBanco()) {
             if (conn != null) {
                 try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -316,7 +326,7 @@ public class MontagemLoteDAO {
                 }
             }
         } catch (SQLException e) {
-            erro = "Erro alterando produto!";
+            erro = "Erro alterando lote!";
         }
         return false;
     }
@@ -328,7 +338,7 @@ public class MontagemLoteDAO {
 //                + "lo_data_inicio >= '"+inicio+"' and lo_data_fim <= '"+fim+"';";
         
         String sql="select lo_numero, pro_codigo, col_codigo, lo_data_inicio, "
-                + "lo_data_fim, lo_estoque  from lote where  "
+                + "lo_data_fim, lo_qtde_prod_montado, lo_validade from montagem_lote where  "
                 + "lo_data_inicio between date('"+inicio+"') and date('"+fim+"') or "
                 + "lo_data_fim between date('"+inicio+"') and date('"+fim+"') order by lo_numero;";
         
@@ -351,7 +361,9 @@ public class MontagemLoteDAO {
                                     col,
                                     rs.getDate("lo_data_inicio").toLocalDate(),
                                     rs.getDate("lo_data_fim").toLocalDate(),
-                                    rs.getInt("lo_estoque")));
+                                    rs.getInt("lo_qtde_prod_montado"),
+                                //    rs.getDate("lo_validade").toLocalDate()
+                            null));
                         }
                     } 
                 } 

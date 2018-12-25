@@ -5,6 +5,7 @@
  */
 package red.controller.producao.fornecedor;
 
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -39,29 +40,37 @@ public class CadastroFornecedorController implements Initializable {
     @FXML
     private VBox painelEsquerda;
     @FXML
-    private TextField txpesquisa;
-    @FXML
     private ListView<?> lvcolaboradores;
     @FXML
     private VBox pnDireita;
     @FXML
-    private RadioButton rbbasico;
+    private TextField txpesquisaCNPJ;
     @FXML
-    private ToggleGroup gruporadio;
+    private TextField txpesquisaRazao;
     @FXML
-    private RadioButton rbauditor;
+    private JFXTextField txtCoodigo;
     @FXML
-    private RadioButton rbadministrador;
+    private JFXTextField txtRazao;
     @FXML
-    private TextField txnome;
+    private JFXTextField txtCnpj;
     @FXML
-    private TextField txcargo;
+    private JFXTextField txtContato;
     @FXML
-    private TextField txcpf;
+    private JFXTextField txtEmail;
     @FXML
-    private TextField txobs;
+    private JFXTextField txtCelular;
     @FXML
-    private DatePicker dpdata;
+    private JFXTextField txtTelefone;
+    @FXML
+    private JFXTextField txtRua;
+    @FXML
+    private JFXTextField txtCep;
+    @FXML
+    private JFXTextField txtNumero;
+    @FXML
+    private ComboBox<?> cbbEstado;
+    @FXML
+    private ComboBox<?> cbbCidade;
 
     /**
      * Initializes the controller class.
@@ -109,11 +118,15 @@ public class CadastroFornecedorController implements Initializable {
     }
 
     @FXML
-    private void clkConfirmar(ActionEvent event) {
+    private void evtEstado(ActionEvent event) {
     }
 
     @FXML
-    private void clCancelar(ActionEvent event) {
+    private void btnConfirmar(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnCancelar(ActionEvent event) {
     }
     
 }

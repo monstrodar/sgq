@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package red.model.producao.lote;
 
+import red.model.producao.aquisicao.EstoqueMP;
 import red.model.producao.aquisicao.MateriaPrima;
 
 /**
@@ -13,22 +10,17 @@ import red.model.producao.aquisicao.MateriaPrima;
  */
 public class ItensSaida { //itens Lote
     
-    private MateriaPrima materia_prima;
+    private EstoqueMP lt_materia_prima;
     private MontagemLote lote;
+    private MateriaPrima mp;
     private int qtde;
 
-    public ItensSaida(MateriaPrima materia_prima, MontagemLote lote, int qtde) {
-        this.materia_prima = materia_prima;
-        this.lote = lote;
-        this.qtde = qtde;
+    public EstoqueMP getLt_materia_prima() {
+        return lt_materia_prima;
     }
 
-    public MateriaPrima getMateria_prima() {
-        return materia_prima;
-    }
-
-    public void setMateria_prima(MateriaPrima materia_prima) {
-        this.materia_prima = materia_prima;
+    public void setLt_materia_prima(EstoqueMP lt_materia_prima) {
+        this.lt_materia_prima = lt_materia_prima;
     }
 
     public MontagemLote getLote() {
@@ -39,6 +31,14 @@ public class ItensSaida { //itens Lote
         this.lote = lote;
     }
 
+    public MateriaPrima getMp() {
+        return mp;
+    }
+
+    public void setMp(MateriaPrima mp) {
+        this.mp = mp;
+    }
+
     public int getQtde() {
         return qtde;
     }
@@ -47,9 +47,19 @@ public class ItensSaida { //itens Lote
         this.qtde = qtde;
     }
 
-    @Override
-    public String toString() {
-        return  materia_prima.getNum_lote() + " " + lote + " " + qtde ;
+   
+//    
+//    @Override
+//    public String toString(){
+//        return lt_materia_prima.getLote_mp();
+//    }
+//   
+
+    public ItensSaida(EstoqueMP lt_materia_prima, MontagemLote lote, MateriaPrima mp, int qtde) {
+        this.lt_materia_prima = lt_materia_prima;
+        this.lote = lote;
+        this.mp = mp;
+        this.qtde = qtde;
     }
     
     

@@ -49,35 +49,25 @@ public class PrincipalController implements Initializable {
      @Override
     public void initialize(URL url, ResourceBundle rb) {
         Colaborador c = ColaboradorLogado.col;
-        ParametrizacaoDAO daop = new ParametrizacaoDAO();
-        Parametrizacao p = daop.busca();
-        
-        if(p.getCnpj().equals("00.000.000/0000-00"))
-        {
-            util.ColaboradorLogado.primeiroAcesso = true;
-               AnchorPane a;
-            try {
-//            
-       
-              a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/PrincipalParametrizacao.fxml"));
-        painelPrincipal.getChildren().setAll(a);       
-         
-//          
-                                
-            } catch (IOException ex) {
-                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        switch(c.getNivel())
-        {
-            case 1: Nivel1(); break;
-                
-            case 2: Nivel2(); break;
-                
-            default: Nivel3(); break;
-                   
-        }
+//        ParametrizacaoDAO daop = new ParametrizacaoDAO();
+//        Parametrizacao p = daop.busca();
+//        
+//        if(p.getCnpj().equals("00.000.000/0000-00")){
+//            util.ColaboradorLogado.primeiroAcesso = true;
+//               AnchorPane a;
+//            try {
+//              a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/parametrizacao/PrincipalParametrizacao.fxml"));
+//              painelPrincipal.getChildren().setAll(a);       
+//                  
+//            } catch (IOException ex) {
+//                Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        switch(c.getNivel()){
+//            case 1: Nivel1(); break;               
+//            case 2: Nivel2(); break;             
+//            default: Nivel3(); break;        
+//        }
     } 
 
 
@@ -113,12 +103,12 @@ public class PrincipalController implements Initializable {
     
     private void Nivel1()
     {
-        doc.setDisable(false);
+        doc.setDisable(true);
         direction.setDisable(false);
         resourse.setDisable(false);
         production.setDisable(false);
         measurement.setDisable(true);
-        parametrizacao.setDisable(true);
+        parametrizacao.setDisable(false);
     }
 
     private void Nivel2()

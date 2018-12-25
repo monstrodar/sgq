@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import red.conexcao.Conexao;
 import red.dao.util.Conecta;
-import red.model.producao.lote.Produto;
 
 /**
  *  //iguais

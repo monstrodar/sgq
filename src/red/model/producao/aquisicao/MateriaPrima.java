@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import red.conexcao.Conexao;
 import red.model.colaborador.Colaborador;
+import red.model.producao.lote.Produto;
 
 
 /**
@@ -24,15 +25,11 @@ public class MateriaPrima {
     
     private int codigo;
     private String nome;
-    private String num_lote;
-    private int estoque;
     private boolean status;
 
-    public MateriaPrima(int codigo, String nome, String num_lote, int estoque, boolean status) {
+    public MateriaPrima(int codigo, String nome, boolean status) {
         this.codigo = codigo;
         this.nome = nome;
-        this.num_lote = num_lote;
-        this.estoque = estoque;
         this.status = status;
     }
 
@@ -59,22 +56,6 @@ public class MateriaPrima {
         this.nome = nome;
     }
 
-    public String getNum_lote() {
-        return num_lote;
-    }
-
-    public void setNum_lote(String num_lote) {
-        this.num_lote = num_lote;
-    }
-
-    public int getEstoque() {
-        return estoque;
-    }
-
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -86,6 +67,14 @@ public class MateriaPrima {
     @Override
     public String toString() {
         return nome ;
+    }
+    
+    
+     @Override
+    public boolean equals(Object ob){
+        
+        
+        return ob instanceof MateriaPrima && this.codigo==((MateriaPrima)ob).getCodigo();
     }
         //DAO------------------------------------------------------------------------------------------------------------
     
@@ -99,8 +88,6 @@ public class MateriaPrima {
                 try(PreparedStatement ps = con.prepareStatement(sql)) 
                 {
                     ps.setString(1, mp.getNome());
-//                    ps.setString(2, mp.getNum_lote());
-//                    ps.setInt(3, mp.getEstoque());
                     ps.setBoolean(2, mp.isStatus());
                     ps.executeUpdate();
                     return true;
@@ -125,8 +112,6 @@ public class MateriaPrima {
                 try(PreparedStatement ps = con.prepareStatement(sql)) 
                 {
                     ps.setString(1, mp.getNome());
-//                    ps.setString(2, mp.getNum_lote());
-//                    ps.setInt(3, mp.getEstoque());
                     ps.setBoolean(2, mp.isStatus());
                     ps.setInt(3, mp.getCodigo());
                     ps.executeUpdate();
@@ -182,7 +167,7 @@ public class MateriaPrima {
                     {
                         while(rs.next())
                         {
-                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), "", 0, rs.getBoolean(3)));
+                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
                         }
                     }    
                 } 
@@ -211,7 +196,7 @@ public class MateriaPrima {
                     {
                         while(rs.next())
                         {
-                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), "", 0, rs.getBoolean(3)));
+                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
                         }
                     }    
                 } 
@@ -239,7 +224,7 @@ public class MateriaPrima {
                     {
                         while(rs.next())
                         {
-                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), "", 0, rs.getBoolean(3)));
+                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
                         }
                     }    
                 } 
@@ -267,7 +252,7 @@ public class MateriaPrima {
                     {
                         if(rs.next())
                         {
-                            return new MateriaPrima(rs.getInt(1), rs.getString(2), "", 0, rs.getBoolean(3));
+                            return new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3));
                         }
                     }    
                 } 

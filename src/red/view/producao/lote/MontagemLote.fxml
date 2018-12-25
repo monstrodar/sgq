@@ -65,12 +65,12 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="70.0" layoutY="487.0" text="Data Término:" textFill="DARKGREEN">
+                        <Label layoutX="66.0" layoutY="444.0" text="Data Término:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="dpTermino" layoutX="167.0" layoutY="485.0" prefHeight="31.0" prefWidth="226.0" promptText="Data término de montagem" style="-fx-font-size: 15;" />
+                        <DatePicker fx:id="dpTermino" layoutX="166.0" layoutY="438.0" prefHeight="31.0" prefWidth="226.0" promptText="Data término de montagem" style="-fx-font-size: 15;" />
                         <Label layoutX="75.0" layoutY="64.0" prefHeight="20.0" prefWidth="112.0" text="Número do Lote:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -92,28 +92,26 @@
                            </font>
                         </Label>
                         <DatePicker fx:id="dpInicio" layoutX="448.0" layoutY="60.0" opacity="0.77" prefHeight="31.0" prefWidth="227.0" promptText="Data início de montagem" style="-fx-font-size: 15;" />
-                        <Label layoutX="70.0" layoutY="529.0" text="Responsável:" textFill="DARKGREEN">
+                        <Label layoutX="63.0" layoutY="533.0" text="Responsável:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txtNumLotePro" alignment="CENTER" layoutX="205.0" layoutY="42.0" opacity="0.45" prefHeight="25.0" prefWidth="85.0" style="-fx-font-size: 16;" />
+                        <JFXTextField fx:id="txtNumLotePro" alignment="CENTER" layoutX="205.0" layoutY="42.0" opacity="0.88" prefHeight="25.0" prefWidth="85.0" style="-fx-font-size: 16;" unFocusColor="#141212">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font></JFXTextField>
                         <JFXComboBox fx:id="cbbColaborador" layoutX="165.0" layoutY="527.0" opacity="0.66" prefHeight="25.0" prefWidth="228.0" promptText="Selecione o Colaborador Resp." style="-fx-font-size: 15;" />
-                        <JFXTextField fx:id="txtQtdeMP" layoutX="358.0" layoutY="169.0" opacity="0.53" prefHeight="25.0" prefWidth="129.0">
+                        <JFXTextField fx:id="txtQtdeMP" layoutX="358.0" layoutY="169.0" opacity="0.46" prefHeight="25.0" prefWidth="129.0" promptText="Informe qtde MP">
                            <font>
                               <Font size="16.0" />
                            </font></JFXTextField>
-                        <JFXComboBox fx:id="cbbMateriaPrima" layoutX="75.0" layoutY="176.0" opacity="0.66" prefHeight="25.0" prefWidth="261.0" promptText="      Selecione uma Matéria Prima " style="-fx-font-size: 15;" />
-                        <JFXTextField fx:id="txtLoteMP" alignment="CENTER" layoutX="509.0" layoutY="169.0" opacity="0.42" prefHeight="25.0" prefWidth="165.0">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </JFXTextField>
-                        <TableView fx:id="tabelaMP" layoutX="68.0" layoutY="233.0" prefHeight="232.0" prefWidth="606.0">
+                        <JFXComboBox fx:id="cbbMateriaPrima" layoutX="75.0" layoutY="176.0" onAction="#cbbEVTMateriaPrima" opacity="0.66" prefHeight="25.0" prefWidth="261.0" promptText="      Selecione uma Matéria Prima " style="-fx-font-size: 15;" />
+                        <TableView fx:id="tabelaMP" layoutX="68.0" layoutY="233.0" prefHeight="199.0" prefWidth="606.0">
                            <columns>
-                              <TableColumn fx:id="colQtdeMp" prefWidth="115.0" style="-fx-font-size: 15;" text="Quantidade" />
-                              <TableColumn fx:id="colMatPrimaMp" prefWidth="289.0" style="-fx-font-size: 15;" text="Matéria Prima" />
-                              <TableColumn fx:id="colLoteMp" prefWidth="201.0" style="-fx-font-size: 15;" text="Lote Matéria Prima" />
+                              <TableColumn fx:id="colQtdeMp" prefWidth="121.0" style="-fx-font-size: 15;" text="Quantidade" />
+                              <TableColumn fx:id="colMatPrimaMp" prefWidth="296.0" style="-fx-font-size: 15;" text="Matéria Prima" />
+                              <TableColumn fx:id="colLoteMp" prefWidth="188.0" style="-fx-font-size: 15;" text="Lote MP" />
                            </columns>
                         </TableView>
                         <Label layoutX="72.0" layoutY="114.0" text="Produto:" textFill="DARKGREEN">
@@ -126,7 +124,7 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font></Button>
-                        <JFXTextField fx:id="txtQtdePro" layoutX="479.0" layoutY="99.0" opacity="0.49" prefHeight="25.0" prefWidth="192.0">
+                        <JFXTextField fx:id="txtQtdePro" layoutX="479.0" layoutY="99.0" opacity="0.49" prefHeight="25.0" prefWidth="192.0" promptText="Informe a qtde de produtos ">
                            <font>
                               <Font size="16.0" />
                            </font></JFXTextField>
@@ -143,6 +141,13 @@
                         <Label layoutX="250.0" layoutY="216.0" text="* Todos os campos são de preenchimento obrigatório." textFill="#f8160a">
                            <font>
                               <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Label>
+                        <JFXComboBox fx:id="cbbLtMp" layoutX="503.0" layoutY="176.0" opacity="0.66" prefHeight="31.0" prefWidth="181.0" promptText="Selecione Lote Mat. Prima" style="-fx-font-size: 15;" />
+                        <DatePicker fx:id="dpValidade" disable="true" layoutX="164.0" layoutY="481.0" prefHeight="31.0" prefWidth="226.0" promptText="Data Válidade do Produto" style="-fx-font-size: 15;" />
+                        <Label layoutX="64.0" layoutY="487.0" text="Data Válidade:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                      </children>

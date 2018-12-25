@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import red.dao.util.Conecta;
 import red.model.colaborador.Colaborador;
 
@@ -24,29 +25,16 @@ public class Red extends Application {
     @Override
     public void start(Stage stage) throws Exception 
     {
-     // Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Login.fxml"));//bruno
-      Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Login_1.fxml"));//daniel
+      Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Principal.fxml"));//banco_novo
+   //   Parent root = FXMLLoader.load(getClass().getResource("/red/controller/home/Login_1.fxml"));//daniel entrega final
         Scene scene = new Scene(root);
         stage.setScene(scene);
-       // stage.setFullScreen(true);
-
-       stage.setMaximized(true);
-      //  stage.setResizable(false);//Desativa o redimensionar:
-       // stage.initStyle(StageStyle.UNDECORATED);//Remove os 3 botões e a borda:
-
-try (Connection conn = Conecta.abreConexaoBanco()) {
-            
-            if (conn != null) {
-                System.out.println("conectado no banco red");
-            }
-            else
-                System.out.println("nao conectado no banco red");
-            
-        }
+        stage.setFullScreen(true);
+      // stage.setMaximized(true);
        
-        stage.setTitle("Sistema de GestÃ£o de Qualidade");
+        stage.setTitle("Sistema de Gestão de Qualidade");
         stage.show();
-
+ 
     /**
      * @param args the command line arguments
      */

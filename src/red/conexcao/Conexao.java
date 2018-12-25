@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 
 public class Conexao {
             //"jdbc:postgresql://localhost/"+banco;
-    private static final String URL = 
-            "jdbc:postgresql://localhost/sgq";
-            
+   // private static final String URL =  "jdbc:postgresql://localhost/sgq";
+      private static final String URL = 
+            "jdbc:postgresql://localhost/controle3";      
     private static final String usuario = "postgres";
     private static final String senha = "postgres123";
     

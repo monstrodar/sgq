@@ -22,7 +22,9 @@ public class Conecta {
         try {
             
             Class.forName("org.postgresql.Driver");
-            String url ="jdbc:postgresql://localhost/sgq";
+          //  String url ="jdbc:postgresql://localhost/sgq";
+               String url ="jdbc:postgresql://localhost/controle3";
+
             conn = DriverManager.getConnection(url,"postgres","postgres123");
             
         } catch (Exception e) {

@@ -355,7 +355,7 @@ public class MontagemCargaController implements Initializable {
        
         MontagemLoteDAO  daoLote = new MontagemLoteDAO();
         lote =daoLote.getSaldo(lote.getNumero());//erro
-        int saldo =lote.getEstoque();
+        int saldo =0;//lote.getEstoque();
           if(saldo>=qtde){
               return true; 
           }else
@@ -428,14 +428,14 @@ public class MontagemCargaController implements Initializable {
                     a.setContentText("Esse lote não pertence a este produto");
                 else
                     a.setContentText("Não tem em estoque esse produto procure outro lote.\n"
-                        + "Saldo Atual = "+lote.getEstoque());
+                        + "Saldo Atual = "+0);/////////////era getestiqe
                 
                 a.showAndWait(); 
             }
             else{
            
-                int s = lote.getEstoque()-qtdePro;
-                a.setContentText("Seu Saldo Anterior era de  "+lote.getEstoque() +" unidades. \n"
+                int s = 0-qtdePro;///////////era getestiqe
+                a.setContentText("Seu Saldo Anterior era de  " +" unidades. \n"
                         + "Saldo atual = "+s+" unidades");
                 a.showAndWait();  
                
@@ -576,6 +576,18 @@ public class MontagemCargaController implements Initializable {
             carga = FXCollections.observableArrayList(res);
             tabelaCarga.setItems(carga);     
         }    
+    }
+
+    @FXML
+    private void evtRelatorio(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtEstado(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtCidade(ActionEvent event) {
     }
       
 }

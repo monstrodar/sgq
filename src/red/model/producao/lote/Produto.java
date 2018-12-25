@@ -17,17 +17,36 @@ public class Produto {
     private int codigo;
     private String nome;
     private String descricao;
-
-
     private boolean status;
+    private float litros;
+    private float vazao;
 
-    public Produto(int codigo, String nome, String descricao, boolean status) {
+    public Produto(int codigo, String nome, String descricao, boolean status, float litros, float vazao) {
         this.codigo = codigo;
         this.nome = nome;
         this.descricao = descricao;
         this.status = status;
- 
+        this.litros = litros;
+        this.vazao = vazao;
     }
+
+    public float getLitros() {
+        return litros;
+    }
+
+    public void setLitros(float litros) {
+        this.litros = litros;
+    }
+
+    public float getVazao() {
+        return vazao;
+    }
+
+    public void setVazao(float vazao) {
+        this.vazao = vazao;
+    }
+
+    
     public Produto(int codigo) {
         this.codigo = codigo;
         

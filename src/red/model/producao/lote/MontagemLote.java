@@ -5,7 +5,6 @@
  */
 package red.model.producao.lote;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import red.model.colaborador.Colaborador;
 
@@ -19,16 +18,27 @@ public class MontagemLote {
     private Produto produto;
     private Colaborador colaborador;
     private LocalDate data_inicio; 
-    private LocalDate data_fim;;
-    private int estoque;
+    private LocalDate data_fim;
+    private int qtde_montada;
+    private LocalDate validade;
 
-    public MontagemLote(int numero, Produto produto  ,Colaborador colaborador, LocalDate data_inicio, LocalDate data_fim, int estoque) {
+    public MontagemLote(int numero, Produto produto  ,Colaborador colaborador, 
+            LocalDate data_inicio, LocalDate data_fim, int qtde, LocalDate validade) {
         this.numero = numero;
         this.produto = produto;
         this.colaborador = colaborador;
         this.data_inicio = data_inicio;
         this.data_fim = data_fim;
-        this.estoque = estoque;
+        this.qtde_montada = qtde;
+        this.validade = validade;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
+    }
+
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
     }
      public MontagemLote(int numero) {
         this.numero = numero;
@@ -74,13 +84,15 @@ public class MontagemLote {
         this.data_fim = data_fim;
     }
 
-    public int getEstoque() {
-        return estoque;
+    public int getQtde_montada() {
+        return qtde_montada;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setQtde_montada(int qtde_montada) {
+        this.qtde_montada = qtde_montada;
     }
+
+   
 
     @Override
     public String toString() {
