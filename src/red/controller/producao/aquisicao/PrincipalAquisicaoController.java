@@ -45,7 +45,9 @@ public class PrincipalAquisicaoController implements Initializable {
     }
 
     @FXML
-    private void evtMatPrima(ActionEvent event) {
+    private void evtMatPrima(ActionEvent event) throws IOException {
+                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/MateriaPrima.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
     @FXML

@@ -62,33 +62,27 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labelClienteNome" layoutX="396.0" layoutY="75.0" text="Data Pedido:" textFill="DARKGREEN">
+                        <Label layoutX="74.0" layoutY="75.0" text="Data Pedido:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtQtde1" editable="false" layoutX="492.0" layoutY="71.0" maxWidth="184.0" opacity="0.56" prefHeight="25.0" prefWidth="178.0" text="Informe a data do pedido" />
                         <Label fx:id="labelClienteNome2" layoutX="75.0" layoutY="164.0" text="Início Recebimento:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <DatePicker fx:id="datePickerVendaData" layoutX="197.0" layoutY="160.0" prefHeight="25.0" prefWidth="140.0" />
-                        <Label layoutX="79.0" layoutY="117.0" text="Fornecedor:" textFill="DARKGREEN">
+                        <Label layoutX="74.0" layoutY="117.0" text="Fornecedor:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtQtde11" editable="false" layoutX="154.0" layoutY="113.0" maxWidth="185.0" opacity="0.51" prefHeight="25.0" prefWidth="183.0" text="Informe o nome do fornecedor" />
-                        <TextField fx:id="txtQtde114" editable="false" layoutX="489.0" layoutY="113.0" maxWidth="244.0" opacity="0.55" prefHeight="25.0" prefWidth="180.0" text="Informe o número do pedido" />
+                        <TextField fx:id="txtNumeroPedido" editable="false" layoutX="489.0" layoutY="113.0" maxWidth="244.0" opacity="0.55" prefHeight="25.0" prefWidth="180.0" text="Informe o número do pedido" />
                         <Label layoutX="364.0" layoutY="117.0" text="Número do pedido:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <JFXRadioButton layoutX="75.0" layoutY="75.0" text="Com Pedido" />
-                        <JFXRadioButton layoutX="228.0" layoutY="75.0" text="Sem Pedido" />
-                        <DatePicker fx:id="datePickerVendaData2" layoutX="492.0" layoutY="160.0" prefHeight="25.0" prefWidth="179.0" />
                         <Label fx:id="labelClienteNome21" layoutX="355.0" layoutY="164.0" text="Término Recebimento:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
@@ -96,47 +90,61 @@
                         </Label>
                         <TableView fx:id="tableViewItensDeVenda" layoutX="70.0" layoutY="285.0" prefHeight="225.0" prefWidth="601.0">
                            <columns>
-                              <TableColumn fx:id="tableColumnItemDeVendaQuantidade" prefWidth="116.0" text="Quantidade" />
-                              <TableColumn fx:id="tableColumnItemDeVendaProduto11" prefWidth="156.0" text="Lote Matéria Prima" />
-                              <TableColumn fx:id="tableColumnItemDeVendaProduto1" prefWidth="333.0" text="Matéria Prima" />
+                              <TableColumn fx:id="colQtde" prefWidth="138.0" text="Quantidade" />
+                              <TableColumn fx:id="colLoteMP" prefWidth="192.0" text="Lote Matéria Prima" />
+                              <TableColumn fx:id="colMateriaPrima" prefWidth="275.0" text="Matéria Prima" />
                            </columns>
                         </TableView>
-                        <Label layoutX="233.0" layoutY="215.0" text="Matéria Prima" textFill="DARKGREEN">
+                        <Label layoutX="242.0" layoutY="215.0" text="Matéria Prima:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labelClienteTelefone" layoutX="75.0" layoutY="215.0" text="Quantidade" textFill="DARKGREEN">
+                        <Label fx:id="labelClienteTelefone" layoutX="75.0" layoutY="215.0" text="Quantidade:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtQtde12" alignment="CENTER" editable="false" layoutX="154.0" layoutY="211.0" maxWidth="70.0" prefHeight="25.0" prefWidth="70.0" />
-                        <ComboBox fx:id="comboBoxVendaCliente" layoutX="323.0" layoutY="211.0" prefHeight="25.0" prefWidth="193.0" promptText="Selecione a matéria prima..." />
                         <Label layoutX="526.0" layoutY="215.0" text="Lote:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtQtde121" alignment="CENTER" editable="false" layoutX="557.0" layoutY="211.0" maxWidth="114.0" prefHeight="25.0" prefWidth="114.0" />
-                        <Button layoutX="73.0" layoutY="244.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="70.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO">
+                        <Button layoutX="557.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnConfirma" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="420.0" layoutY="532.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="163.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnMenosItens" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: red; -fx-border-color: gray;" text="- Item" textFill="GAINSBORO">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="557.0" layoutY="532.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
+                        <Button layoutX="69.0" layoutY="248.0" mnemonicParsing="false" onAction="#btnMaisItens" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="420.0" layoutY="532.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
+                        <JFXComboBox fx:id="cbbMateriaPrima" layoutX="326.0" layoutY="211.0" opacity="0.66" prefHeight="25.0" prefWidth="181.0" promptText="    Selecione a matéria prima..." />
+                        <JFXComboBox fx:id="cbbColaborador2" layoutX="180.0" layoutY="545.0" opacity="0.66" prefHeight="25.0" prefWidth="199.0" promptText="Selecione o Colaborador Resp." />
+                        <JFXComboBox fx:id="cbbFornecedor" layoutX="160.0" layoutY="113.0" opacity="0.66" prefHeight="25.0" prefWidth="177.0" promptText="      Selecione o Fornecedor" />
+                        <DatePicker fx:id="dpDataPedido" layoutX="160.0" layoutY="71.0" opacity="0.77" prefHeight="25.0" prefWidth="178.0" promptText="Informe data Pedido..." style="-fx-font-size: 12;" />
+                        <DatePicker fx:id="dpInicio" layoutX="191.0" layoutY="160.0" opacity="0.77" prefHeight="25.0" prefWidth="145.0" promptText="Informe Início..." style="-fx-font-size: 12;" />
+                        <DatePicker fx:id="dpFim" layoutX="490.0" layoutY="160.0" opacity="0.77" prefHeight="25.0" prefWidth="178.0" promptText="Informe data Fim..." style="-fx-font-size: 12;" />
+                        <JFXTextField fx:id="txtQtde" layoutX="148.0" layoutY="211.0" opacity="0.46" prefHeight="25.0" prefWidth="86.0" promptText=" Informe qtde" />
+                        <JFXTextField fx:id="txtLoteMp" layoutX="562.0" layoutY="211.0" opacity="0.46" prefHeight="25.0" prefWidth="106.0" promptText=" Informe o Lote MP" />
+                        <Label layoutX="74.0" layoutY="516.0" text="* Todos os campos são de preenchimento obrigatório." textFill="#f8160a">
                            <font>
-                              <Font name="System Bold" size="13.0" />
+                              <Font name="System Bold" size="11.0" />
                            </font>
-                        </Button>
+                        </Label>
                      </children>
                   </AnchorPane>
-                  <JFXComboBox layoutX="170.0" layoutY="535.0" opacity="0.66" prefHeight="25.0" prefWidth="199.0" promptText="Selecione o Colaborador Resp." />
                   <Label fx:id="labelClienteNome211" layoutX="80.0" layoutY="539.0" text="Responsável:" textFill="DARKGREEN">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -222,7 +230,7 @@
                                     <Insets left="8.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <DatePicker fx:id="datePickerVendaData1" prefHeight="25.0" prefWidth="309.0" promptText="Informe a data de entrega">
+                              <DatePicker fx:id="datePickerVendaData1" prefHeight="25.0" prefWidth="309.0" promptText="Informe a data Recebimento" style="-fx-font-size: 10;">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
@@ -242,7 +250,7 @@
                                     <Insets left="8.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <DatePicker fx:id="datePickerVendaData11" prefHeight="25.0" prefWidth="309.0" promptText="Informe a data de entrega">
+                              <DatePicker fx:id="datePickerVendaData11" prefHeight="25.0" prefWidth="309.0" promptText="Informe a data Recebimento" style="-fx-font-size: 10;">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>

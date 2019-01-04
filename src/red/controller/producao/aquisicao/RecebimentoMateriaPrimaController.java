@@ -5,6 +5,8 @@
  */
 package red.controller.producao.aquisicao;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,43 +51,43 @@ public class RecebimentoMateriaPrimaController implements Initializable {
     @FXML
     private DatePicker datePickerVendaData1;
     @FXML
-    private ListView<?> lvcolaboradores;
-    @FXML
-    private Label labelClienteNome;
-    @FXML
-    private TextField txtQtde1;
-    @FXML
-    private Label labelClienteNome2;
-    @FXML
-    private DatePicker datePickerVendaData;
-    @FXML
-    private TextField txtQtde11;
-    @FXML
-    private TextField txtQtde114;
-    @FXML
-    private DatePicker datePickerVendaData2;
-    @FXML
-    private Label labelClienteNome21;
-    @FXML
     private Label labelClienteNome12;
     @FXML
     private DatePicker datePickerVendaData11;
     @FXML
+    private ListView<?> lvcolaboradores;
+    @FXML
+    private Label labelClienteNome2;
+    @FXML
+    private TextField txtNumeroPedido;
+    @FXML
+    private Label labelClienteNome21;
+    @FXML
     private TableView<?> tableViewItensDeVenda;
     @FXML
-    private TableColumn<?, ?> tableColumnItemDeVendaQuantidade;
+    private TableColumn<?, ?> colQtde;
     @FXML
-    private TableColumn<?, ?> tableColumnItemDeVendaProduto11;
+    private TableColumn<?, ?> colLoteMP;
     @FXML
-    private TableColumn<?, ?> tableColumnItemDeVendaProduto1;
+    private TableColumn<?, ?> colMateriaPrima;
     @FXML
     private Label labelClienteTelefone;
     @FXML
-    private TextField txtQtde12;
+    private JFXComboBox<?> cbbMateriaPrima;
     @FXML
-    private ComboBox<?> comboBoxVendaCliente;
+    private JFXComboBox<?> cbbColaborador2;
     @FXML
-    private TextField txtQtde121;
+    private JFXComboBox<?> cbbFornecedor;
+    @FXML
+    private DatePicker dpDataPedido;
+    @FXML
+    private DatePicker dpInicio;
+    @FXML
+    private DatePicker dpFim;
+    @FXML
+    private JFXTextField txtQtde;
+    @FXML
+    private JFXTextField txtLoteMp;
     @FXML
     private Label labelClienteNome211;
 
@@ -105,7 +107,9 @@ public class RecebimentoMateriaPrimaController implements Initializable {
     }
 
     @FXML
-    private void evtMatPrima(ActionEvent event) {
+    private void evtMatPrima(ActionEvent event) throws IOException {
+                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/MateriaPrima.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
     @FXML
@@ -124,6 +128,13 @@ public class RecebimentoMateriaPrimaController implements Initializable {
     private void clkBuscar(ActionEvent event) {
     }
 
+    
+    @FXML
+    private void evtRelatorio(ActionEvent event) throws IOException {
+           AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/RelPedido.fxml"));        painelTotal.getChildren().setAll(a);
+   
+    }
+
     @FXML
     private void clkAlterar(ActionEvent event) {
     }
@@ -137,11 +148,21 @@ public class RecebimentoMateriaPrimaController implements Initializable {
     }
 
     @FXML
-    private void evtRelatorio(ActionEvent event) throws IOException {
-           AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/RelPedido.fxml"));        painelTotal.getChildren().setAll(a);
-   
+    private void btnConfirma(ActionEvent event) {
     }
 
-   
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnMenosItens(ActionEvent event) {
+    }
+
+    @FXML
+    private void btnMaisItens(ActionEvent event) {
+    }
+
+    
     
 }

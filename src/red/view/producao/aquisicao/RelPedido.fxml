@@ -36,7 +36,7 @@
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton prefHeight="50.0" prefWidth="186.0" text="Estoque Matéria Prima" textFill="DARKGREEN">
+                        <JFXButton prefHeight="50.0" prefWidth="186.0" text="Relatório" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -71,16 +71,15 @@
                         <ComboBox fx:id="cbbLoteMp" layoutX="120.0" layoutY="48.0" prefHeight="25.0" prefWidth="193.0" promptText="Selecione o lote da mp..." />
                         <TableView fx:id="tabela" layoutX="22.0" layoutY="150.0" prefHeight="361.0" prefWidth="1013.0">
                            <columns>
-                              <TableColumn fx:id="colCod" prefWidth="55.0" text="Código" />
                               <TableColumn fx:id="colMp" prefWidth="188.0" text="Matéria Prima" />
-                              <TableColumn fx:id="colQtEnt" prefWidth="87.0" text="Qtde Entrada" />
-                              <TableColumn fx:id="loteMp" prefWidth="75.0" text="Lote MP" />
-                              <TableColumn fx:id="colQtAprovada" prefWidth="97.0" text="Qtde Aprovada" />
-                              <TableColumn fx:id="colQtDescarte" prefWidth="93.0" text="Qtde Descarte" />
-                              <TableColumn fx:id="colQtMontada" minWidth="0.0" prefWidth="92.0" text="Qtde Montada" />
-                              <TableColumn fx:id="colValidade" prefWidth="104.0" text="Dt Válidade" />
-                              <TableColumn fx:id="colMov" minWidth="0.0" prefWidth="109.0" text="Dt Mov" />
-                              <TableColumn fx:id="colRec" minWidth="0.0" prefWidth="112.0" text="Nº Recebimento" />
+                              <TableColumn fx:id="colQtEnt" prefWidth="101.0" text="Qtde Entrada" />
+                              <TableColumn fx:id="loteMp" prefWidth="108.0" text="Lote MP" />
+                              <TableColumn fx:id="colQtAprovada" prefWidth="95.0" text="Qtde Aprovada" />
+                              <TableColumn fx:id="colQtDescarte" prefWidth="90.0" text="Qtde Descarte" />
+                              <TableColumn fx:id="colQtMontada" minWidth="0.0" prefWidth="96.0" text="Qtde Montada" />
+                              <TableColumn fx:id="colValidade" prefWidth="110.0" text="Dt Válidade" />
+                              <TableColumn fx:id="colMov" minWidth="0.0" prefWidth="115.0" text="Dt Mov" />
+                              <TableColumn fx:id="colRec" minWidth="0.0" prefWidth="108.0" text="Nº Recebimento" />
                            </columns>
                         </TableView>
                         <ComboBox fx:id="cbbMP" layoutX="120.0" layoutY="14.0" prefHeight="25.0" prefWidth="193.0" promptText="Selecione a matéria prima..." />

@@ -17,22 +17,17 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
                      <children>
-                        <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Cadastro" textFill="DARKGREEN">
-                           <font>
-                              <Font name="Century Gothic Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
                         <JFXButton onAction="#evtAvalFornecedor" prefHeight="50.0" prefWidth="150.0" text="Avaliações" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Cadastro" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton prefHeight="50.0" prefWidth="150.0" text="Consulta" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>

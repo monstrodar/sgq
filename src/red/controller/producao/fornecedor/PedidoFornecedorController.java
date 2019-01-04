@@ -160,7 +160,7 @@ public class PedidoFornecedorController implements Initializable {
 
     @FXML
     private void evtAvalFornecedor(ActionEvent event) throws IOException {
-         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor.fxml"));
+         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor2.fxml"));
         painelTotal.getChildren().setAll(a);
     }
 
@@ -474,7 +474,6 @@ public class PedidoFornecedorController implements Initializable {
         }
     }
 
-    @FXML
     private void evtHidden(Event event) {//OK
         //コンボボックスの変更を確認し、MPをコンボボックスに追加する。
         Fornecedor fo = comboBoxFornecedor.getValue();

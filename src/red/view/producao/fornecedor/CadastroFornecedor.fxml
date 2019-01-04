@@ -8,7 +8,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="painelTotal" maxHeight="730.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.fornecedor.CadastroFornecedorController">
+<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.fornecedor.CadastroFornecedorController">
    <children>
       <AnchorPane fx:id="painelTotal1" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0">
          <children>
@@ -18,15 +18,18 @@
                      <children>
                         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="580.0" minWidth="1050.0" prefHeight="580.0" prefWidth="1050.0">
                            <center>
-                              <VBox fx:id="pnDireita" prefHeight="630.0" prefWidth="100.0" style="-fx-background-color: #DCDCDC;">
+                              <VBox fx:id="pnDireita" prefHeight="580.0" prefWidth="734.0" style="-fx-background-color: #DCDCDC;">
                                  <children>
-                                    <Label text="Cadastro de Fornecedor" textFill="DARKGREEN">
+                                    <Label prefHeight="60.0" prefWidth="342.0" text="Cadastro de Fornecedor" textFill="DARKGREEN">
                                        <font>
                                           <Font name="System Bold" size="24.0" />
                                        </font>
                                        <VBox.margin>
-                                          <Insets left="200.0" right="200.0" top="60.0" />
+                                          <Insets left="230.0" right="150.0" top="60.0" />
                                        </VBox.margin>
+                                       <padding>
+                                          <Insets left="30.0" right="20.0" />
+                                       </padding>
                                     </Label>
                                     <GridPane prefHeight="46.0" prefWidth="50.0">
                                        <children>
@@ -38,12 +41,12 @@
                                                 <Insets />
                                              </GridPane.margin>
                                           </Label>
-                                          <JFXTextField fx:id="txtCoodigo" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="1">
+                                          <JFXTextField fx:id="txtCoodigo" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="37.0" prefWidth="73.0" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="10.0" right="20.0" />
+                                                <Insets left="20.0" right="20.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                        </children>
@@ -75,12 +78,12 @@
                                                 <Insets />
                                              </GridPane.margin>
                                           </Label>
-                                          <JFXTextField fx:id="txtRazao" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="25.0" prefWidth="270.0" GridPane.columnIndex="1">
+                                          <JFXTextField fx:id="txtRazao" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="37.0" prefWidth="546.0" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets right="20.0" />
+                                                <Insets left="15.0" right="20.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                        </children>
@@ -103,7 +106,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="20.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                           <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="96.0" text="Contato:" textFill="DARKGREEN" GridPane.rowIndex="1">
@@ -114,7 +117,7 @@
                                                 <Insets left="50.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="23.0" prefHeight="20.0" prefWidth="96.0" text="Telefone:" textFill="DARKGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                          <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="23.0" prefHeight="27.0" prefWidth="80.0" text="Telefone:" textFill="DARKGREEN" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -137,7 +140,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="20.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                           <JFXTextField fx:id="txtEmail" alignment="BOTTOM_LEFT" layoutX="147.0" layoutY="58.0" opacity="0.81" prefHeight="37.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -145,7 +148,7 @@
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="10.0" />
+                                                <Insets left="20.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                           <JFXTextField fx:id="txtCelular" alignment="BOTTOM_LEFT" layoutX="147.0" layoutY="102.0" opacity="0.81" prefHeight="37.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
@@ -156,7 +159,7 @@
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
-                                          <JFXTextField fx:id="txtTelefone" alignment="BOTTOM_LEFT" layoutX="147.0" layoutY="58.0" opacity="0.81" prefHeight="37.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                          <JFXTextField fx:id="txtTelefone" alignment="BOTTOM_LEFT" layoutX="147.0" layoutY="58.0" opacity="0.81" prefHeight="25.0" prefWidth="215.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -182,7 +185,7 @@
                                     </GridPane>
                                     <GridPane layoutX="70.0" layoutY="160.0" prefHeight="46.0" prefWidth="200.0">
                                        <children>
-                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="156.0" text="Rua" textFill="DARKGREEN">
+                                          <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="156.0" text="Rua:" textFill="DARKGREEN">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -190,12 +193,12 @@
                                                 <Insets />
                                              </GridPane.margin>
                                           </Label>
-                                          <JFXTextField fx:id="txtRua" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="37.0" prefWidth="545.0" GridPane.columnIndex="1">
+                                          <JFXTextField fx:id="txtRua" alignment="BOTTOM_LEFT" opacity="0.81" prefHeight="37.0" prefWidth="508.0" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
                                              <GridPane.margin>
-                                                <Insets left="10.0" right="20.0" />
+                                                <Insets left="20.0" right="50.0" />
                                              </GridPane.margin>
                                           </JFXTextField>
                                        </children>
@@ -207,7 +210,7 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <VBox.margin>
-                                          <Insets left="50.0" right="50.0" />
+                                          <Insets left="20.0" right="20.0" />
                                        </VBox.margin>
                                     </GridPane>
                                     <GridPane layoutX="70.0" layoutY="299.0" prefHeight="46.0" prefWidth="100.0">
@@ -233,7 +236,7 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <JFXTextField fx:id="txtNumero" alignment="BOTTOM_LEFT" layoutX="440.0" layoutY="15.0" opacity="0.81" prefHeight="37.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                          <JFXTextField fx:id="txtNumero" alignment="BOTTOM_LEFT" layoutX="440.0" layoutY="15.0" opacity="0.81" prefHeight="37.0" prefWidth="231.0" GridPane.columnIndex="1">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -270,16 +273,12 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="cbbEstado" onAction="#evtEstado" prefHeight="25.0" prefWidth="215.0" promptText="              Escolha Estado..." GridPane.columnIndex="1">
+                                          <JFXComboBox fx:id="cbbEstado" onAction="#evtEstado" opacity="0.55" prefHeight="25.0" prefWidth="218.0" promptText="              Escolha Estado..." style="-fx-font-size: 13;" GridPane.columnIndex="1">
                                              <GridPane.margin>
                                                 <Insets left="10.0" />
                                              </GridPane.margin>
-                                          </ComboBox>
-                                          <ComboBox fx:id="cbbCidade" prefHeight="25.0" prefWidth="222.0" promptText="              Escolha Cidade..." GridPane.columnIndex="3">
-                                             <GridPane.margin>
-                                                <Insets left="10.0" />
-                                             </GridPane.margin>
-                                          </ComboBox>
+                                          </JFXComboBox>
+                                          <JFXComboBox fx:id="cbbCidade" opacity="0.55" prefHeight="29.0" prefWidth="240.0" promptText="              Escolha Cidade..." style="-fx-font-size: 13;" GridPane.columnIndex="3" />
                                        </children>
                                        <columnConstraints>
                                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="323.0" minWidth="9.0" prefWidth="130.0" />
@@ -294,17 +293,21 @@
                                           <Insets left="50.0" right="50.0" />
                                        </VBox.margin>
                                     </GridPane>
-                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="613.0" spacing="20.0">
                                        <children>
-                                          <Button mnemonicParsing="false" onAction="#btnConfirmar" prefHeight="40.0" prefWidth="98.0" text="Confirmar" />
-                                          <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCancelar" prefHeight="40.0" prefWidth="98.0" text="Cancelar">
-                                             <HBox.margin>
-                                                <Insets right="30.0" />
-                                             </HBox.margin>
+                                          <Button mnemonicParsing="false" onAction="#btnCancelar" prefHeight="40.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
+                                          </Button>
+                                          <Button mnemonicParsing="false" onAction="#btnConfirmar" prefHeight="40.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
+                                             <font>
+                                                <Font name="System Bold" size="13.0" />
+                                             </font>
                                           </Button>
                                        </children>
                                        <VBox.margin>
-                                          <Insets left="50.0" right="50.0" />
+                                          <Insets left="60.0" right="70.0" />
                                        </VBox.margin>
                                     </HBox>
                                  </children>
@@ -338,7 +341,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txpesquisaCNPJ" prefHeight="25.0" prefWidth="150.0" promptText="Digite parte do nome" />
+                                          <TextField fx:id="txpesquisaCNPJ" prefHeight="25.0" prefWidth="150.0" promptText="Digite o CNPJ" />
                                           <Button mnemonicParsing="false" onAction="#clkBuscar" text="Buscar" />
                                        </children>
                                     </HBox>
@@ -352,7 +355,11 @@
                                           <TextField fx:id="txpesquisaRazao" prefHeight="25.0" prefWidth="181.0" promptText="Digite parte do nome" />
                                        </children>
                                     </HBox>
-                                    <ListView fx:id="lvcolaboradores" prefHeight="400.0" prefWidth="260.0" />
+                                    <TableView fx:id="tabela" prefHeight="400.0" prefWidth="293.0">
+                                       <columns>
+                                          <TableColumn fx:id="tableViewNomeMP" prefWidth="293.0" style="-fx-font-size: 16;" text="Fornecedor" />
+                                       </columns>
+                                    </TableView>
                                     <HBox alignment="CENTER" minHeight="60.0" prefHeight="60.0" prefWidth="170.0" spacing="5.0">
                                        <children>
                                           <Button mnemonicParsing="false" onAction="#clkAlterar" prefHeight="32.0" prefWidth="70.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Alterar" />
@@ -372,22 +379,17 @@
                      <children>
                         <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
                            <children>
-                              <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #bdb76b;" text="Cadastro" textFill="DARKGREEN">
-                                 <font>
-                                    <Font name="Century Gothic Bold" size="14.0" />
-                                 </font>
-                              </JFXButton>
                               <JFXButton onAction="#evtAvalFornecedor" prefHeight="50.0" prefWidth="150.0" text="Avaliações" textFill="DARKGREEN">
                                  <font>
                                     <Font name="Century Gothic Bold" size="14.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
+                              <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #bdb76b;" text="Cadastro" textFill="DARKGREEN">
                                  <font>
                                     <Font name="Century Gothic Bold" size="14.0" />
                                  </font>
                               </JFXButton>
-                              <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Consulta" textFill="DARKGREEN">
+                              <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
                                  <font>
                                     <Font name="Century Gothic Bold" size="14.0" />
                                  </font>

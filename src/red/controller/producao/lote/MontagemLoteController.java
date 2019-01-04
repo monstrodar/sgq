@@ -112,7 +112,7 @@ public class MontagemLoteController implements Initializable {
 
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         if(tabelaLote.getSelectionModel().getSelectedIndex() < 0){
-                  a.setContentText("Por favor, seleciona um lote na tabela");
+                  a.setContentText("vivian teacher");
                   a.showAndWait();
         }
         else{

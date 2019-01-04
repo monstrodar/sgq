@@ -46,8 +46,7 @@ public class RelPedidoController implements Initializable {
     private ComboBox<EstoqueMP> cbbLoteMp;
     @FXML
     private TableView<EstoqueMP> tabela;
-    @FXML
-    private TableColumn<?, ?> colCod;
+ 
     @FXML
     private TableColumn<String, String> colMp;
     @FXML
@@ -97,7 +96,7 @@ public class RelPedidoController implements Initializable {
             mp = FXCollections.observableArrayList(res);
             tabela.setItems(mp);
         
-        colCod.setCellValueFactory(new PropertyValueFactory(""));
+      
         colMp.setCellValueFactory(new PropertyValueFactory("materia_prima"));
         colMov.setCellValueFactory(new PropertyValueFactory("data_movimentacao"));
         colQtAprovada.setCellValueFactory(new PropertyValueFactory("qtde_aprovada"));
@@ -137,7 +136,9 @@ public class RelPedidoController implements Initializable {
     }
 
     @FXML
-    private void evtMatPrima(ActionEvent event) {
+    private void evtMatPrima(ActionEvent event) throws IOException {
+                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/MateriaPrima.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
     @FXML

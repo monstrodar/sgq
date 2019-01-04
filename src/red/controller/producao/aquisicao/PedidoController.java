@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -41,29 +40,27 @@ public class PedidoController implements Initializable {
     @FXML
     private Label labelClienteNome1;
     @FXML
-    private DatePicker datePickerVendaData1;
-    @FXML
     private ListView<?> lvcolaboradores;
     @FXML
     private Label labelClienteNome;
     @FXML
     private Label labelClienteTelefone;
     @FXML
-    private DatePicker datePickerVendaData;
-    @FXML
-    private ComboBox<?> comboBoxVendaCliente;
-    @FXML
     private TableView<?> tableViewItensDeVenda;
     @FXML
-    private TableColumn<?, ?> tableColumnItemDeVendaProduto;
-    @FXML
-    private TableColumn<?, ?> tableColumnItemDeVendaQuantidade;
-    @FXML
-    private Button buttonAdicionar;
-    @FXML
-    private TextField txtQtde1;
-    @FXML
     private TextField txtQtde;
+    @FXML
+    private DatePicker dpBuscar;
+    @FXML
+    private DatePicker dpData;
+    @FXML
+    private ComboBox<?> cbbProduto;
+    @FXML
+    private TableColumn<?, ?> colProduto;
+    @FXML
+    private TableColumn<?, ?> colQtde;
+    @FXML
+    private TextField txtNumeroGeren;
 
 
 
@@ -83,6 +80,8 @@ public class PedidoController implements Initializable {
 
     @FXML
     private void evtMatPrima(ActionEvent event) throws IOException {
+                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/MateriaPrima.fxml"));
+        painelTotal.getChildren().setAll(a);
         
     }
 
@@ -98,6 +97,21 @@ public class PedidoController implements Initializable {
         painelTotal.getChildren().setAll(a);
     }
     
+
+    
+
+    @FXML
+    private void evtRelatorio(ActionEvent event) throws IOException {
+           AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/RelPedido.fxml"));        painelTotal.getChildren().setAll(a);
+   
+    }
+
+    @FXML
+    private void evtPedidoFor(ActionEvent event) throws IOException {
+         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/PedidoFornecedor.fxml"));
+        painelTotal.getChildren().setAll(a);
+        
+    }
 
     @FXML
     private void clkBuscar(ActionEvent event) {
@@ -115,23 +129,22 @@ public class PedidoController implements Initializable {
     private void clkNovo(ActionEvent event) {
     }
 
+
     @FXML
-    private void handleButtonAdicionar(ActionEvent event) {
+    private void btnCancelar(ActionEvent event) {
     }
 
     @FXML
-    private void evtRelatorio(ActionEvent event) throws IOException {
-           AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/RelPedido.fxml"));        painelTotal.getChildren().setAll(a);
-   
+    private void btnConfirma(ActionEvent event) {
     }
 
     @FXML
-    private void evtPedidoFor(ActionEvent event) throws IOException {
-         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/PedidoFornecedor.fxml"));
-        painelTotal.getChildren().setAll(a);
-        
+    private void btnMenosItens(ActionEvent event) {
     }
 
-    
+    @FXML
+    private void btnMaisItens(ActionEvent event) {
+    }
+
     
 }

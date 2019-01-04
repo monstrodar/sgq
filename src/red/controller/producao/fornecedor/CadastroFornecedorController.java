@@ -13,17 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -39,8 +32,6 @@ public class CadastroFornecedorController implements Initializable {
     private AnchorPane painelTotal1;
     @FXML
     private VBox painelEsquerda;
-    @FXML
-    private ListView<?> lvcolaboradores;
     @FXML
     private VBox pnDireita;
     @FXML
@@ -71,6 +62,10 @@ public class CadastroFornecedorController implements Initializable {
     private ComboBox<?> cbbEstado;
     @FXML
     private ComboBox<?> cbbCidade;
+    @FXML
+    private TableView<?> tabela;
+    @FXML
+    private TableColumn<?, ?> tableViewNomeMP;
 
     /**
      * Initializes the controller class.
@@ -89,7 +84,7 @@ public class CadastroFornecedorController implements Initializable {
 
     @FXML
     private void evtAvalFornecedor(ActionEvent event) throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor.fxml"));
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor2.fxml"));
         painelTotal.getChildren().setAll(a);
     }
 

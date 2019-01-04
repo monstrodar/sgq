@@ -47,7 +47,7 @@ public class PrincipalFornecedorController implements Initializable {
 
     @FXML
     private void evtAvalFornecedor(ActionEvent event) throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor.fxml"));
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor2.fxml"));
         painelTotal.getChildren().setAll(a);
     }
 

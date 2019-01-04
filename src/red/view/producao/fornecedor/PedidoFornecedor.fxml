@@ -32,22 +32,17 @@
                <children>
                   <HBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;">
                      <children>
-                        <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Cadastro" textFill="DARKGREEN">
-                           <font>
-                              <Font name="Century Gothic Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
                         <JFXButton onAction="#evtAvalFornecedor" prefHeight="50.0" prefWidth="150.0" text="Avaliações" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Cadastro" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#evtCadFornecedor" prefHeight="50.0" prefWidth="150.0" text="Consulta" textFill="DARKGREEN">
+                        <JFXButton onAction="#evtPedidoFor" prefHeight="50.0" prefWidth="150.0" text="Fazer Pedido" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
@@ -76,8 +71,6 @@
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <DatePicker fx:id="datePickerPrevisao" prefHeight="25.0" prefWidth="194.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox fx:id="comboBoxMP" prefHeight="25.0" prefWidth="193.0" promptText="Selecione a matéria prima..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <TableView fx:id="tbViewIItens" prefHeight="246.0" prefWidth="392.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                  <columns>
                                     <TableColumn fx:id="tableColumnItemDeVendaProduto" prefWidth="250.0" text="Matéria Prima" />
@@ -88,34 +81,48 @@
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font></Label>
-                              <Button fx:id="buttonAdicionar" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleButtonAdicionar" prefHeight="25.0" prefWidth="79.0" text="Adicionar" textFill="#0d0d0d" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                 <GridPane.margin>
-                                    <Insets left="80.0" />
-                                 </GridPane.margin>
-                              </Button>
                               <Label text="Fornecedor:" textFill="DARKGREEN" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="comboBoxFornecedor" onHidden="#evtHidden" prefHeight="25.0" prefWidth="193.0" promptText="Selecione o fornecedor..." GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label fx:id="labelClienteNome2" text="Data Pedido:" textFill="DARKGREEN">
                                  <font>
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="datePickerPedido" prefHeight="25.0" prefWidth="194.0" GridPane.columnIndex="1" />
-                              <Button fx:id="btRemover" mnemonicParsing="false" onAction="#clickremove" text="Remover" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <TextField fx:id="txQtd" maxWidth="67.0" prefHeight="36.0" prefWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></TextField>
+                              <Button fx:id="buttonAdicionar" mnemonicParsing="false" onAction="#handleButtonAdicionar" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="+ Item" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
                                  <GridPane.margin>
-                                    <Insets left="180.0" />
+                                    <Insets left="70.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button fx:id="btRemoveAll" mnemonicParsing="false" onAction="#clickRemoveAllItens" text="Remove Tudo" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                              <Button fx:id="btRemover" mnemonicParsing="false" onAction="#clickremove" prefHeight="32.0" prefWidth="88.0" style="-fx-background-color: orange; -fx-border-color: gray;" text="- Item" textFill="#122816" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
                                  <GridPane.margin>
-                                    <Insets left="260.0" />
+                                    <Insets left="160.0" />
                                  </GridPane.margin>
                               </Button>
-                              <TextField fx:id="txQtd" maxWidth="67.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Button fx:id="btRemoveAll" mnemonicParsing="false" onAction="#clickRemoveAllItens" prefHeight="32.0" prefWidth="123.0" style="-fx-background-color: red; -fx-border-color: gray;" text="Remove TUDO" textFill="GAINSBORO" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets left="270.0" />
+                                 </GridPane.margin>
+                              </Button>
+                              <DatePicker fx:id="datePickerPedido" opacity="0.77" prefHeight="25.0" prefWidth="194.0" promptText="Informe data do pedido.." style="-fx-font-size: 12;" GridPane.columnIndex="1" />
+                              <DatePicker fx:id="datePickerPrevisao" opacity="0.77" prefHeight="25.0" prefWidth="194.0" promptText="Informe entrega..." style="-fx-font-size: 12;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXComboBox fx:id="comboBoxFornecedor" opacity="0.66" prefHeight="25.0" prefWidth="196.0" promptText="      Selecione o Fornecedor" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXComboBox fx:id="comboBoxMP" opacity="0.66" prefHeight="25.0" prefWidth="195.0" promptText="    Selecione a matéria prima..." GridPane.columnIndex="1" GridPane.rowIndex="3" />
                            </children>
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.0" minWidth="10.0" prefWidth="48.0" />
@@ -130,8 +137,6 @@
                               <RowConstraints maxHeight="303.0" minHeight="10.0" prefHeight="208.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                         </GridPane>
-                        <Button fx:id="btCancelar" layoutX="432.0" layoutY="510.0" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="32.0" prefWidth="70.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Cancela" />
-                        <Button fx:id="btGravar" layoutX="529.0" layoutY="510.0" mnemonicParsing="false" onAction="#clickGravar" prefHeight="32.0" prefWidth="70.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Confirma" />
                         <Label layoutX="68.0" layoutY="75.0" text="Nº Pedido:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -143,7 +148,20 @@
                            </font>
                         </Label>
                         <TextField fx:id="txtNumero" alignment="CENTER" editable="false" layoutX="207.0" layoutY="76.0" maxWidth="197.0" prefHeight="25.0" prefWidth="194.0" />
-                        <Label layoutX="85.0" layoutY="518.0" text="Todos os campos são obrigatorios!" textFill="#fc0303" />
+                        <Label layoutX="85.0" layoutY="518.0" text="* Todos os campos são obrigatórios!" textFill="#fc0303">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Button fx:id="btCancelar" layoutX="348.0" layoutY="513.0" mnemonicParsing="false" onAction="#clickCancelar" prefHeight="32.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btGravar" layoutX="485.0" layoutY="513.0" mnemonicParsing="false" onAction="#clickGravar" prefHeight="32.0" prefWidth="115.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Confirmar" textFill="GAINSBORO">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
                </children></AnchorPane>

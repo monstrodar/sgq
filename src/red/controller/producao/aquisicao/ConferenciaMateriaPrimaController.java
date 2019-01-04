@@ -157,7 +157,9 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     }
 
     @FXML
-    private void evtMatPrima(ActionEvent event) {
+    private void evtMatPrima(ActionEvent event) throws IOException {
+                AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/MateriaPrima.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
     @FXML
@@ -168,8 +170,8 @@ public class ConferenciaMateriaPrimaController implements Initializable {
 
     @FXML
     private void evtConferenciaMP(ActionEvent event) throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/ConferenciaMateriaPrima.fxml"));
-        painelTotal.getChildren().setAll(a);
+            AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/aquisicao/ConferenciaMateriaPrima.fxml"));
+            painelTotal.getChildren().setAll(a);
     }
 
 
@@ -336,7 +338,6 @@ public class ConferenciaMateriaPrimaController implements Initializable {
         
     }
 
-    @FXML
     private void evtHidden(Event event) 
     {
         ItensEntrada ie = new ItensEntrada();
