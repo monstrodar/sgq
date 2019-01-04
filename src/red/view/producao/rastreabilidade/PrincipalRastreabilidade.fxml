@@ -22,22 +22,7 @@
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>
                         </JFXButton>
-                        <JFXButton onAction="#evt_Relatorio" prefHeight="50.0" prefWidth="150.0" text="Relatório" textFill="DARKGREEN">
-                           <font>
-                              <Font name="Century Gothic Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
                         <JFXButton onAction="#evtRegiao" prefHeight="50.0" prefWidth="150.0" text="Região" textFill="DARKGREEN">
-                           <font>
-                              <Font name="Century Gothic Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton onAction="#evtEstado" prefHeight="50.0" prefWidth="150.0" text="Estado" textFill="DARKGREEN">
-                           <font>
-                              <Font name="Century Gothic Bold" size="14.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton onAction="#evtCidade" prefHeight="50.0" prefWidth="150.0" text="Cidade" textFill="DARKGREEN">
                            <font>
                               <Font name="Century Gothic Bold" size="14.0" />
                            </font>

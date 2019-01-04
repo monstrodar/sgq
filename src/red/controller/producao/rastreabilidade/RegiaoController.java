@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package red.controller.producao.fornecedor;
+package red.controller.producao.rastreabilidade;
 
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -15,10 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -27,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author Daniel
  */
-public class AvaliacaFornecedor2Controller implements Initializable {
+public class RegiaoController implements Initializable {
 
     @FXML
     private AnchorPane painelTotal;
@@ -42,17 +40,27 @@ public class AvaliacaFornecedor2Controller implements Initializable {
     @FXML
     private TableView<?> tabela;
     @FXML
-    private TableColumn<?, ?> tableViewNomeMP;
+    private AnchorPane PainelCentral;
     @FXML
-    private ScrollPane PainelCentral;
+    private JFXTextField txtDescricao;
     @FXML
-    private JFXComboBox<?> cbbMateriaPrima;
+    private JFXTextField txtNome;
     @FXML
-    private TableView<?> tabelaMP;
+    private JFXCheckBox cbStatus;
     @FXML
-    private TableColumn<?, ?> colMatPrimaMp;
+    private JFXTextField txtCodigo;
     @FXML
-    private JFXComboBox<?> cbbMateriaPrima1;
+    private TableColumn<?, ?> colCidade;
+    @FXML
+    private TableColumn<?, ?> colEstado;
+    @FXML
+    private JFXComboBox<?> cbbCidade;
+    @FXML
+    private TableColumn<?, ?> colBuscaCod;
+    @FXML
+    private TableColumn<?, ?> colBuscaRegiao;
+    @FXML
+    private JFXComboBox<?> cbbEstado;
 
     /**
      * Initializes the controller class.
@@ -62,24 +70,8 @@ public class AvaliacaFornecedor2Controller implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void evtCadFornecedor(ActionEvent event) throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/CadastroFornecedor.fxml"));
-        painelTotal.getChildren().setAll(a);
-    }
 
 
-    @FXML
-    private void evtAvalFornecedor(ActionEvent event) throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/AvaliacaoFornecedor.fxml"));
-        painelTotal.getChildren().setAll(a);
-    }
-
-    @FXML
-    private void evtPedidoFor(ActionEvent event) throws IOException {
-         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/fornecedor/PedidoFornecedor.fxml"));
-        painelTotal.getChildren().setAll(a);
-    }
     @FXML
     private void btnBuscar(ActionEvent event) {
     }
@@ -105,7 +97,7 @@ public class AvaliacaFornecedor2Controller implements Initializable {
     }
 
     @FXML
-    private void cbbEVTMateriaPrima(ActionEvent event) {
+    private void btnMaisItens(ActionEvent event) {
     }
 
     @FXML
@@ -113,8 +105,25 @@ public class AvaliacaFornecedor2Controller implements Initializable {
     }
 
     @FXML
-    private void btnMaisItens(ActionEvent event) {
+    private void btnConfirma(ActionEvent event) {
     }
 
+    @FXML
+    private void btnCancelar(ActionEvent event) {
+    }
+
+    @FXML
+    private void evtMontarCarga(ActionEvent event) throws IOException {
+            AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/MontagemCarga.fxml"));
+        painelTotal.getChildren().setAll(a);
+  
+    }
+
+    @FXML
+    private void evtRegiao(ActionEvent event) throws IOException {
+            AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/Regiao.fxml"));
+        painelTotal.getChildren().setAll(a);
+  
+    }
     
 }

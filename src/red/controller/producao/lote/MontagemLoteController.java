@@ -613,13 +613,13 @@ public class MontagemLoteController implements Initializable {
         carregaColaborador();
     }
      
-    @FXML
-    private void evtProduto(ActionEvent event) throws IOException {
-        
-         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
-        painelTotal.getChildren().setAll(a);  
-        
-    }
+ //   @FXML
+//    private void evtProduto(ActionEvent event) throws IOException {
+//        
+//         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
+//        painelTotal.getChildren().setAll(a);  
+//        
+//    }
 
     @FXML
     private void evtPedido(ActionEvent event) {
@@ -627,14 +627,32 @@ public class MontagemLoteController implements Initializable {
       
     }
 
-    @FXML
-    private void evtRelatorio(ActionEvent event) {
-          WebView webView = new WebView();
-       webView.setPrefSize(750, 580);
-       webView.getEngine().load("http://www.unoeste.br");
+//    @FXML
+//    private void evtRelatorio(ActionEvent event) {
+//          WebView webView = new WebView();
+//       webView.setPrefSize(750, 580);
+//       webView.getEngine().load("http://www.unoeste.br");
+//        
+//       PainelCentral.getChildren().add(webView);
+//    }
+
+    private void evtLote(ActionEvent event) throws IOException {
+         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/MontagemLote.fxml"));
+        painelTotal.getChildren().setAll(a);
         
-       PainelCentral.getChildren().add(webView);
     }
 
+    @FXML
+    private void evtProduto(ActionEvent event) throws IOException {
+       AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
+        painelTotal.getChildren().setAll(a);  
+        
+    }
+
+    @FXML
+    private void evtRelatorio(ActionEvent event) throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/RelProduto.fxml"));
+        painelTotal.getChildren().setAll(a);  
+    }
     
 }

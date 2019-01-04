@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.lote.RelProdutoController">
+   <children>
+      <BorderPane maxHeight="630.0" maxWidth="1050.0" prefHeight="630.0" prefWidth="1050.0">
+         <top>
+            <VBox prefHeight="50.0" prefWidth="1050.0" style="-fx-background-color: #bdb76b;" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="53.0" prefWidth="1072.0" style="-fx-background-color: #bdb76b;">
+                     <children>
+                        <JFXButton onAction="#evtLote" prefHeight="59.0" prefWidth="161.0" text="Montar Lote" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtProduto" prefHeight="50.0" prefWidth="150.0" text="Produto" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <JFXButton onAction="#evtRelatorio" prefHeight="50.0" prefWidth="186.0" text="Relatório" textFill="DARKGREEN">
+                           <font>
+                              <Font name="Century Gothic Bold" size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <AnchorPane maxHeight="580.0" maxWidth="1050.0" prefHeight="580.0" prefWidth="1050.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane id="AnchorPane" layoutY="-2.0" maxWidth="1050.0" prefHeight="585.0" prefWidth="1044.0" style="-fx-background-color: #DCDCDC;" styleClass="background">
+                     <children>
+                        <Button layoutX="938.0" layoutY="524.0" mnemonicParsing="false" onAction="#alkApagar" prefHeight="40.0" prefWidth="97.0" style="-fx-background-color: white; -fx-border-color: gray;" text="Imprimir" />
+                        <Label alignment="CENTER" layoutX="120.0" layoutY="56.0" maxWidth="1050.0" onDragDetected="#evtRelatorio" prefHeight="35.0" prefWidth="930.0" text="Relatório de Estoque de Produto" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelClienteNome" layoutX="26.0" layoutY="87.0" text="Data" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="52.0" text="Lote Produto" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <DatePicker fx:id="dpData" layoutX="120.0" layoutY="83.0" prefHeight="25.0" prefWidth="194.0" />
+                        <ComboBox fx:id="cbbLotePro" layoutX="120.0" layoutY="48.0" prefHeight="25.0" prefWidth="193.0" promptText="  Selecione o lote ..." />
+                        <TableView fx:id="tabela" layoutX="22.0" layoutY="150.0" prefHeight="361.0" prefWidth="1013.0">
+                           <columns>
+                              <TableColumn fx:id="colProduto" prefWidth="265.0" text="Produto" />
+                              <TableColumn fx:id="colQtEnt" prefWidth="139.0" text="Qtde Entrada" />
+                              <TableColumn fx:id="loteProduto" prefWidth="165.0" text="Lote Produto" />
+                              <TableColumn fx:id="colValidade" prefWidth="156.0" text="Dt Válidade" />
+                              <TableColumn fx:id="colQtVendida" prefWidth="121.0" text="Qtde Vendida" />
+                              <TableColumn fx:id="colMov" minWidth="0.0" prefWidth="166.0" text="Dt Mov" />
+                           </columns>
+                        </TableView>
+                        <ComboBox fx:id="cbbProduto" layoutX="120.0" layoutY="14.0" prefHeight="25.0" prefWidth="193.0" promptText="  Selecione um Produto.." />
+                        <Label layoutX="26.0" layoutY="18.0" text="Produto" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

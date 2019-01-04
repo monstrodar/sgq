@@ -52,6 +52,12 @@ public class PrincipalLoteController implements Initializable {
         
     }
 
+    @FXML
+    private void evtRelatorio(ActionEvent event) throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/RelProduto.fxml"));
+        painelTotal.getChildren().setAll(a);  
+    }
+
 
     
     

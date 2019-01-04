@@ -5,7 +5,6 @@
  */
 package red.controller.producao.rastreabilidade;
 
-import red.controller.producao.fornecedor.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,10 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -45,20 +40,13 @@ public class PrincipalRastreabilidadeController implements Initializable {
         painelTotal.getChildren().setAll(a);
     }
 
-    @FXML
-    private void evt_Relatorio(ActionEvent event) {
-    }
 
     @FXML
-    private void evtRegiao(ActionEvent event) {
+    private void evtRegiao(ActionEvent event) throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/Regiao.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
-    @FXML
-    private void evtEstado(ActionEvent event) {
-    }
 
-    @FXML
-    private void evtCidade(ActionEvent event) {
-    }
     
 }

@@ -7,6 +7,7 @@ package red.controller.producao.rastreabilidade;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -17,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -99,11 +101,15 @@ public class MontagemCargaController implements Initializable {
     }    
 
     @FXML
-    private void evtMontarCarga(ActionEvent event) {
+    private void evtMontarCarga(ActionEvent event) throws IOException {
+         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/MontagemCarga.fxml"));
+        painelTotal.getChildren().setAll(a);  
     }
 
     @FXML
-    private void evtRegiao(ActionEvent event) {
+    private void evtRegiao(ActionEvent event) throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/rastreabilidade/Regiao.fxml"));
+        painelTotal.getChildren().setAll(a);
     }
 
 
@@ -578,16 +584,6 @@ public class MontagemCargaController implements Initializable {
         }    
     }
 
-    @FXML
-    private void evtRelatorio(ActionEvent event) {
-    }
 
-    @FXML
-    private void evtEstado(ActionEvent event) {
-    }
-
-    @FXML
-    private void evtCidade(ActionEvent event) {
-    }
       
 }

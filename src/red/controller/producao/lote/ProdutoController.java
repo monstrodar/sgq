@@ -483,13 +483,13 @@ public class ProdutoController implements Initializable{
         }
     }
     
-    @FXML
-    private void evtProduto(ActionEvent event) {
-    }
-
-    @FXML
-    private void evtRelatorio(ActionEvent event) {
-    }
+//    @FXML
+//    private void evtProduto(ActionEvent event) {
+//    }
+//
+//    @FXML
+//    private void evtRelatorio(ActionEvent event) {
+//    }
 
     @FXML
     private void clkAtivoBusca(ActionEvent event) {
@@ -528,7 +528,19 @@ public class ProdutoController implements Initializable{
                   
          txtPesquisa.setText("");
     }
-            
+  
 
+    @FXML
+    private void evtProduto(ActionEvent event) throws IOException {
+       AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/Produto.fxml"));
+        painelTotal.getChildren().setAll(a);  
+        
+    }
+
+    @FXML
+    private void evtRelatorio(ActionEvent event) throws IOException {
+        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/red/view/producao/lote/RelProduto.fxml"));
+        painelTotal.getChildren().setAll(a);  
+    }
     
 }

@@ -38,31 +38,44 @@
             </VBox>
          </top>
          <center>
-            <AnchorPane maxHeight="680.0" maxWidth="600.0" prefHeight="680.0" prefWidth="600.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="730.0" prefWidth="1050.0" style="-fx-background-color: #DCDCDC;" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-57.0" layoutY="366.0" prefHeight="53.0" prefWidth="703.0" text="Gestão de Qualidade de Fornecedor" textFill="DARKGREEN">
+                  <Label layoutX="158.0" layoutY="43.0" prefHeight="70.0" prefWidth="681.0" text="CONTROLE DE FORNECEDOR" textFill="#123904">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="569.0" layoutY="113.0" prefHeight="41.0" prefWidth="231.0" text="ISO 9001" textFill="#65c940">
+                     <font>
+                        <Font name="System Bold" size="48.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="56.0" layoutY="323.0" prefHeight="49.0" prefWidth="509.0" text="Cadastros" textFill="#123904">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
                   </Label>
-               </children></AnchorPane>
+                  <Label layoutX="56.0" layoutY="232.0" prefHeight="49.0" prefWidth="509.0" text="Avaliações" textFill="#123904">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="56.0" layoutY="429.0" prefHeight="49.0" prefWidth="509.0" text="Pedidos" textFill="#123904">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <ProgressBar layoutX="271.0" layoutY="241.0" opacity="0.89" prefHeight="35.0" prefWidth="438.0" progress="0.59" />
+                  <ProgressBar layoutX="271.0" layoutY="332.0" prefHeight="35.0" prefWidth="438.0" progress="1.0" />
+                  <ProgressBar layoutX="271.0" layoutY="438.0" opacity="0.94" prefHeight="35.0" prefWidth="438.0" progress="0.37" />
+                  <Label layoutX="63.0" layoutY="134.0" prefHeight="49.0" prefWidth="146.0" text="DATA:  12/12/2018" textFill="#123904">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </center>
-         <left>
-            <AnchorPane prefHeight="680.0" prefWidth="400.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <AnchorPane maxHeight="680.0" maxWidth="50.0" prefHeight="680.0" prefWidth="50.0" style="-fx-background-color: #1002;" BorderPane.alignment="CENTER" />
-         </right>
       </BorderPane>
-      <Label layoutX="51.0" layoutY="110.0" prefHeight="151.0" prefWidth="747.0" text="ISO 9001" textFill="#65c940">
-         <font>
-            <Font name="System Bold" size="72.0" />
-         </font>
-      </Label>
-      <Label layoutX="23.0" layoutY="240.0" prefHeight="151.0" prefWidth="1023.0" text="CONTROLE DE FORNECEDOR" textFill="#123904">
-         <font>
-            <Font name="System Bold" size="72.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>
