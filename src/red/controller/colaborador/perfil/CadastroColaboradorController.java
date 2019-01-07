@@ -140,7 +140,7 @@ public class CadastroColaboradorController implements Initializable {
         }
         else
         {
-            if(!txpesquisa.getText().trim().equals("") || !txpesquisa1.getText().trim().equals(""))
+            if(!txpesquisa.getText().trim().equals(""))
             {
                 lista = c.serch(txpesquisa.getText());
             }
