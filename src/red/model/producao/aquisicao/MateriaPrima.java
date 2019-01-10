@@ -80,7 +80,7 @@ public class MateriaPrima {
     
     public boolean gravar(MateriaPrima mp)
     {
-        String sql = "insert into materia_prima (mp_nome, mp_status) values (?,?);";
+        String sql = "insert into mat_prima (mp_nome, mp_status) values (?,?);";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -104,7 +104,7 @@ public class MateriaPrima {
     
     public boolean alterar(MateriaPrima mp)
     {
-        String sql = "update materia_prima set mp_nome = ?, mp_status = ? where mp_codigo = ?;";
+        String sql = "update mat_prima set mp_nome = ?, mp_status = ? where mp_codigo = ?;";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -129,7 +129,7 @@ public class MateriaPrima {
     
     public boolean excluir(int codigo)
     {
-        String sql = "delete from materia_prima where mp_codigo = ?;";
+        String sql = "delete from mat_prima where mp_codigo = ?;";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
@@ -154,7 +154,7 @@ public class MateriaPrima {
     {
         ArrayList<MateriaPrima> lista = new ArrayList<>();
         String sql = "select * "
-                   + "from materia_prima "
+                   + "from mat_prima "
                    + "where mp_nome = ? and mp_status = true";
         try(Connection con = Conexao.abre())
         {
@@ -183,7 +183,7 @@ public class MateriaPrima {
     {
         ArrayList<MateriaPrima> lista = new ArrayList<>();
         String sql = "select mp.mp_codigo, mp.mp_nome, mp.mp_status "
-                   + "from materia_prima mp, mp_fornecedor mpf "
+                   + "from mat_prima mp, mp_fornecedor mpf "
                    + "where mp.mp_codigo = mpf.mp_codigo and mpf.for_codigo = ? and mp.mp_status = true;";
         try(Connection con = Conexao.abre())
         {
@@ -208,11 +208,69 @@ public class MateriaPrima {
         return lista;
     }
     
+    public ArrayList<MateriaPrima> Busca(String nome)
+    {
+        ArrayList<MateriaPrima> lista = new ArrayList<>();
+        String sql = "select mp.mp_codigo, mp.mp_nome, mp.mp_status "
+                   + "from mat_prima mp "
+                   + "where mp.mp_nome = ?;";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    ps.setString(1, nome);
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        while(rs.next())
+                        {
+                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+    public ArrayList<MateriaPrima> BuscaComStatus(boolean status, String add)
+    {
+        ArrayList<MateriaPrima> lista = new ArrayList<>();
+        String sql = "select mp.mp_codigo, mp.mp_nome, mp.mp_status "
+                   + "from mat_prima mp "
+                   + "where mp.mp_status = ? "+add+";";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {
+                    ps.setBoolean(1, status);
+                    try(ResultSet rs = ps.executeQuery())
+                    {
+                        while(rs.next())
+                        {
+                            lista.add(new MateriaPrima(rs.getInt(1), rs.getString(2), rs.getBoolean(3)));
+                        }
+                    }    
+                } 
+            }
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
     public ArrayList<MateriaPrima> serch()
     {
         ArrayList<MateriaPrima> lista = new ArrayList<>();
         String sql = "select mp.mp_codigo, mp.mp_nome, mp.mp_status "
-                   + "from materia_prima mp "
+                   + "from mat_prima mp "
                    + "where mp.mp_status = true;";
         try(Connection con = Conexao.abre())
         {
@@ -239,7 +297,7 @@ public class MateriaPrima {
     public MateriaPrima リカバー(int codigo)
     {
         String sql = "select * "
-                   + "from materia_prima "
+                   + "from mat_prima "
                    + "where mp_codigo = ?; ";
         try(Connection con = Conexao.abre())
         {
