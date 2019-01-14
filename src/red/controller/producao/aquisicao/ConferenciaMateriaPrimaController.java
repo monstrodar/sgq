@@ -20,7 +20,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -46,7 +48,7 @@ import util.ColaboradorLogado;
 /**
  * FXML Controller class
  *
- * 川波
+ * 吉野　廉
  */
 public class ConferenciaMateriaPrimaController implements Initializable {
 
@@ -64,8 +66,6 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     private Label labelClienteNome;
     @FXML
     private Label labelClienteNome2;
-    @FXML
-    private DatePicker datePickerVendaData;
     @FXML
     private JFXComboBox<MateriaPrima> cbpMp;
     @FXML
@@ -108,6 +108,14 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     private Colaborador c = util.ColaboradorLogado.col;
     @FXML
     private TextField txCodigoConf;
+    @FXML
+    private Label labelClienteNome21;
+    @FXML
+    private DatePicker dpConferencia;
+    @FXML
+    private DatePicker dpValidade;
+    @FXML
+    private CheckBox chbStatus;
     /**
      * Initializes the controller class.
      */
@@ -177,47 +185,19 @@ public class ConferenciaMateriaPrimaController implements Initializable {
 
     @FXML
     private void clkAlterar(ActionEvent event) {
-        Editando();
-        ConfereMP cmp = tbvConferencia.getSelectionModel().getSelectedItem();
-        cmp = cmp.リカバー(cmp.getNumero());
-        txCodigo.setText(cmp.getNumero()+"");
-        datePickerVendaData.setValue(cmp.getData());
-        Conferencia c = new Conferencia();
-        c = c.buscar(cmp.getNumero());
-        txQtd.setText(""+c.getQtd());
-        txDescarte.setText(""+c.getDescarte());
-        txLote.setText(""+c.getLote());
-        txCodigoConf.setText(""+c.getCodigo());
-        ItensEntrada ie = new ItensEntrada();
-        ArrayList<ItensEntrada> lista;
-        lista = ie.ロード(Integer.parseInt(txEntrada.getText()));
-        ArrayList<MateriaPrima> mp = new ArrayList<>();
-        lista.forEach((lista1) -> 
-        {
-            mp.add(new MateriaPrima().リカバー(lista1.getMp().getCodigo()));
-        });
-        ObservableList<MateriaPrima> modelo;
-        modelo = FXCollections.observableArrayList(mp);
-        cbMP.setItems(modelo);
-        cbMP.getSelectionModel().select(0);
+       
     }
 
     @FXML
     private void alkApagar(ActionEvent event) {
-        if(JOptionPane.showConfirmDialog(null, "Deseja excluir essa conferencia?", "Atenção", JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION)
-        {
-            ConfereMP cmp = tbvConferencia.getSelectionModel().getSelectedItem();
-            cmp.excluir(cmp.getNumero());
-            new Conferencia().excluir(cmp.getNumero());
-            リロード();
-        }
-        Alterar();
+      
     }
 
     @FXML
     private void clkNovo(ActionEvent event) {
         Editando();
         txCodigo.setText("0");
+        dpConferencia.setValue(LocalDate.now());
     }
 
     @FXML
@@ -238,117 +218,66 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     }
 
     @FXML
-    private void actGravar(ActionEvent event) {
-        if(!txLote.getText().trim().equals(""))
+    private void actGravar(ActionEvent event)
+    {
+        if(!txEntrada.getText().trim().equals(""))
         {
-            if(!txQtd.getText().trim().equals(""))
-            {
-                try 
+            boolean ok = true;
+            try {
+                int descarte = Integer.parseInt(txDescarte.getText());
+                int quantidade = Integer.parseInt(txQtd.getText());
+                if(descarte >= 0 && descarte <= quantidade)
                 {
-                   int qtddescarte = 0;
-                   qtddescarte = Integer.parseInt(txDescarte.getText());
-                   if(qtddescarte >= 0)
-                   {
-                       String motivo = "";
-                       if(qtddescarte == 0)
-                       {
-                           motivo += "Nao houve defeito";
-                       }
-                       else
-                       {
-                           if(!txMotivo.getText().trim().equals(""))
-                           {
-                               motivo = txMotivo.getText();
-                           }
-                           else
-                           {
-                               JOptionPane.showMessageDialog(null, "Informe o motivo", "Erro", JOptionPane.ERROR_MESSAGE);
-                           }
-                       }
-                       if(!motivo.equals(""))
-                       {
-                           if(datePickerVendaData.getValue() != null)
-                           {
-                               if(qtddescarte <= Integer.parseInt(txQtd.getText()) )//ストックに変更せよ！！　確認済み
-                               {                                                //int numero, Colaborador c, Entrada e, LocalDate data
-                                   ConfereMP cmp = new ConfereMP(Integer.parseInt(txCodigo.getText()), c, new Entrada(Integer.parseInt(txEntrada.getText())), datePickerVendaData.getValue());
-                                   MateriaPrima mp = cbMP.getSelectionModel().getSelectedItem();
-                                   Entrada e = new Entrada().busca(Integer.parseInt(txEntrada.getText()));
-                                   if(datePickerVendaData.getValue().isAfter(e.getData()))
-                                   {
-                                       if(txCodigo.getText().equals("0"))//コード確認、0　－＞保存；　1　＞＝　変更；　
-                                        {
-                                            cmp.gravar(cmp);
-                                            cmp.setNumero(cmp.turningNumber()); 
-                                            Conferencia c = new Conferencia(0, cmp, Integer.parseInt(txQtd.getText()), Integer.parseInt(txLote.getText()), 0, qtddescarte, motivo, cbMP.getSelectionModel().getSelectedItem());
-                                            c.gravar(c);
-                                            //Atualizar estoque....
-                                            limpar();
-                                            Original();
-                                        }
-                                        else
-                                        {
-                                            cmp.alterar(cmp);
-                                            Conferencia c = new Conferencia(Integer.parseInt(txCodigoConf.getText()), cmp, Integer.parseInt(txQtd.getText()), Integer.parseInt(txLote.getText()), 0, qtddescarte, motivo, cbMP.getSelectionModel().getSelectedItem());
-                                            c.alterar(c);
-                                            limpar();
-                                            Original();
-                                        }
-                                   }
-                                   else
-                                   {
-                                       JOptionPane.showMessageDialog(null, "A data inferior a data de conferencia!", "Erro", JOptionPane.ERROR_MESSAGE); 
-                                   }
-                                   
-                               }
-                               else
-                               {
-                                   JOptionPane.showMessageDialog(null, "A quantidade deve ser menor ou igual a estoque!", "Erro", JOptionPane.ERROR_MESSAGE); //ストック数を追加。
-                               }
-                           }
-                           else
-                           {
-                               JOptionPane.showMessageDialog(null, "Informe a data", "Erro", JOptionPane.ERROR_MESSAGE);
-                           }
-                       }//else いらない
-                   }
-                   else
-                   {
-                        JOptionPane.showMessageDialog(null, "Informe a quantidade maior ou igual a 0", "Erro", JOptionPane.ERROR_MESSAGE);
-                   }
+                    if(descarte == 0 && txMotivo.getText().trim().equals(""))
+                    {
+                        if(txCodigo.getText().equals("0"))//Gravar
+                        {
+                            
+                        }
+                        else//Alterar
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Precisa informar o motivo pelo fato de ter descarte!", "Erro", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
-                catch (NumberFormatException e) 
+                else
                 {
-                    JOptionPane.showMessageDialog(null, "Informe a quantidade (Numero)", "Erro", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "O valor do descarte é maior que a quantidde ou menor que 0!", "Erro", JOptionPane.WARNING_MESSAGE);
                 }
-            }
-            else
+            } catch (Exception e) 
             {
-                JOptionPane.showMessageDialog(null, "Informe a quantidade", "Erro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Inofrme a quantidade de descarte", "Erro", JOptionPane.WARNING_MESSAGE);
             }
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Informe o numero do Lote", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Inofrme o numero da entrada!", "Erro", JOptionPane.WARNING_MESSAGE);
         }
+            
     }
     
     @FXML
     private void evtClick(MouseEvent event) {
         
+        
     }
 
-    private void evtHidden(Event event) 
+    private void evtHidden(Event event) //evento comBX da Materia prima.
     {
         ItensEntrada ie = new ItensEntrada();
         ie = ie.serch(Integer.parseInt(txEntrada.getText()), cbMP.getValue().getCodigo());
         txQtd.setText(""+ie.getQtd());
+        txQtd.setDisable(true);
         txDescarte.setText("0");
     }
     
     @FXML
     private void evtEnter(KeyEvent event) {
-        if("Tab".equals(event.getCode().getName()))
+        if("Tab".equals(event.getCode().getName()) || "Enter".equals(event.getCode().getName()))
         {
             ItensEntrada ie = new ItensEntrada();
             ArrayList<ItensEntrada> lista;
@@ -368,6 +297,7 @@ public class ConferenciaMateriaPrimaController implements Initializable {
                 modelo = FXCollections.observableArrayList(mp);
                 cbMP.setItems(modelo);
                 cbMP.getSelectionModel().select(0);
+                cbMP.setFocusTraversable(true);
             }
         }
     }
@@ -377,7 +307,8 @@ public class ConferenciaMateriaPrimaController implements Initializable {
         txLote.setText("");
         txMotivo.setText("");
         txQtd.setText("");
-        datePickerVendaData.setValue(null);
+        dpConferencia.setValue(null);
+        dpValidade.setValue(null);
         cbMP.setValue(null);
     }
     

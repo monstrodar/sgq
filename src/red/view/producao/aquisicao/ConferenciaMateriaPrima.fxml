@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -117,7 +118,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
                         <JFXComboBox fx:id="cbMP" layoutX="184.0" layoutY="106.0" opacity="0.48" prefHeight="31.0" prefWidth="447.0" promptText="                Selecione uma Matéria Prima para conferência" style="-fx-font-size: 13;" />
-                        <DatePicker fx:id="datePickerVendaData" layoutX="196.0" layoutY="148.0" opacity="0.77" prefHeight="31.0" prefWidth="181.0" promptText="  Data da Conferência" style="-fx-font-size: 13;" />
+                        <DatePicker fx:id="dpConferencia" layoutX="196.0" layoutY="148.0" opacity="0.77" prefHeight="31.0" prefWidth="181.0" promptText="  Data da Conferência" style="-fx-font-size: 13;" />
                         <Button fx:id="btCancelar" layoutX="387.0" layoutY="504.0" mnemonicParsing="false" onAction="#actCancelar" prefHeight="36.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
                            <font>
                               <Font name="System Bold" size="13.0" />
@@ -128,18 +129,18 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
-                        <Label layoutX="426.0" layoutY="154.0" text="Lote: " textFill="DARKGREEN">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="txtLote" layoutX="467.0" layoutY="153.0" />
                         <Label fx:id="labelClienteNome21" layoutX="317.0" layoutY="235.0" text="Data Validade:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <DatePicker layoutX="431.0" layoutY="233.0" prefHeight="25.0" prefWidth="196.0" />
+                        <DatePicker fx:id="dpValidade" layoutX="431.0" layoutY="233.0" prefHeight="25.0" prefWidth="196.0" />
+                        <Label layoutX="409.0" layoutY="154.0" text="Status: " textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <CheckBox fx:id="chbStatus" layoutX="467.0" layoutY="156.0" mnemonicParsing="false" text="CheckBox" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
