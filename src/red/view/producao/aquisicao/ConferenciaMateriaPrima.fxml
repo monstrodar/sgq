@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -24,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.aquisicao.ConferenciaMateriaPrimaController">
+<AnchorPane fx:id="painelTotal" maxHeight="630.0" maxWidth="1050.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="red.controller.producao.aquisicao.ConferenciaMateriaPrimaController">
    <children>
       <BorderPane maxHeight="630.0" maxWidth="1050.0" prefHeight="630.0" prefWidth="1050.0">
          <top>
@@ -77,17 +70,17 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labelClienteNome" layoutX="68.0" layoutY="195.0" text="Número Lote:" textFill="DARKGREEN">
+                        <Label fx:id="labelClienteNome" layoutX="67.0" layoutY="235.0" text="Número Lote:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="labelClienteNome2" layoutX="323.0" layoutY="195.0" text="Data Conferência:" textFill="DARKGREEN">
+                        <Label fx:id="labelClienteNome2" layoutX="69.0" layoutY="157.0" text="Data Conferência:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="69.0" layoutY="157.0" text="Quantidade: " textFill="DARKGREEN">
+                        <Label layoutX="68.0" layoutY="197.0" text="Quantidade: " textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -97,34 +90,34 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="txMotivo" layoutX="65.0" layoutY="277.0" prefHeight="216.0" prefWidth="575.0" />
-                        <Label layoutX="68.0" layoutY="256.0" text="Motivo do defeito:" textFill="DARKGREEN">
+                        <TextArea fx:id="txMotivo" layoutX="65.0" layoutY="299.0" prefHeight="194.0" prefWidth="575.0" />
+                        <Label layoutX="67.0" layoutY="269.0" text="Motivo do defeito:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txQtd" layoutX="160.0" layoutY="149.0" opacity="0.41" prefHeight="29.0" prefWidth="129.0" promptText="Informe a quantidade" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
-                        <JFXTextField fx:id="txLote" layoutX="166.0" layoutY="189.0" opacity="0.41" prefHeight="29.0" prefWidth="118.0" promptText="Informe o Lote MP" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
+                        <JFXTextField fx:id="txQtd" layoutX="161.0" layoutY="189.0" opacity="0.41" prefHeight="29.0" prefWidth="129.0" promptText="Informe a quantidade" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
+                        <JFXTextField fx:id="txLote" layoutX="165.0" layoutY="229.0" opacity="0.41" prefHeight="29.0" prefWidth="118.0" promptText="Informe o Lote MP" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
                         <Label layoutX="69.0" layoutY="80.0" text="Número da entrada:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <JFXTextField fx:id="txEntrada" layoutX="221.0" layoutY="70.0" onKeyPressed="#evtEnter" opacity="0.57" prefHeight="30.0" prefWidth="178.0" promptText="Informe o número da Entrada" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
-                        <Label layoutX="323.0" layoutY="157.0" text="Descarte:" textFill="DARKGREEN">
+                        <Label layoutX="348.0" layoutY="197.0" text="Descarte:" textFill="DARKGREEN">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txDescarte" layoutX="436.0" layoutY="149.0" opacity="0.48" prefHeight="25.0" prefWidth="191.0" promptText="Informe a quantidade descarte" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
+                        <JFXTextField fx:id="txDescarte" layoutX="433.0" layoutY="189.0" opacity="0.48" prefHeight="25.0" prefWidth="191.0" promptText="Informe a quantidade descarte" style="-fx-font-size: 13;" unFocusColor="DARKGREEN" />
                         <TextField fx:id="txCodigo" layoutX="69.0" layoutY="514.0" prefHeight="25.0" prefWidth="127.0" />
                         <TextField fx:id="txCodigoConf" layoutX="202.0" layoutY="514.0" prefHeight="25.0" prefWidth="116.0" />
-                        <Label layoutX="316.0" layoutY="243.0" text="* Todos os campos são obrigatórios" textFill="#e80808">
+                        <Label layoutX="512.0" layoutY="71.0" text="* Todos os campos são obrigatórios" textFill="#e80808">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font></Label>
                         <JFXComboBox fx:id="cbMP" layoutX="184.0" layoutY="106.0" opacity="0.48" prefHeight="31.0" prefWidth="447.0" promptText="                Selecione uma Matéria Prima para conferência" style="-fx-font-size: 13;" />
-                        <DatePicker fx:id="datePickerVendaData" layoutX="450.0" layoutY="186.0" opacity="0.77" prefHeight="31.0" prefWidth="181.0" promptText="  Data da Conferência" style="-fx-font-size: 13;" />
+                        <DatePicker fx:id="datePickerVendaData" layoutX="196.0" layoutY="148.0" opacity="0.77" prefHeight="31.0" prefWidth="181.0" promptText="  Data da Conferência" style="-fx-font-size: 13;" />
                         <Button fx:id="btCancelar" layoutX="387.0" layoutY="504.0" mnemonicParsing="false" onAction="#actCancelar" prefHeight="36.0" prefWidth="125.0" style="-fx-background-color: #006400; -fx-border-color: gray;" text="Cancelar" textFill="GAINSBORO">
                            <font>
                               <Font name="System Bold" size="13.0" />
@@ -135,6 +128,18 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Button>
+                        <Label layoutX="426.0" layoutY="154.0" text="Lote: " textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtLote" layoutX="467.0" layoutY="153.0" />
+                        <Label fx:id="labelClienteNome21" layoutX="317.0" layoutY="235.0" text="Data Validade:" textFill="DARKGREEN">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <DatePicker layoutX="431.0" layoutY="233.0" prefHeight="25.0" prefWidth="196.0" />
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
