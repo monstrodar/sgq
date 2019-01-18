@@ -19,6 +19,7 @@ import red.model.producao.aquisicao.MateriaPrima;
 /**
  *
  * @author Daniel
+ * @author 羽根川
  */
 public class EstoqueMpDAO {
     
@@ -281,6 +282,36 @@ return mp;
         } catch (SQLException e) {
           //  erro = "Erro excluindo lote!";
         }
+        return false;
+    }
+    
+    public boolean Exist(EstoqueMP mp)//Add 羽根川
+    {
+        String sql="select est_mp_lote, mp_codigo, est_mp_qtde_rec, "
+                + "est_mp_qtde_aprovado, est_mp_qtde_conferir, est_mp_qtde_descarte,"
+                + "est_mp_qtde_montado, est_mp_validade, est_mp_data_mov, est_mp_rec_numero"
+                + " from estoque_mp where "
+                + mp.getMateria_prima().getCodigo()+" = mp_codigo and "+mp.getLote_mp()+" = est_mp_lote;";
+        List<EstoqueMP> lista =new ArrayList<>();
+        Entrada entrada = new Entrada();
+        Entrada  ent=null;
+        try (Connection conn = Conecta.abreConexaoBanco())
+        {
+            if(conn !=null)
+            {
+                try(PreparedStatement ps = conn.prepareStatement(sql)) 
+                {
+                    try(ResultSet rs = ps.executeQuery()) 
+                    {
+                        if(rs.next())
+                        {
+                            return true;
+                        }
+                    } 
+                } 
+            }
+        } catch (SQLException e) {
+        }              
         return false;
     }
 }
