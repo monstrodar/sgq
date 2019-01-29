@@ -21,49 +21,58 @@ import red.model.producao.aquisicao.MateriaPrima;
 /**
  *
  * @author Bruno Yoshino
+ * @author 羽根川
  */
 public class Conferencia 
 {
     private int codigo;
     private ConfereMP cmp;
     private int qtd;
-    private int lote;
-    private int estoque;
+    private String lote;
+    private int aprovado;
     private int descarte;
     private String motivo;
     private MateriaPrima mp;
+    private int status;
+    private LocalDate validade;
 
-    public Conferencia(int codigo, ConfereMP cmp, int qtd, int lote, int estoque, int descarte, String motivo, MateriaPrima mp) {
+    public Conferencia(int codigo, ConfereMP cmp, int qtd, String lote, int aprovado, int descarte, String motivo, MateriaPrima mp, int status, LocalDate validade) {
         this.codigo = codigo;
         this.cmp = cmp;
         this.qtd = qtd;
         this.lote = lote;
-        this.estoque = estoque;
+        this.aprovado = aprovado;
         this.descarte = descarte;
         this.motivo = motivo;
         this.mp = mp;
+        this.status = status;
+        this.validade = validade;
     }
     
-    public Conferencia(int codigo, ConfereMP cmp, int qtd, int lote, int estoque, int descarte, MateriaPrima mp) {
+    public Conferencia(int codigo, ConfereMP cmp, int qtd, String lote, int aprovado, int descarte, MateriaPrima mp) {
         this.codigo = codigo;
         this.cmp = cmp;
         this.qtd = qtd;
         this.lote = lote;
-        this.estoque = estoque;
+        this.aprovado = aprovado;
         this.descarte = descarte;
         this.motivo = "";
         this.mp = mp;
+        this.status = 0;
+        this.validade = LocalDate.now();
     }
 
     public Conferencia() {
         this.codigo = 0;
         this.cmp = null;
         this.qtd = 0;
-        this.lote = 0;
-        this.estoque = 0;
+        this.lote = "";
+        this.aprovado = 0;
         this.descarte = 0;
         this.motivo = "";
         this.mp = null;
+        this.status = 0;
+        this.validade = LocalDate.now();
     }
 
     public int getCodigo() {
@@ -90,20 +99,20 @@ public class Conferencia
         this.qtd = qtd;
     }
 
-    public int getLote() {
+    public String getLote() {
         return lote;
     }
 
-    public void setLote(int lote) {
+    public void setLote(String lote) {
         this.lote = lote;
     }
 
-    public int getEstoque() {
-        return estoque;
+    public int getAprovado() {
+        return aprovado;
     }
 
-    public void setEstoque(int estoque) {
-        this.estoque = estoque;
+    public void setAprovado(int aprovado) {
+        this.aprovado = aprovado;
     }
 
     public int getDescarte() {
@@ -130,28 +139,52 @@ public class Conferencia
         this.mp = mp;
     }
     
-    
-    
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public LocalDate getValidade() {
+        return validade;
+    }
+
+    public void setValidade(LocalDate validade) {
+        this.validade = validade;
+    }
     
     
     //DAO Banco-----------------------------------------------------------------
     public boolean gravar(Conferencia c)
     {
-        String sql = "insert into conferencia (conf_num, co_qtde, co_lote, co_qtd_descarte, mp_codigo, co_estoque) values (?,?,?,?,?,0);";
-        //String sql = "insert into conferencia (conf_numero, co_qtde, co_lote, co_qtd_descarte, co_motivo, mp_codigo) values (?,?,?,?,?,?);";
+        String sql = "insert into itens_conferencia "
+                + " (conf_num, rec_numero, mp_codigo, it_conf_qtde_entrada, it_conf_qtde_aprovada, it_conf_qtde_descarte, it_conf_motivo, it_conf_status, it_conf_lote_mp, it_conf_validade) values (?,?,?,?,?,?,?,?,?,'"+c.getValidade()+"');";
+        //String sql = "insert into itens_conferencia (conf_numero, conf_qtde, conf_lote, conf_qtd_descarte, conf_motivo, mp_codigo) values (?,?,?,?,?,?);";
         try(Connection con = Conexao.abre())
         {
             if(con != null)
             {
                 try(PreparedStatement ps = con.prepareStatement(sql)) 
-                {
+                {//1 ~ 10
                     ps.setInt(1, c.getCmp().getNumero());
-                    ps.setInt(2, c.getQtd());
-                    ps.setInt(3, c.getLote());
-                    ps.setInt(4, c.getDescarte());
-                    ps.setInt(5, c.getMp().getCodigo()); 
+                    ps.setInt(2, c.getCmp().getE().getNumero());
+                    ps.setInt(3, c.getMp().getCodigo());
+                    ps.setInt(4, c.getQtd());
+                    ps.setInt(5, c.getAprovado());
+                    ps.setInt(6, c.getDescarte());
+                    ps.setString(7, c.getMotivo());
+                    ps.setInt(8, c.getStatus());
+                    ps.setString(9, c.getLote());
                     //ps.setInt(5, c.getMotivo());
                     //ps.setInt(6, c.getMp().getCodigo());
+                    /*
+                    
+                    it_conf_qtde_entrada, it_conf_qtde_aprovada, 
+                    it_conf_qtde_descarte, it_conf_motivo, it_conf_status, 
+                    it_conf_lote_mp, it_conf_validade
+                    */
                     ps.executeUpdate();
                     return true;
                 } 
@@ -164,96 +197,5 @@ public class Conferencia
         }
         return false;
     }
-    
-    public void Estoque()
-    {
-        
-    }
-    
-    public boolean alterar(Conferencia c)
-    {
-        String sql = "update conferencia set conf_numero = ?, co_qtde = ?, co_lote = ?, co_qtd_descarte = ?, mp_codigo = ? where co_codigo = ?;";
-        //String sql = "update conferencia set conf_numero = ?, co_qtde = ?, co_lote = ?, co_qtd_descarte = ?, co_motivo, mp_codigo = ? where co_codigo = ?;";
-        try(Connection con = Conexao.abre())
-        {
-            if(con != null)
-            {
-                try(PreparedStatement ps = con.prepareStatement(sql)) 
-                {
-                    ps.setInt(1, c.getCmp().getNumero());
-                    ps.setInt(2, c.getQtd());
-                    ps.setInt(3, c.getLote());
-                    ps.setInt(4, c.getDescarte());
-                    ps.setInt(5, c.getMp().getCodigo()); 
-                    ps.setInt(6, c.getCodigo()); 
-                    //ps.setInt(5, c.getMotivo());
-                    //ps.setInt(6, c.getMp().getCodigo());
-                    //ps.setInt(7, c.getCodigo());
-                    ps.executeUpdate();
-                    return true;
-                } 
-                
-            }
-            
-        } catch (SQLException ex) 
-        {
-            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-    public boolean excluir(int numero)
-    {
-        String sql = "delete from conferencia where conf_num = ?;";
-        try(Connection con = Conexao.abre())
-        {
-            if(con != null)
-            {
-                try(PreparedStatement ps = con.prepareStatement(sql)) 
-                {
-                    ps.setInt(1, numero);
-                    ps.executeUpdate();
-                    return true;
-                } 
-                
-            }
-            
-        } catch (SQLException ex) 
-        {
-            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-    
-    public Conferencia buscar(int numero)
-    {
-        ArrayList<Conferencia> lista = new ArrayList<>();
-        String sql = "select * "
-                   + "from conferencia "
-                   + "where conf_numero = ?;";
-        try(Connection con = Conexao.abre())
-        {
-            if(con != null)
-            {
-                try(PreparedStatement ps = con.prepareStatement(sql)) 
-                {
-                    ps.setInt(1, numero);
-                    try(ResultSet rs = ps.executeQuery())
-                    {
-                        while(rs.next())
-                        {
-                            return new Conferencia(rs.getInt(1), new ConfereMP(rs.getInt(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), new MateriaPrima(rs.getInt(7)));
-                            //return new Conferencia(rs.getInt(1), new ConfereMP(rs.getInt(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), new MateriaPrima(rs.getInt(8)));
-                        }
-                    }    
-                } 
-            }
-        } catch (SQLException ex) 
-        {
-            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-   
+       
 }

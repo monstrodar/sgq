@@ -285,13 +285,11 @@ return mp;
         return false;
     }
     
-    public boolean Exist(EstoqueMP mp)//Add 羽根川
+    public boolean Exist(Conferencia mp)//Add 羽根川
     {
-        String sql="select est_mp_lote, mp_codigo, est_mp_qtde_rec, "
-                + "est_mp_qtde_aprovado, est_mp_qtde_conferir, est_mp_qtde_descarte,"
-                + "est_mp_qtde_montado, est_mp_validade, est_mp_data_mov, est_mp_rec_numero"
+        String sql="select est_mp_lote, mp_codigo, est_mp_qtde_rec "
                 + " from estoque_mp where "
-                + mp.getMateria_prima().getCodigo()+" = mp_codigo and "+mp.getLote_mp()+" = est_mp_lote;";
+                + mp.getMp().getCodigo()+" = mp_codigo and "+mp.getLote()+" = est_mp_lote;";
         List<EstoqueMP> lista =new ArrayList<>();
         Entrada entrada = new Entrada();
         Entrada  ent=null;

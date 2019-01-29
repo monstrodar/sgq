@@ -26,7 +26,7 @@ public class ConfereMP
 {
     private int numero;
     private Colaborador c;
-    private Entrada e;
+    private Entrada e; // recebimento
     private LocalDate data;
     
     private int lote;
@@ -218,7 +218,7 @@ public class ConfereMP
                     {
                         while(rs.next())
                         {
-                            return new Conferencia(rs.getInt(1), new ConfereMP(rs.getInt(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), new MateriaPrima(rs.getInt(7)));
+                            return new Conferencia(rs.getInt(1), new ConfereMP(rs.getInt(2)), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getInt(6), new MateriaPrima(rs.getInt(7)));
                             //return new Conferencia(rs.getInt(1), new ConfereMP(rs.getInt(2)), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getString(7), new MateriaPrima(rs.getInt(8)));
                         }
                     }    

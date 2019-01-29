@@ -38,9 +38,11 @@ import javafx.scene.layout.VBox;
 import javax.swing.JOptionPane;
 import red.dao.producao.aquisicao.ConfereMP;
 import red.dao.producao.aquisicao.Conferencia;
+import red.dao.producao.aquisicao.EstoqueMpDAO;
 import red.dao.producao.aquisicao.ItensEntrada;
 import red.model.colaborador.Colaborador;
 import red.model.producao.aquisicao.Entrada;
+import red.model.producao.aquisicao.EstoqueMP;
 import red.model.producao.aquisicao.Fornecedor;
 import red.model.producao.aquisicao.MateriaPrima;
 import util.ColaboradorLogado;
@@ -49,6 +51,7 @@ import util.ColaboradorLogado;
  * FXML Controller class
  *
  * 吉野　廉
+ * 羽根川　翼
  */
 public class ConferenciaMateriaPrimaController implements Initializable {
 
@@ -228,20 +231,22 @@ public class ConferenciaMateriaPrimaController implements Initializable {
                 int quantidade = Integer.parseInt(txQtd.getText());
                 if(descarte >= 0 && descarte <= quantidade)
                 {
-                    if(descarte == 0 && txMotivo.getText().trim().equals(""))
+                    if(descarte != 0 && !txMotivo.getText().trim().equals(""))
                     {
-                        if(txCodigo.getText().equals("0"))//Gravar
-                        {
-                            
-                        }
-                        else//Alterar
-                        {
-                            
-                        }
+                        JOptionPane.showMessageDialog(null, "Precisa informar o motivo pelo fato de ter descarte!", "Erro", JOptionPane.WARNING_MESSAGE);
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Precisa informar o motivo pelo fato de ter descarte!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        ConfereMP cmp = new ConfereMP(Integer.parseInt(txCodigo.getText()), c, new Entrada().busca(Integer.parseInt(txEntrada.getText())), dpConferencia.getValue());
+                        Conferencia c = new Conferencia(Integer.parseInt(txCodigo.getText()), cmp, quantidade, txLote.getText(), quantidade - descarte, descarte, txMotivo.getText(), cbMP.getValue(), 0, LocalDate.now());
+                        if(new EstoqueMpDAO().Exist(c))//Gravar
+                        {
+                           
+                        }
+                        else//Alterar       ストックの再計算は前の数-し、その後+を行う。
+                        {
+                            
+                        }
                     }
                 }
                 else
