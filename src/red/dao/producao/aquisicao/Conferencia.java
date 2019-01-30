@@ -27,7 +27,7 @@ public class Conferencia
 {
     private int codigo;
     private ConfereMP cmp;
-    private int qtd;
+    private int qtd; //estoque
     private String lote;
     private int aprovado;
     private int descarte;
@@ -185,6 +185,40 @@ public class Conferencia
                     it_conf_qtde_descarte, it_conf_motivo, it_conf_status, 
                     it_conf_lote_mp, it_conf_validade
                     */
+                    ps.executeUpdate();
+                    return true;
+                } 
+                
+            }
+            
+        } catch (SQLException ex) 
+        {
+            Logger.getLogger(Colaborador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+    
+    public boolean alterar(Conferencia c) // temp
+    {
+        String sql = "update itens_conferencia set "
+                + " it_conf_qtde_entrada = ?, it_conf_qtde_aprovada = ?, it_conf_qtde_descarte = ?, it_conf_motivo = ?, it_conf_status = ?, it_conf_lote_mp = ?, it_conf_validade '"+c.getValidade()+"' where conf_num = ? and rec_numero = ? and mp_codigo = ? ;";
+        //String sql = "insert into itens_conferencia (conf_numero, conf_qtde, conf_lote, conf_qtd_descarte, conf_motivo, mp_codigo) values (?,?,?,?,?,?);";
+        try(Connection con = Conexao.abre())
+        {
+            if(con != null)
+            {
+                try(PreparedStatement ps = con.prepareStatement(sql)) 
+                {//1 ~ 10
+
+                    ps.setInt(1, c.getQtd());
+                    ps.setInt(2, c.getAprovado());
+                    ps.setInt(3, c.getDescarte());
+                    ps.setString(4, c.getMotivo());
+                    ps.setInt(5, c.getStatus());
+                    ps.setString(6, c.getLote());
+                    ps.setInt(7, c.getCmp().getNumero());
+                    ps.setInt(8, c.getCmp().getE().getNumero());
+                    ps.setInt(9, c.getMp().getCodigo());
                     ps.executeUpdate();
                     return true;
                 } 

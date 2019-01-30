@@ -119,6 +119,8 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     private DatePicker dpValidade;
     @FXML
     private CheckBox chbStatus;
+    
+    private Conferencia ctemp;
     /**
      * Initializes the controller class.
      */
@@ -187,8 +189,8 @@ public class ConferenciaMateriaPrimaController implements Initializable {
 
 
     @FXML
-    private void clkAlterar(ActionEvent event) {
-       
+    private void clkAlterar(ActionEvent event) { //ctemp use for clcuration of stok
+       ctemp = new Conferencia();
     }
 
     @FXML
@@ -221,7 +223,7 @@ public class ConferenciaMateriaPrimaController implements Initializable {
     }
 
     @FXML
-    private void actGravar(ActionEvent event)
+    private void actGravar(ActionEvent event) // ok 
     {
         if(!txEntrada.getText().trim().equals(""))
         {
@@ -239,13 +241,58 @@ public class ConferenciaMateriaPrimaController implements Initializable {
                     {
                         ConfereMP cmp = new ConfereMP(Integer.parseInt(txCodigo.getText()), c, new Entrada().busca(Integer.parseInt(txEntrada.getText())), dpConferencia.getValue());
                         Conferencia c = new Conferencia(Integer.parseInt(txCodigo.getText()), cmp, quantidade, txLote.getText(), quantidade - descarte, descarte, txMotivo.getText(), cbMP.getValue(), 0, LocalDate.now());
-                        if(new EstoqueMpDAO().Exist(c))//Gravar
+                        if(txCodigo.getText().equals("0"))//Gravar
                         {
-                           
+                           if(cmp.gravar(cmp))
+                           {
+                               c.setCmp(cmp.リカバー(cmp.turningNumber()));
+                               if(c.gravar(c))
+                               {
+                                   EstoqueMP emp = new EstoqueMP();
+                                   emp = new EstoqueMpDAO().busca(c.getLote(), c.getMp());
+                                   emp.setQtde_conferir(emp.getQtde_conferir()-c.getQtd());
+                                   emp.setQtde_descarte(emp.getQtde_descarte()+c.getDescarte());
+                                   emp.setQtde_aprovada(emp.getQtde_aprovada()+c.getAprovado());
+                                   if(!new EstoqueMpDAO().altera(emp))
+                                   {
+                                       JOptionPane.showMessageDialog(null, "Erro ao alterar o estoque!", "Erro", JOptionPane.WARNING_MESSAGE);
+                                   }    
+                               }
+                               else
+                               {
+                                   JOptionPane.showMessageDialog(null, "Erro ao gravar a conferencia!", "Erro", JOptionPane.WARNING_MESSAGE);
+                               }
+                           }
+                           else
+                           {
+                               JOptionPane.showMessageDialog(null, "Erro ao gravar!", "Erro", JOptionPane.WARNING_MESSAGE);
+                           }
                         }
-                        else//Alterar       ストックの再計算は前の数-し、その後+を行う。
+                        else//Alterar       ストックの再計算は前の数-し、その後+を行う。ok
                         {
-                            
+                            if(cmp.alterar(cmp))
+                           {
+                               if(c.alterar(c)) //alterar スタンバイ
+                               {
+                                   EstoqueMP emp = new EstoqueMP();
+                                   emp = new EstoqueMpDAO().busca(c.getLote(), c.getMp());
+                                   emp.setQtde_conferir(emp.getQtde_conferir()+ctemp.getQtd()-c.getQtd());
+                                   emp.setQtde_descarte(emp.getQtde_descarte()-ctemp.getDescarte()+c.getDescarte());
+                                   emp.setQtde_aprovada(emp.getQtde_aprovada()-ctemp.getAprovado()+c.getAprovado());
+                                   if(!new EstoqueMpDAO().altera(emp))
+                                   {
+                                       JOptionPane.showMessageDialog(null, "Erro ao alterar o estoque!", "Erro", JOptionPane.WARNING_MESSAGE);
+                                   }    
+                               }
+                               else
+                               {
+                                   JOptionPane.showMessageDialog(null, "Erro ao gravar a conferencia!", "Erro", JOptionPane.WARNING_MESSAGE);
+                               }
+                           }
+                           else
+                           {
+                               JOptionPane.showMessageDialog(null, "Erro ao gravar!", "Erro", JOptionPane.WARNING_MESSAGE);
+                           }
                         }
                     }
                 }
